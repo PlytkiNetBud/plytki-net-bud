@@ -90,6 +90,7 @@ export async function onRequestGet(context) {
       "InStock",
       "Attributes",
       "PriceAfterDiscountNet",
+      "RetailPriceNet",
       "Photo",
       "Photos",
       "RequiredBox",
@@ -165,9 +166,7 @@ export async function onRequestGet(context) {
         quantityPerBox:
           product.QuantityPerBox ?? null,
 
-        price: calculateSellingPrice(
-  product.PriceAfterDiscountNet
-),
+        price: calculateSellingPrice(product),
 
         currency: "PLN",
 
@@ -218,8 +217,19 @@ export async function onRequestGet(context) {
   );
 }
 
-function calculateSellingPrice(value) {
-  const purchaseNet = getMoneyValue(value);
+function calculateSellingPrice(product) {
+  const isInserto = Array.isArray(product.Attributes) &&
+    product.Attributes.some(attribute =>
+      attribute.Name === "Element Kolekcji" &&
+      Array.isArray(attribute.Features) &&
+      attribute.Features.some(feature => feature.Name === "Inserto")
+    );
+
+  if (isInserto) {
+    return getMoneyValue(product.RetailPriceNet);
+  }
+
+  const purchaseNet = getMoneyValue(product.PriceAfterDiscountNet);
 
   if (purchaseNet == null) {
     return null;
@@ -287,18 +297,6 @@ function normalizePhoto(photo) {
   }
 
   return "https://phsaturn.pl/" + cleanPhoto;
-}
-function calculateSellingPrice(value) {
-  const purchaseNet = getMoneyValue(value);
-
-  if (purchaseNet == null) {
-    return null;
-  }
-
-  const sellingNet = purchaseNet + 7;
-  const sellingGross = sellingNet * 1.23;
-
-  return Math.round(sellingGross * 100) / 100;
 }
 function getMoneyValue(value) {
   if (value == null) return null;
