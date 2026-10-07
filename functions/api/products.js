@@ -143,8 +143,9 @@ export async function onRequestGet(context) {
     // --- BEZPIECZNA ODPOWIEDŹ DLA SKLEPU ---
 
     const products = rawProducts
-        .filter(product => !isWithdrawnProduct(product))
-      .slice(0, 50)
+  .filter(product => !isWithdrawnProduct(product))
+  .filter(product => isGradeOneProduct(product))
+  .slice(0, 50)
       .map(product => ({
         id: product.Id ?? null,
 
@@ -221,7 +222,23 @@ export async function onRequestGet(context) {
       feature.Name.toLowerCase().includes("wycof")
   );
 }
+function isGradeOneProduct(product) {
+  if (!Array.isArray(product.Attributes)) {
+    return false;
+  }
 
+  const gradeAttribute = product.Attributes.find(
+    attribute => attribute.Name === "Gatunek"
+  );
+
+  if (!gradeAttribute || !Array.isArray(gradeAttribute.Features)) {
+    return false;
+  }
+
+  return gradeAttribute.Features.some(
+    feature => String(feature.Name).trim() === "1"
+  );
+}
 function calculateSellingPrice(product) {
   const isInserto = Array.isArray(product.Attributes) &&
     product.Attributes.some(attribute =>
