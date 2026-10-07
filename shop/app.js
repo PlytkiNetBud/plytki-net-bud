@@ -3,7 +3,8 @@ let cart = [];
 let category = "Wszystkie";
 
 const searchInput = document.querySelector("#search");
-
+const urlParams = new URLSearchParams(window.location.search);
+const selectedBrand = urlParams.get("brand");
 
 // ================================
 // POBIERANIE PRODUKTÓW Z SATURNA
@@ -587,7 +588,13 @@ function escapeHtml(value) {
 // ================================
 // START
 // ================================
+if (selectedBrand) {
+  if (searchInput) {
+    searchInput.value = selectedBrand;
+  }
 
+  searchProducts(selectedBrand);
+}
 render();
 calculate();
 updateCart();
