@@ -88,6 +88,7 @@ export async function onRequestGet(context) {
       "Vat",
       "Qty",
       "InStock",
+      "Attributes",
       "PriceAfterDiscountNet",
       "Photo",
       "Photos",
@@ -136,6 +137,7 @@ export async function onRequestGet(context) {
     // --- BEZPIECZNA ODPOWIEDŹ DLA SKLEPU ---
 
     const products = rawProducts
+        .filter(product => !isWithdrawnProduct(product))
       .slice(0, 50)
       .map(product => ({
         id: product.Id ?? null,
@@ -177,6 +179,38 @@ export async function onRequestGet(context) {
               .filter(Boolean)
           : []
       }));
+    function isWithdrawnProduct(product) {
+  if (!Array.isArray(product.Attributes)) {
+    return false;
+  }
+
+  const statusAttribute = product.Attributes.find(
+    attribute => attribute.Name === "Status"
+  );
+
+  if (!statusAttribute || !Array.isArray(statusAttribute.Features)) {
+    return false;
+  }
+
+  return statusAttribute.Features.some(
+    feature =>
+      typeof feature.Name === "string" &&
+      feature.Name.toLowerCase().includes("wycof")
+  );
+}
+
+function calculateSellingPrice(value) {
+  const purchaseNet = getMoneyValue(value);
+
+  if (purchaseNet == null) {
+    return null;
+  }
+
+  const sellingNet = purchaseNet + 7;
+  const sellingGross = sellingNet * 1.23;
+
+  return Math.round(sellingGross * 100) / 100;
+}
 
     return json({
       ok: true,
