@@ -88,7 +88,7 @@ export async function onRequestGet(context) {
       "Vat",
       "Qty",
       "InStock",
-      "RetailPriceGross",
+      "PriceAfterDiscountNet",
       "Photo",
       "Photos",
       "RequiredBox",
@@ -163,13 +163,11 @@ export async function onRequestGet(context) {
         quantityPerBox:
           product.QuantityPerBox ?? null,
 
-        price: getMoneyValue(
-          product.RetailPriceGross
-        ),
+        price: calculateSellingPrice(
+  product.PriceAfterDiscountNet
+),
 
-        currency:
-          product.RetailPriceGross?.Currency ||
-          "PLN",
+        currency: "PLN",
 
         photo: normalizePhoto(product.Photo),
 
@@ -237,7 +235,18 @@ function normalizePhoto(photo) {
 
   return "https://phsaturn.pl/" + cleanPhoto;
 }
+function calculateSellingPrice(value) {
+  const purchaseNet = getMoneyValue(value);
 
+  if (purchaseNet == null) {
+    return null;
+  }
+
+  const sellingNet = purchaseNet + 7;
+  const sellingGross = sellingNet * 1.23;
+
+  return Math.round(sellingGross * 100) / 100;
+}
 function getMoneyValue(value) {
   if (value == null) return null;
 
