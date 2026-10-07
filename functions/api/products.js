@@ -145,6 +145,7 @@ export async function onRequestGet(context) {
     const products = rawProducts
   .filter(product => !isWithdrawnProduct(product))
   .filter(product => isGradeOneProduct(product))
+      .filter(product => hasValidSellingPrice(product))
   .slice(0, 50)
       .map(product => ({
         id: product.Id ?? null,
