@@ -148,7 +148,7 @@ export async function onRequestGet(context) {
 
         sku: product.Sku ?? "",
 
-        brand: product.Brand ?? "",
+        brand: getProductBrand(product),
 
         unit: product.Unit ?? "",
 
@@ -179,6 +179,25 @@ export async function onRequestGet(context) {
               .filter(Boolean)
           : []
       }));
+    function getProductBrand(product) {
+  if (product.Brand) {
+    return product.Brand;
+  }
+
+  if (!Array.isArray(product.Attributes)) {
+    return "";
+  }
+
+  const brandAttribute = product.Attributes.find(
+    attribute => attribute.Name === "Marka"
+  );
+
+  if (!brandAttribute || !Array.isArray(brandAttribute.Features)) {
+    return "";
+  }
+
+  return brandAttribute.Features[0]?.Name ?? "";
+}
     function isWithdrawnProduct(product) {
   if (!Array.isArray(product.Attributes)) {
     return false;
