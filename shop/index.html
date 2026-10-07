@@ -42,5 +42,11 @@
 </main>
 <aside id="cartPanel" class="cart-panel"><button class="close" onclick="toggleCart()">×</button><h2>Koszyk</h2><div id="cartItems"></div><div class="total">Razem <b id="cartTotal">0,00 zł</b></div><button class="primary full" onclick="alert('W kolejnym etapie podłączymy prawdziwy checkout i płatności.')">Przejdź do zamówienia</button></aside><div id="shade" class="shade" onclick="toggleCart()"></div>
 <footer><div class="wrap">© 2026 Płytki Net Bud · wersja testowa sklepu</div></footer>
+  <div id="productModal" class="product-modal">
+  <div class="product-modal-box">
+    <button class="product-modal-close" onclick="closeProduct()">×</button>
+    <div id="productDetails"></div>
+  </div>
+</div>
 <script src="app.js"></script>
 </body></html>
