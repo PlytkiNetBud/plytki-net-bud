@@ -217,26 +217,26 @@ function getSaturnTimestamp() {
   return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
 }
 
-
 function normalizePhoto(photo) {
   if (!photo || typeof photo !== "string") {
     return null;
   }
 
+  const cleanPhoto = photo.split("?")[0];
+
   if (
-    photo.startsWith("http://") ||
-    photo.startsWith("https://")
+    cleanPhoto.startsWith("http://") ||
+    cleanPhoto.startsWith("https://")
   ) {
-    return photo;
+    return cleanPhoto;
   }
 
-  if (photo.startsWith("/")) {
-    return "https://phsaturn.pl" + photo;
+  if (cleanPhoto.startsWith("/")) {
+    return "https://phsaturn.pl" + cleanPhoto;
   }
 
-  return "https://phsaturn.pl/" + photo;
+  return "https://phsaturn.pl/" + cleanPhoto;
 }
-
 
 function getMoneyValue(value) {
   if (value == null) return null;
