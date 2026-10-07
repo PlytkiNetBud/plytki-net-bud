@@ -1,17 +1,587 @@
-const products=[
-{id:1,cat:'Płytki',brand:'CODICER',name:'Dice Grey 25×22 G.1',ean:'8435330131483',price:79.90,box:1.04,stock:0,img:'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=80'},
-{id:2,cat:'Płytki',brand:'PARADYŻ',name:'Gres Stone Beige 60×60',ean:'5900000000002',price:94.90,box:1.44,stock:48,img:'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80'},
-{id:3,cat:'Płytki',brand:'TUBĄDZIN',name:'Monolith Grey 59,8×59,8',ean:'5900000000003',price:119.00,box:1.43,stock:32,img:'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=80'},
-{id:4,cat:'Armatura',brand:'DEANTE',name:'Bateria umywalkowa chrom',ean:'5900000000004',price:329.00,box:null,stock:12,img:'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=900&q=80'},
-{id:5,cat:'Łazienka',brand:'ROCA',name:'Umywalka nablatowa 50 cm',ean:'5900000000005',price:489.00,box:null,stock:8,img:'https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=900&q=80'},
-{id:6,cat:'Płytki',brand:'CERRAD',name:'Gres Modern Concrete 60×120',ean:'5900000000006',price:139.90,box:1.44,stock:65,img:'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=900&q=80'}];
-let category='Wszystkie',cart=[];
-document.querySelectorAll('[data-cat]').forEach(b=>b.onclick=()=>{category=b.dataset.cat;render();document.querySelector('#products').scrollIntoView()});
-function money(n){return n.toLocaleString('pl-PL',{style:'currency',currency:'PLN'})}
-function render(){let q=document.querySelector('#search').value.toLowerCase().trim();let a=products.filter(p=>(category==='Wszystkie'||p.cat===category)&&(!q||`${p.name} ${p.brand} ${p.ean}`.toLowerCase().includes(q)));let s=document.querySelector('#sort').value;if(s==='priceAsc')a.sort((x,y)=>x.price-y.price);if(s==='priceDesc')a.sort((x,y)=>y.price-x.price);document.querySelector('#productGrid').innerHTML=a.map(p=>`<article class="product"><div class="product-img" style="background-image:url('${p.img}')"><span class="badge">${p.stock>0?'DOSTĘPNY':'NA ZAMÓWIENIE'}</span></div><div class="product-body"><span class="brand">${p.brand} · ${p.cat}</span><h3>${p.name}</h3><div class="meta">EAN: ${p.ean}${p.box?`<br>Pełna paczka: ${p.box} m²`:''}</div><div class="price">${money(p.price)} <small>${p.box?' / m²':' / szt.'}</small></div><div class="product-actions"><button onclick="details(${p.id})">Szczegóły</button><button class="buy" onclick="add(${p.id})">Do koszyka</button></div></div></article>`).join('')||'<p>Brak produktów spełniających kryteria.</p>'}
-function add(id){let p=products.find(x=>x.id===id);cart.push(p);updateCart();if(!document.querySelector('#cartPanel').classList.contains('open'))toggleCart()}
-function updateCart(){document.querySelector('#cartCount').textContent=cart.length;document.querySelector('#cartItems').innerHTML=cart.map((p,i)=>`<div class="cart-item"><div><b>${p.name}</b><br><small>${p.brand}</small></div><div>${money(p.price)} <button onclick="cart.splice(${i},1);updateCart()">×</button></div></div>`).join('')||'<p>Koszyk jest pusty.</p>';document.querySelector('#cartTotal').textContent=money(cart.reduce((s,p)=>s+p.price,0))}
-function toggleCart(){document.querySelector('#cartPanel').classList.toggle('open');document.querySelector('#shade').classList.toggle('open')}
-function details(id){let p=products.find(x=>x.id===id);if(p.box){document.querySelector('#boxArea').value=p.box;document.querySelector('#area').focus();document.querySelector('.calc-card').scrollIntoView({behavior:'smooth'});calculate()}else alert(`${p.brand} — ${p.name}\nEAN: ${p.ean}\nCena: ${money(p.price)}`)}
-function calculate(){let area=+document.querySelector('#area').value,waste=+document.querySelector('#waste').value,box=+document.querySelector('#boxArea').value;if(area<=0||box<=0)return;let target=area*(1+waste/100),boxes=Math.ceil(target/box),real=boxes*box;document.querySelector('#calcResult').innerHTML=`Potrzeba <b>${boxes} paczek</b><br>Zakupisz: <b>${real.toFixed(2)} m²</b><br>Powierzchnia z zapasem: ${target.toFixed(2)} m²`}
-render();calculate();updateCart();
+let products = [];
+let cart = [];
+let category = "Wszystkie";
+
+const searchInput = document.querySelector("#search");
+
+
+// ================================
+// POBIERANIE PRODUKTÓW Z SATURNA
+// ================================
+
+async function searchProducts(query) {
+  const q = String(query || "").trim();
+
+  if (!q) {
+    products = [];
+    render();
+    return;
+  }
+
+  showLoading();
+
+  try {
+    const response = await fetch(
+      "/api/products?q=" + encodeURIComponent(q)
+    );
+
+    const data = await response.json();
+
+    if (!response.ok || !data.ok) {
+      throw new Error(
+        data.error || "Nie udało się pobrać produktów."
+      );
+    }
+
+    products = (data.products || []).map(p => ({
+      id: p.id,
+      cat: "Płytki",
+      brand: p.brand || "",
+      name: p.name || "",
+      ean: p.ean || "",
+      sku: p.sku || "",
+      price: p.price,
+      box: p.quantityPerBox,
+      stock: p.quantity || 0,
+      inStock: p.inStock,
+      requiredBox: p.requiredBox,
+      unit: p.unit || "",
+      weight: p.weight,
+      img: p.photo || (
+        Array.isArray(p.photos) && p.photos.length
+          ? p.photos[0]
+          : ""
+      )
+    }));
+
+    render();
+
+  } catch (error) {
+    console.error(error);
+
+    const grid = getProductGrid();
+
+    if (grid) {
+      grid.innerHTML = `
+        <div class="empty">
+          Nie udało się pobrać produktów.
+          Spróbuj ponownie za chwilę.
+        </div>
+      `;
+    }
+  }
+}
+
+
+// ================================
+// WYSZUKIWARKA
+// ================================
+
+let searchTimer;
+
+if (searchInput) {
+  searchInput.addEventListener("input", () => {
+    clearTimeout(searchTimer);
+
+    const value = searchInput.value.trim();
+
+    if (!value) {
+      products = [];
+      render();
+      return;
+    }
+
+    searchTimer = setTimeout(() => {
+      searchProducts(value);
+    }, 450);
+  });
+
+  searchInput.addEventListener("keydown", event => {
+    if (event.key === "Enter") {
+      clearTimeout(searchTimer);
+      searchProducts(searchInput.value);
+    }
+  });
+}
+
+
+// ================================
+// KATEGORIE
+// ================================
+
+document
+  .querySelectorAll("[data-cat]")
+  .forEach(button => {
+
+    button.onclick = () => {
+      category = button.dataset.cat;
+
+      render();
+
+      const section =
+        document.querySelector("#products");
+
+      if (section) {
+        section.scrollIntoView({
+          behavior: "smooth"
+        });
+      }
+    };
+  });
+
+
+// ================================
+// FORMATOWANIE CENY
+// ================================
+
+function money(value) {
+  const number = Number(value);
+
+  if (!Number.isFinite(number)) {
+    return "Zapytaj o cenę";
+  }
+
+  return number.toLocaleString(
+    "pl-PL",
+    {
+      style: "currency",
+      currency: "PLN"
+    }
+  );
+}
+
+
+// ================================
+// GRID PRODUKTÓW
+// ================================
+
+function getProductGrid() {
+  return (
+    document.querySelector("#productGrid") ||
+    document.querySelector(".product-grid") ||
+    document.querySelector("#products .grid")
+  );
+}
+
+
+function showLoading() {
+  const grid = getProductGrid();
+
+  if (grid) {
+    grid.innerHTML = `
+      <div class="empty">
+        Szukamy produktów…
+      </div>
+    `;
+  }
+}
+
+
+// ================================
+// RENDEROWANIE PRODUKTÓW
+// ================================
+
+function render() {
+  const grid = getProductGrid();
+
+  if (!grid) {
+    return;
+  }
+
+  let list = products.filter(product => {
+    return (
+      category === "Wszystkie" ||
+      product.cat === category
+    );
+  });
+
+  const sort =
+    document.querySelector("#sort")?.value;
+
+  if (sort === "priceAsc") {
+    list.sort(
+      (a, b) =>
+        (a.price ?? Infinity) -
+        (b.price ?? Infinity)
+    );
+  }
+
+  if (sort === "priceDesc") {
+    list.sort(
+      (a, b) =>
+        (b.price ?? -Infinity) -
+        (a.price ?? -Infinity)
+    );
+  }
+
+  if (!list.length) {
+    grid.innerHTML = `
+      <div class="empty">
+        <strong>Wyszukaj produkt</strong>
+        <br>
+        Wpisz u góry nazwę, producenta,
+        EAN lub symbol produktu.
+      </div>
+    `;
+
+    return;
+  }
+
+  grid.innerHTML = list.map(product => {
+
+    const image = product.img
+      ? `
+        <img
+          src="${escapeHtml(product.img)}"
+          alt="${escapeHtml(product.name)}"
+          loading="lazy"
+        >
+      `
+      : `
+        <div class="no-photo">
+          Brak zdjęcia
+        </div>
+      `;
+
+    const availability =
+      product.inStock || product.stock > 0
+        ? `Dostępny: ${product.stock}`
+        : "Sprawdź dostępność";
+
+    const boxInfo =
+      product.box
+        ? `
+          <span>
+            Opakowanie:
+            ${formatNumber(product.box)} m²
+          </span>
+        `
+        : "";
+
+    return `
+      <article class="product-card">
+
+        <div class="product-image">
+          ${image}
+        </div>
+
+        <div class="product-body">
+
+          ${
+            product.brand
+              ? `
+                <div class="product-brand">
+                  ${escapeHtml(product.brand)}
+                </div>
+              `
+              : ""
+          }
+
+          <h3>
+            ${escapeHtml(product.name)}
+          </h3>
+
+          <div class="product-code">
+            ${
+              product.sku
+                ? `SKU: ${escapeHtml(product.sku)}`
+                : ""
+            }
+
+            ${
+              product.ean
+                ? `<br>EAN: ${escapeHtml(product.ean)}`
+                : ""
+            }
+          </div>
+
+          <div class="product-info">
+            ${boxInfo}
+
+            <span>
+              ${escapeHtml(availability)}
+            </span>
+          </div>
+
+          <div class="product-price">
+            ${money(product.price)}
+
+            ${
+              product.unit
+                ? `
+                  <small>
+                    / ${escapeHtml(product.unit)}
+                  </small>
+                `
+                : ""
+            }
+          </div>
+
+          <div class="product-actions">
+
+            <button
+              type="button"
+              onclick="details(${Number(product.id)})"
+            >
+              Szczegóły
+            </button>
+
+            <button
+              type="button"
+              onclick="add(${Number(product.id)})"
+            >
+              Dodaj do zapytania
+            </button>
+
+          </div>
+
+        </div>
+
+      </article>
+    `;
+  }).join("");
+}
+
+
+// ================================
+// DODAWANIE DO ZAPYTANIA
+// ================================
+
+function add(id) {
+  const product =
+    products.find(
+      p => Number(p.id) === Number(id)
+    );
+
+  if (!product) {
+    return;
+  }
+
+  const exists =
+    cart.some(
+      p => Number(p.id) === Number(id)
+    );
+
+  if (!exists) {
+    cart.push(product);
+  }
+
+  updateCart();
+
+  const panel =
+    document.querySelector("#cartPanel");
+
+  if (
+    panel &&
+    !panel.classList.contains("open")
+  ) {
+    toggleCart();
+  }
+}
+
+
+// ================================
+// KOSZYK / LISTA ZAPYTANIA
+// ================================
+
+function updateCart() {
+  const count =
+    document.querySelector("#cartCount");
+
+  if (count) {
+    count.textContent = cart.length;
+  }
+
+  const items =
+    document.querySelector("#cartItems");
+
+  if (!items) {
+    return;
+  }
+
+  if (!cart.length) {
+    items.innerHTML = `
+      <p>
+        Nie dodałeś jeszcze żadnego produktu.
+      </p>
+    `;
+
+    return;
+  }
+
+  items.innerHTML = cart.map(product => `
+    <div class="cart-item">
+
+      <div>
+        <strong>
+          ${escapeHtml(product.name)}
+        </strong>
+
+        ${
+          product.sku
+            ? `
+              <small>
+                ${escapeHtml(product.sku)}
+              </small>
+            `
+            : ""
+        }
+      </div>
+
+      <div>
+        ${money(product.price)}
+      </div>
+
+      <button
+        type="button"
+        onclick="removeFromCart(${Number(product.id)})"
+        aria-label="Usuń produkt"
+      >
+        ×
+      </button>
+
+    </div>
+  `).join("");
+}
+
+
+function removeFromCart(id) {
+  cart = cart.filter(
+    product =>
+      Number(product.id) !== Number(id)
+  );
+
+  updateCart();
+}
+
+
+function toggleCart() {
+  document
+    .querySelector("#cartPanel")
+    ?.classList.toggle("open");
+
+  document
+    .querySelector("#shade")
+    ?.classList.toggle("open");
+}
+
+
+// ================================
+// SZCZEGÓŁY PRODUKTU
+// ================================
+
+function details(id) {
+  const product =
+    products.find(
+      p => Number(p.id) === Number(id)
+    );
+
+  if (!product) {
+    return;
+  }
+
+  if (product.box) {
+    const boxArea =
+      document.querySelector("#boxArea");
+
+    if (boxArea) {
+      boxArea.value = product.box;
+    }
+  }
+
+  calculate();
+
+  document
+    .querySelector("#calculator")
+    ?.scrollIntoView({
+      behavior: "smooth"
+    });
+}
+
+
+// ================================
+// KALKULATOR PŁYTEK
+// ================================
+
+function calculate() {
+  const areaInput =
+    document.querySelector("#area");
+
+  const wasteInput =
+    document.querySelector("#waste");
+
+  const boxInput =
+    document.querySelector("#boxArea");
+
+  const result =
+    document.querySelector("#calcResult");
+
+  if (
+    !areaInput ||
+    !wasteInput ||
+    !boxInput ||
+    !result
+  ) {
+    return;
+  }
+
+  const area =
+    Number(areaInput.value) || 0;
+
+  const waste =
+    Number(wasteInput.value) || 0;
+
+  const box =
+    Number(boxInput.value) || 0;
+
+  if (area <= 0 || box <= 0) {
+    result.textContent = "—";
+    return;
+  }
+
+  const requiredArea =
+    area * (1 + waste / 100);
+
+  const boxes =
+    Math.ceil(requiredArea / box);
+
+  const finalArea =
+    boxes * box;
+
+  result.textContent =
+    `${boxes} op. / ${formatNumber(finalArea)} m²`;
+}
+
+
+// ================================
+// POMOCNICZE
+// ================================
+
+function formatNumber(value) {
+  return Number(value).toLocaleString(
+    "pl-PL",
+    {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 2
+    }
+  );
+}
+
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+
+// ================================
+// START
+// ================================
+
+render();
+calculate();
+updateCart();
