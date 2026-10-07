@@ -56,6 +56,9 @@ export async function onRequestGet(context) {
     const q = (
       requestUrl.searchParams.get("q") || ""
     ).trim();
+    const brand = (
+  requestUrl.searchParams.get("brand") || ""
+).trim();
 
     const ean = (
       requestUrl.searchParams.get("ean") || ""
@@ -65,7 +68,7 @@ export async function onRequestGet(context) {
       requestUrl.searchParams.get("sku") || ""
     ).trim();
 
-    if (!q && !ean && !sku) {
+    if (!q && !brand && !ean && !sku) {
       return json({
         ok: true,
         source: "Saturn",
@@ -104,12 +107,14 @@ export async function onRequestGet(context) {
     saturnUrl.searchParams.set("field", fields);
 
     if (ean) {
-      saturnUrl.searchParams.set("productsEan", ean);
-    } else if (sku) {
-      saturnUrl.searchParams.set("productsSku", sku);
-    } else {
-      saturnUrl.searchParams.set("where", q);
-    }
+  saturnUrl.searchParams.set("productsEan", ean);
+} else if (sku) {
+  saturnUrl.searchParams.set("productsSku", sku);
+} else if (brand) {
+  saturnUrl.searchParams.set("where", brand);
+} else {
+  saturnUrl.searchParams.set("where", q);
+}
 
     const productResponse = await fetch(
       saturnUrl.toString(),
