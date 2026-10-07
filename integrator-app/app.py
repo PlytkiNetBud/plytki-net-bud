@@ -41,10 +41,42 @@ class Allegro:
           "Accept":"application/vnd.allegro.public.v1+json",
           "Content-Type":"application/vnd.allegro.public.v1+json",
           "Accept-Language":"pl-PL","User-Agent":USER_AGENT}
-    def find(self, ean):
-        r=requests.get(ALLEGRO_API+"/sale/products",params={"phrase":ean,"mode":"GTIN"},
-                       headers=self.headers(),timeout=30)
-        r.raise_for_status(); return r.json()
+   def find(self, ean):
+    fields = ",".join([
+        "Id",
+        "Name",
+        "Ean",
+        "Sku",
+        "Description",
+        "Model",
+        "Brand",
+        "Unit",
+        "Weight",
+        "Vat",
+        "Availability",
+        "Qty",
+        "InStock",
+        "RetailPriceNet",
+        "RetailPriceGross",
+        "PriceAfterDiscountNet",
+        "Photo",
+        "Photos",
+        "RequiredBox",
+        "QuantityPerBox"
+    ])
+
+    r = requests.get(
+        f"{SATURN_API}/api3/product/findProduct",
+        params={
+            "field": fields,
+            "productsEan": ean
+        },
+        headers=self.headers(),
+        timeout=30,
+    )
+
+    r.raise_for_status()
+    return r.json()
 
 class Saturn:
     def __init__(self,key): self.key=key.strip()
