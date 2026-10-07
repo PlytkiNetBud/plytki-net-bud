@@ -22,9 +22,11 @@ async function searchProducts(query) {
   showLoading();
 
   try {
-    const response = await fetch(
-      "/api/products?q=" + encodeURIComponent(q)
-    );
+    const apiUrl = selectedBrand
+  ? "/api/products?brand=" + encodeURIComponent(selectedBrand)
+  : "/api/products?q=" + encodeURIComponent(q);
+
+const response = await fetch(apiUrl);
 
     const data = await response.json();
 
