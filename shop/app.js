@@ -245,7 +245,9 @@ function render() {
 
     const availability =
       product.inStock || product.stock > 0
-        ? `Dostępny: ${product.stock}`
+        ? `Dostępne: ${Number(product.stock).toLocaleString("pl-PL", {
+            maximumFractionDigits: 2
+          })} ${product.unit || ""}`
         : "Sprawdź dostępność";
 
     const boxInfo =
@@ -303,19 +305,23 @@ function render() {
             </span>
           </div>
 
-          <div class="product-price">
-            ${money(product.price)}
+        <div class="product-price">
+  ${money(product.price)}
+  ${product.unit ? `<small>/ ${escapeHtml(product.unit)}</small>` : ""}
 
-            ${
-              product.unit
-                ? `
-                  <small>
-                    / ${escapeHtml(product.unit)}
-                  </small>
-                `
-                : ""
-            }
-          </div>
+  ${
+    product.box && Number(product.box) > 0
+      ? `
+        <div class="box-price">
+          Opakowanie ${Number(product.box).toLocaleString("pl-PL", {
+            maximumFractionDigits: 2
+          })} ${escapeHtml(product.unit || "")}:
+          <strong>${money(product.price * Number(product.box))}</strong>
+        </div>
+      `
+      : ""
+  }
+</div>
 
           <div class="product-actions">
 
