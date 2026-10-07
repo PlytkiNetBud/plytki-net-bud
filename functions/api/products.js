@@ -240,6 +240,22 @@ function isGradeOneProduct(product) {
     feature => String(feature.Name).trim() === "1"
   );
 }
+    function hasValidSellingPrice(product) {
+  const isInserto = Array.isArray(product.Attributes) &&
+    product.Attributes.some(attribute =>
+      attribute.Name === "Element Kolekcji" &&
+      Array.isArray(attribute.Features) &&
+      attribute.Features.some(feature => feature.Name === "Inserto")
+    );
+
+  if (isInserto) {
+    const retailPrice = getMoneyValue(product.RetailPriceNet);
+    return retailPrice != null && retailPrice > 0;
+  }
+
+  const purchaseNet = getMoneyValue(product.PriceAfterDiscountNet);
+  return purchaseNet != null && purchaseNet > 0;
+}
 function calculateSellingPrice(product) {
   const isInserto = Array.isArray(product.Attributes) &&
     product.Attributes.some(attribute =>
