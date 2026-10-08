@@ -522,7 +522,20 @@ function toggleCart() {
 // SZCZEGÓŁY PRODUKTU
 // ================================
 
+function getProductArrangements(product) {
+  const name = String(product.name || "").toLowerCase();
+  const brand = String(product.brand || "").toLowerCase();
 
+  if (
+    name.includes("monpelli") &&
+    name.includes("olive") &&
+    brand.includes("parady")
+  ) {
+    return arrangements.paradyz?.monpelli?.olive?.images || [];
+  }
+
+  return [];
+}
 function details(id) {
   const product = products.find(
     p => Number(p.id) === Number(id)
