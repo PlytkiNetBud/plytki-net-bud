@@ -10,10 +10,10 @@ const selectedBrand = urlParams.get("brand");
 // POBIERANIE PRODUKTÓW Z SATURNA
 // ================================
 
-async function searchProducts(query) {
+async function searchProducts(query, featured = false) {
   const q = String(query || "").trim();
 
-  if (!q) {
+  if (!q && !featured) {
     products = [];
     render();
     return;
@@ -22,9 +22,11 @@ async function searchProducts(query) {
   showLoading();
 
   try {
-    const apiUrl = selectedBrand
-  ? "/api/products?brand=" + encodeURIComponent(selectedBrand)
-  : "/api/products?q=" + encodeURIComponent(q);
+    const apiUrl = featured
+  ? "/api/products?featured=1&q=calacatta"
+  : selectedBrand
+    ? "/api/products?brand=" + encodeURIComponent(selectedBrand)
+    : "/api/products?q=" + encodeURIComponent(q);
 
 const response = await fetch(apiUrl);
 
@@ -742,7 +744,9 @@ if (selectedBrand) {
   }
 
   searchProducts(selectedBrand);
+} else {
+  searchProducts("", true);
 }
-render();
+
 calculate();
 updateCart();
