@@ -88,8 +88,11 @@ const apiUrl = featured
         ? "/api/products?sku=" + encodeURIComponent(q)
         : "/api/products?q=" + encodeURIComponent(q);
 
+const paginatedApiUrl = new URL(apiUrl, window.location.origin);
+paginatedApiUrl.searchParams.set("pageNumber", String(currentPage));
 
-const response = await fetch(apiUrl);
+
+const response = await fetch(paginatedApiUrl.toString());
 
     const data = await response.json();
 
