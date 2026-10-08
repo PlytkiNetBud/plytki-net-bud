@@ -111,7 +111,7 @@ const featured =
 
     saturnUrl.searchParams.set("field", fields);
 saturnUrl.searchParams.set("pageNumber", String(pageNumber));
-
+saturnUrl.searchParams.set("pageSize", "25");
 if (ean) {
   saturnUrl.searchParams.set("productsEan", ean);
 } else if (sku) {
