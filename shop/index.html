@@ -29,7 +29,22 @@
 </section>
 
   <section class="benefits wrap"><div><b>Pełne opakowania</b><span>automatyczne przeliczenie m²</span></div><div><b>Aktualne produkty</b><span>docelowo synchronizowane z dostawcami</span></div><div><b>Pomoc w doborze</b><span>kontakt przed zakupem</span></div></section>
-<section id="products" class="wrap section"><div class="section-head"><div><span class="eyebrow">OFERTA</span><h2>Produkty</h2></div><select id="sort" onchange="render()"><option value="default">Sortowanie domyślne</option><option value="priceAsc">Cena: rosnąco</option><option value="priceDesc">Cena: malejąco</option></select></div><div id="productGrid" class="grid"></div></section>
+<section id="products" class="wrap section"><div class="section-head"><div><span class="eyebrow">OFERTA</span><h2>Produkty</h2></div><select id="sort" onchange="render()"><option value="default">Sortowanie domyślne</option><option value="priceAsc">Cena: rosnąco</option><option value="priceDesc">Cena: malejąco</option></select></div>
+<div id="productGrid" class="grid"></div>
+
+<div class="load-more-wrap">
+  <button
+    id="loadMoreBtn"
+    type="button"
+    onclick="loadMoreProducts()"
+    hidden
+  >
+    Pokaż więcej produktów
+  </button>
+</div>
+
+</section>
+
 <section id="brands" class="brands"><div class="wrap"><span class="eyebrow">MARKI W OFERCIE</span><h2>Producenci</h2><div class="brand-cloud">
   <a href="/?brand=ABSOLUT%20CERAMICS#products">ABSOLUT CERAMICS</a> ·
   <a href="/?brand=ARGENTA#products">ARGENTA</a> ·
