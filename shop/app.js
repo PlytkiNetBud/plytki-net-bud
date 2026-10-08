@@ -57,11 +57,20 @@ const randomTerm = featuredTerms[
   Math.floor(Math.random() * featuredTerms.length)
 ];
 
+
+const isEan = /^\d{8,14}$/.test(q);
+const isSku = /^CP\d+$/i.test(q);
+
 const apiUrl = featured
   ? "/api/products?featured=1&q=" + encodeURIComponent(randomTerm)
   : selectedBrand
     ? "/api/products?brand=" + encodeURIComponent(selectedBrand)
-    : "/api/products?q=" + encodeURIComponent(q);
+    : isEan
+      ? "/api/products?ean=" + encodeURIComponent(q)
+      : isSku
+        ? "/api/products?sku=" + encodeURIComponent(q)
+        : "/api/products?q=" + encodeURIComponent(q);
+
 
 const response = await fetch(apiUrl);
 
