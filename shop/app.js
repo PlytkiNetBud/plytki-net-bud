@@ -102,6 +102,14 @@ const response = await fetch(paginatedApiUrl.toString());
       );
     }
 
+hasMoreProducts = data.hasMore === true;
+
+const moreButton = document.querySelector("#loadMoreBtn");
+
+if (moreButton) {
+  moreButton.hidden = !hasMoreProducts;
+}
+
     products = (data.products || []).map(p => ({
       id: p.id,
       cat: "Płytki",
