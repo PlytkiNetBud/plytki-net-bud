@@ -480,31 +480,60 @@ function toggleCart() {
 // ================================
 
 function details(id) {
-  const product =
-    products.find(
-      p => Number(p.id) === Number(id)
-    );
+  const product = products.find(
+    p => Number(p.id) === Number(id)
+  );
 
-  if (!product) {
-    return;
-  }
+  if (!product) return;
 
-  if (product.box) {
-    const boxArea =
-      document.querySelector("#boxArea");
+  const modal = document.querySelector("#productModal");
+  const content = document.querySelector("#productDetails");
 
-    if (boxArea) {
-      boxArea.value = product.box;
-    }
-  }
+  if (!modal || !content) return;
 
-  calculate();
+  content.innerHTML = `
+    <div class="detail-layout">
+      <div class="detail-image">
+        ${product.img
+          ? `<img src="${escapeHtml(product.img)}" alt="${escapeHtml(product.name)}">`
+          : `<div class="no-photo">Brak zdjęcia</div>`
+        }
+      </div>
 
-  document
-    .querySelector("#calculator")
-    ?.scrollIntoView({
-      behavior: "smooth"
-    });
+      <div class="detail-info">
+        <p>${escapeHtml(product.brand)}</p>
+        <h2>${escapeHtml(product.name)}</h2>
+
+        <h3>${money(product.price)}
+          <small>/ ${escapeHtml(product.unit)}</small>
+        </h3>
+
+        <p>EAN: ${escapeHtml(product.ean)}</p>
+        <p>SKU: ${escapeHtml(product.sku)}</p>
+
+        <p>Opakowanie: ${
+          product.box
+            ? formatNumber(product.box) + " " + escapeHtml(product.unit)
+            : "Brak danych"
+        }</p>
+
+        <p>${product.inStock
+          ? "Produkt dostępny"
+          : "Sprawdź dostępność"
+        }</p>
+
+        <button class="primary" onclick="add(${Number(product.id)})">
+          Dodaj do zapytania
+        </button>
+      </div>
+    </div>
+  `;
+
+  modal.classList.add("open");
+}
+
+function closeProduct() {
+  document.querySelector("#productModal")?.classList.remove("open");
 }
 
 
