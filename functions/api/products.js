@@ -300,12 +300,18 @@ function calculateSellingPrice(product) {
 }
 
     return json({
-      ok: true,
-      source: "Saturn",
-      count: products.length,
-      totalFound: productData.Count ?? products.length,
-      products
-    });
+  ok: true,
+  source: "Saturn",
+  count: products.length,
+  totalFound: productData.Count ?? products.length,
+  diagnostic: {
+    receivedFromSaturn: rawProducts.length,
+    responseKeys: Object.keys(productData),
+    firstProductId: rawProducts[0]?.Id ?? null,
+    lastProductId: rawProducts.at(-1)?.Id ?? null
+  },
+  products
+});
 
   } catch (error) {
     return json({
