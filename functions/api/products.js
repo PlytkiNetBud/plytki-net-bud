@@ -115,7 +115,22 @@ if (ean) {
 } else if (q) {
   saturnUrl.searchParams.set("where", q);
 } else if (featured) {
-  saturnUrl.searchParams.set("where", "gres");
+  const featuredTerms = [
+    "calacatta",
+    "wood",
+    "marble",
+    "stone",
+    "beige",
+    "grey",
+    "white",
+    "oak"
+  ];
+
+  const randomTerm = featuredTerms[
+    Math.floor(Math.random() * featuredTerms.length)
+  ];
+
+  saturnUrl.searchParams.set("where", randomTerm);
 }
 
     const productResponse = await fetch(
