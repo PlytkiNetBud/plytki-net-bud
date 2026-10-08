@@ -561,12 +561,34 @@ function details(id) {
   content.innerHTML = `
     <div class="detail-layout">
       <div class="detail-image">
-        ${product.img
-          ? `<img src="${escapeHtml(product.img)}"
-                  alt="${escapeHtml(product.name)}">`
-          : `<div class="no-photo">Brak zdjęcia</div>`
-        }
+  ${product.img
+    ? `
+      <img
+        id="detailMainImage"
+        src="${escapeHtml(product.img)}"
+        alt="${escapeHtml(product.name)}"
+      >
+
+      <div class="detail-thumbnails">
+        ${(product.photos || []).map((photo, index) => `
+          <button
+            type="button"
+            class="detail-thumbnail"
+            onclick="changeDetailPhoto(${Number(product.id)}, ${index})"
+            aria-label="Pokaż zdjęcie ${index + 1}"
+          >
+            <img
+              src="${escapeHtml(photo)}"
+              alt="Zdjęcie ${index + 1}"
+              loading="lazy"
+            >
+          </button>
+        `).join("")}
       </div>
+    `
+    : `<div class="no-photo">Brak zdjęcia</div>`
+  }
+</div>
 
       <div class="detail-info">
         <p>${escapeHtml(product.brand)}</p>
@@ -670,7 +692,18 @@ function details(id) {
   updateDetailCalculation();
 }
 
+function changeDetailPhoto(productId, photoIndex) {
+  const product = products.find(
+    p => Number(p.id) === Number(productId)
+  );
 
+  const photo = product?.photos?.[photoIndex];
+  const mainImage = document.querySelector("#detailMainImage");
+
+  if (!photo || !mainImage) return;
+
+  mainImage.src = photo;
+}
 function closeProduct() {
   document.querySelector("#productModal")?.classList.remove("open");
 }
