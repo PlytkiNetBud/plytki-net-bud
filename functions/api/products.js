@@ -141,12 +141,14 @@ if (ean) {
       : [];
 
     // --- BEZPIECZNA ODPOWIEDŹ DLA SKLEPU ---
-
-    const products = rawProducts
+const shuffledProducts = featured
+  ? [...rawProducts].sort(() => Math.random() - 0.5)
+  : rawProducts;
+    const products = shuffledProducts
   .filter(product => !isWithdrawnProduct(product))
   .filter(product => isGradeOneProduct(product))
       .filter(product => hasValidSellingPrice(product))
-  .slice(0, 50)
+  .slice(0, featured ? 12 : 50)
       .map(product => ({
         id: product.Id ?? null,
 
