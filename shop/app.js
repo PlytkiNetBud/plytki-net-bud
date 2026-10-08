@@ -107,6 +107,30 @@ photos: [...new Set(
 )]
 }));
 
+const brandSelect = document.querySelector("#filterBrand");
+
+if (brandSelect) {
+  const previousBrand = brandSelect.value;
+
+  const brands = [...new Set(
+    products.map(product => product.brand).filter(Boolean)
+  )].sort((a, b) => a.localeCompare(b, "pl"));
+
+  brandSelect.innerHTML =
+    '<option value="">Wszyscy producenci</option>';
+
+  brands.forEach(brand => {
+    const option = document.createElement("option");
+    option.value = brand;
+    option.textContent = brand;
+    brandSelect.appendChild(option);
+  });
+
+  if (brands.includes(previousBrand)) {
+    brandSelect.value = previousBrand;
+  }
+}
+
 render();
 
     render();
@@ -255,6 +279,15 @@ const availabilityFilter =
 if (availabilityFilter === "available") {
   list = list.filter(product =>
     product.inStock || Number(product.stock) > 0
+  );
+}
+
+const selectedFilterBrand =
+  document.querySelector("#filterBrand")?.value || "";
+
+if (selectedFilterBrand) {
+  list = list.filter(product =>
+    product.brand === selectedFilterBrand
   );
 }
 
