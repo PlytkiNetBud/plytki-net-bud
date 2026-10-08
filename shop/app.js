@@ -542,7 +542,14 @@ function details(id) {
   );
 
   if (!product) return;
+const arrangementPhotos = getProductArrangements(product);
 
+const galleryPhotos = [
+  ...(product.photos || []),
+  ...arrangementPhotos
+];
+
+product.galleryPhotos = [...new Set(galleryPhotos)];
   const modal = document.querySelector("#productModal");
   const content = document.querySelector("#productDetails");
 
@@ -604,7 +611,7 @@ function details(id) {
       >
 
       <div class="detail-thumbnails">
-        ${(product.photos || []).map((photo, index) => `
+        ${(product.galleryPhotos || []).map((photo, index) => `
           <button
             type="button"
             class="detail-thumbnail"
@@ -731,7 +738,7 @@ function changeDetailPhoto(productId, photoIndex) {
     p => Number(p.id) === Number(productId)
   );
 
-  const photo = product?.photos?.[photoIndex];
+  const photo = product?.galleryPhotos?.[photoIndex];
   const mainImage = document.querySelector("#detailMainImage");
 
   if (!photo || !mainImage) return;
