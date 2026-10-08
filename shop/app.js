@@ -8,6 +8,8 @@ let hasMoreProducts = false;
 let currentSearchQuery = "";
 let currentFeatured = false;
 let isLoadingMore = false;
+let currentApiUrl = "";
+
 
 async function loadArrangements() {
   try {
@@ -90,6 +92,8 @@ const apiUrl = featured
 
 const paginatedApiUrl = new URL(apiUrl, window.location.origin);
 paginatedApiUrl.searchParams.set("pageNumber", String(currentPage));
+
+currentApiUrl = paginatedApiUrl.toString();
 
 
 const response = await fetch(paginatedApiUrl.toString());
