@@ -1,11 +1,15 @@
-
 {
   "paradyz": {
     "monpelli": {
       "olive": {
         "collectionUrl": "https://www.paradyz.com/pl/kolekcje/k73030-monpelli",
-        "images": []
+        "images": [
+          "https://www.paradyz.com/Biblioteka_zdjec_produktow/Monpelli/Aranzacje/47602/image-thumb__47602__default_thumbnail/PARADYZ_MONPELLI_OLIVE_MORFIC_STRUCTURE.webp"
+        ]
       }
     }
+  }
+}
+
   }
 }
