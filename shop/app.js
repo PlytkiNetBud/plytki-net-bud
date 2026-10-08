@@ -80,15 +80,17 @@ const randomTerm = featuredTerms[
 const isEan = /^\d{8,14}$/.test(q);
 const isSku = /^CP\d+$/i.test(q);
 
+
 const apiUrl = featured
   ? "/api/products?featured=1&q=" + encodeURIComponent(randomTerm)
-  : selectedBrand
+  : selectedBrand && q.toLowerCase() === selectedBrand.toLowerCase()
     ? "/api/products?brand=" + encodeURIComponent(selectedBrand)
     : isEan
       ? "/api/products?ean=" + encodeURIComponent(q)
       : isSku
         ? "/api/products?sku=" + encodeURIComponent(q)
         : "/api/products?q=" + encodeURIComponent(q);
+
 
 const paginatedApiUrl = new URL(apiUrl, window.location.origin);
 paginatedApiUrl.searchParams.set("pageNumber", String(currentPage));
