@@ -114,6 +114,8 @@ if (ean) {
   saturnUrl.searchParams.set("where", brand);
 } else if (q) {
   saturnUrl.searchParams.set("where", q);
+} else if (featured) {
+  saturnUrl.searchParams.set("where", "gres");
 }
 
     const productResponse = await fetch(
