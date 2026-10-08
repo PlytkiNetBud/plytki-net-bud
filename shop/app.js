@@ -3,6 +3,12 @@ let cart = [];
 let category = "Wszystkie";
 let arrangements = {};
 
+let currentPage = 1;
+let hasMoreProducts = false;
+let currentSearchQuery = "";
+let currentFeatured = false;
+let isLoadingMore = false;
+
 async function loadArrangements() {
   try {
     const response = await fetch("/arrangements.json");
