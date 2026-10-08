@@ -69,6 +69,10 @@ export async function onRequestGet(context) {
     ).trim();
 const featured =
   requestUrl.searchParams.get("featured") === "1";
+    const pageNumber = Math.max(
+  1,
+  parseInt(requestUrl.searchParams.get("pageNumber") || "1", 10) || 1
+);
     if (!q && !brand && !ean && !sku && !featured) {
       return json({
         ok: true,
@@ -106,6 +110,8 @@ const featured =
     );
 
     saturnUrl.searchParams.set("field", fields);
+saturnUrl.searchParams.set("pageNumber", String(pageNumber));
+
 if (ean) {
   saturnUrl.searchParams.set("productsEan", ean);
 } else if (sku) {
@@ -304,6 +310,10 @@ function calculateSellingPrice(product) {
   source: "Saturn",
   count: products.length,
   totalFound: productData.Count ?? products.length,
+      pageNumber,
+saturnPageNumber: productData.PageNumber ?? null,
+saturnPageSize: productData.PageSize ?? null,
+hasMore: productData.HasMore ?? null,
   diagnostic: {
     receivedFromSaturn: rawProducts.length,
     responseKeys: Object.keys(productData),
