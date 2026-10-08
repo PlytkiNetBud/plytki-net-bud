@@ -70,11 +70,14 @@ const response = await fetch(apiUrl);
       unit: p.unit || "",
       weight: p.weight,
       img: p.photo || (
-        Array.isArray(p.photos) && p.photos.length
-          ? p.photos[0]
-          : ""
-      )
-    }));
+  Array.isArray(p.photos) && p.photos.length
+    ? p.photos[0]
+    : ""
+),
+photos: [...new Set(
+  [p.photo, ...(Array.isArray(p.photos) ? p.photos : [])]
+    .filter(Boolean)
+)]
 
     render();
 
