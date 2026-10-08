@@ -78,6 +78,9 @@ photos: [...new Set(
   [p.photo, ...(Array.isArray(p.photos) ? p.photos : [])]
     .filter(Boolean)
 )]
+}));
+
+render();
 
     render();
 
