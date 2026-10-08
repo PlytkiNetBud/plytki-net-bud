@@ -35,6 +35,17 @@ const selectedBrand = urlParams.get("brand");
 // ================================
 
 async function searchProducts(query, featured = false) {
+  
+currentPage = 1;
+currentSearchQuery = String(query || "").trim();
+currentFeatured = featured;
+hasMoreProducts = false;
+
+const loadMoreBtn = document.querySelector("#loadMoreBtn");
+if (loadMoreBtn) {
+  loadMoreBtn.hidden = true;
+}
+
   const q = String(query || "").trim();
 
   if (!q && !featured) {
