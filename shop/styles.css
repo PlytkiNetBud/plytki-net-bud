@@ -530,3 +530,52 @@ textarea {
 .detail-layout .detail-thumbnail:hover {
   border-color: #a65b2d;
 }
+
+/* FILTRY PRODUKTÓW */
+
+.shop-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 24px;
+  margin-top: 28px;
+  background: #f8f9fb;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+}
+
+.shop-filters label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.shop-filters select {
+  min-width: 190px;
+  padding: 12px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 9px;
+  background: #fff;
+  color: #111827;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.shop-filters select:focus {
+  outline: 2px solid #64748b;
+  outline-offset: 2px;
+}
+
+@media (max-width: 600px) {
+  .shop-filters {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 16px;
+  }
+
+  .shop-filters select {
+    width: 100%;
+    min-width: 0;
+  }
+}
