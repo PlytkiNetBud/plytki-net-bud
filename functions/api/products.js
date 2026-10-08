@@ -67,8 +67,9 @@ export async function onRequestGet(context) {
     const sku = (
       requestUrl.searchParams.get("sku") || ""
     ).trim();
-
-    if (!q && !brand && !ean && !sku) {
+const featured =
+  requestUrl.searchParams.get("featured") === "1";
+    if (!q && !brand && !ean && !sku && !featured) {
       return json({
         ok: true,
         source: "Saturn",
@@ -105,14 +106,13 @@ export async function onRequestGet(context) {
     );
 
     saturnUrl.searchParams.set("field", fields);
-
-    if (ean) {
+if (ean) {
   saturnUrl.searchParams.set("productsEan", ean);
 } else if (sku) {
   saturnUrl.searchParams.set("productsSku", sku);
 } else if (brand) {
   saturnUrl.searchParams.set("where", brand);
-} else {
+} else if (q) {
   saturnUrl.searchParams.set("where", q);
 }
 
