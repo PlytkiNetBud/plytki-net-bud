@@ -248,7 +248,15 @@ function render() {
       category === "Wszystkie" ||
       product.cat === category
     );
-  });
+  }); 
+const availabilityFilter =
+  document.querySelector("#filterAvailability")?.value || "all";
+
+if (availabilityFilter === "available") {
+  list = list.filter(product =>
+    product.inStock || Number(product.stock) > 0
+  );
+}
 
   const sort =
     document.querySelector("#sort")?.value;
