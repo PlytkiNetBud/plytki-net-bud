@@ -580,7 +580,8 @@ textarea {
   }
 }
 
-/* Przycisk ładowania kolejnych produktów */
+
+/* Przycisk Pokaż więcej produktów */
 
 .load-more-wrap {
   display: flex;
@@ -589,7 +590,7 @@ textarea {
 }
 
 #loadMoreBtn {
-  background: #172b4d;
+  background: #000000;
   color: #ffffff;
   border: none;
   border-radius: 10px;
@@ -601,7 +602,7 @@ textarea {
 }
 
 #loadMoreBtn:hover {
-  background: #294b7a;
+  background: #333333;
 }
 
 #loadMoreBtn:disabled {
