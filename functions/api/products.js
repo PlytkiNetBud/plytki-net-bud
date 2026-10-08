@@ -69,11 +69,13 @@ export async function onRequestGet(context) {
     ).trim();
 const featured =
   requestUrl.searchParams.get("featured") === "1";
+    const catalogTest =
+  requestUrl.searchParams.get("catalogTest") === "1";
     const pageNumber = Math.max(
   1,
   parseInt(requestUrl.searchParams.get("pageNumber") || "1", 10) || 1
 );
-    if (!q && !brand && !ean && !sku && !featured) {
+    if (!q && !brand && !ean && !sku && !featured && !catalogTest) {
       return json({
         ok: true,
         source: "Saturn",
