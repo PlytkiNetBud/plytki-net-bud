@@ -479,6 +479,7 @@ function toggleCart() {
 // SZCZEGÓŁY PRODUKTU
 // ================================
 
+
 function details(id) {
   const product = products.find(
     p => Number(p.id) === Number(id)
@@ -491,11 +492,56 @@ function details(id) {
 
   if (!modal || !content) return;
 
+  const unit = String(product.unit || "").trim().toLowerCase();
+  const isArea = unit === "m2" || unit === "m²";
+  const box = Number(product.box);
+  const price = Number(product.price);
+
+  const canOrder =
+    Number.isFinite(price) &&
+    price > 0 &&
+    (!isArea || (Number.isFinite(box) && box > 0));
+
+  const purchaseControls = !canOrder
+    ? `<p>Skontaktuj się z nami w celu ustalenia ilości i ceny.</p>`
+    : isArea
+      ? `
+        <div class="detail-calculator">
+          <h3>Kalkulator płytek</h3>
+
+          <label for="detailArea">Potrzebna powierzchnia (m²)</label>
+          <input id="detailArea" type="number"
+                 min="0.01" step="any" value="${box}">
+
+          <label for="detailWaste">Zapas na docinki (%)</label>
+          <select id="detailWaste">
+            <option value="0">0%</option>
+            <option value="5">5%</option>
+            <option value="10" selected>10%</option>
+            <option value="15">15%</option>
+          </select>
+
+          <p id="detailQuantity"></p>
+          <p id="detailTotal"></p>
+        </div>
+      `
+      : `
+        <div class="detail-calculator">
+          <label for="detailPieces">Liczba sztuk</label>
+          <input id="detailPieces" type="number"
+                 min="1" step="1" value="1">
+
+          <p id="detailQuantity"></p>
+          <p id="detailTotal"></p>
+        </div>
+      `;
+
   content.innerHTML = `
     <div class="detail-layout">
       <div class="detail-image">
         ${product.img
-          ? `<img src="${escapeHtml(product.img)}" alt="${escapeHtml(product.name)}">`
+          ? `<img src="${escapeHtml(product.img)}"
+                  alt="${escapeHtml(product.name)}">`
           : `<div class="no-photo">Brak zdjęcia</div>`
         }
       </div>
@@ -512,25 +558,96 @@ function details(id) {
         <p>SKU: ${escapeHtml(product.sku)}</p>
 
         <p>Opakowanie: ${
-          product.box
-            ? formatNumber(product.box) + " " + escapeHtml(product.unit)
+          Number.isFinite(box) && box > 0
+            ? formatNumber(box) + " " + escapeHtml(product.unit)
             : "Brak danych"
         }</p>
 
-        <p>${product.inStock
-          ? "Produkt dostępny"
-          : "Sprawdź dostępność"
+        <p>${
+          product.inStock || product.stock > 0
+            ? "Produkt dostępny"
+            : "Sprawdź dostępność"
         }</p>
 
-        <button class="primary" onclick="add(${Number(product.id)})">
-          Dodaj do zapytania
-        </button>
+        ${purchaseControls}
+
+        ${canOrder
+          ? `<button class="primary" type="button"
+                     onclick="add(${Number(product.id)})">
+               Dodaj do zapytania
+             </button>`
+          : ""}
       </div>
     </div>
   `;
 
   modal.classList.add("open");
+
+  if (!canOrder) return;
+
+  function updateDetailCalculation() {
+    let quantity;
+    let total;
+
+    if (isArea) {
+      const area = Number(
+        document.querySelector("#detailArea")?.value
+      );
+      const waste = Number(
+        document.querySelector("#detailWaste")?.value
+      );
+
+      if (!Number.isFinite(area) || area <= 0) {
+        document.querySelector("#detailQuantity").textContent =
+          "Podaj powierzchnię większą od zera.";
+        document.querySelector("#detailTotal").textContent = "";
+        return;
+      }
+
+      const boxes = Math.ceil(
+        (area * (1 + waste / 100)) / box - 1e-9
+      );
+
+      quantity = boxes * box;
+      total = quantity * price;
+
+      document.querySelector("#detailQuantity").textContent =
+        `Do zamówienia: ${boxes} op. / ${formatNumber(quantity)} m²`;
+    } else {
+      const pieces = Number(
+        document.querySelector("#detailPieces")?.value
+      );
+
+      if (!Number.isInteger(pieces) || pieces < 1) {
+        document.querySelector("#detailQuantity").textContent =
+          "Podaj pełną liczbę sztuk, minimum 1.";
+        document.querySelector("#detailTotal").textContent = "";
+        return;
+      }
+
+      quantity = pieces;
+      total = pieces * price;
+
+      document.querySelector("#detailQuantity").textContent =
+        `Do zamówienia: ${pieces} szt.`;
+    }
+
+    document.querySelector("#detailTotal").textContent =
+      `Wartość produktów: ${money(total)}`;
+  }
+
+  document.querySelector("#detailArea")
+    ?.addEventListener("input", updateDetailCalculation);
+
+  document.querySelector("#detailWaste")
+    ?.addEventListener("change", updateDetailCalculation);
+
+  document.querySelector("#detailPieces")
+    ?.addEventListener("input", updateDetailCalculation);
+
+  updateDetailCalculation();
 }
+
 
 function closeProduct() {
   document.querySelector("#productModal")?.classList.remove("open");
