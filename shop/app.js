@@ -1,6 +1,24 @@
 let products = [];
 let cart = [];
 let category = "Wszystkie";
+let arrangements = {};
+
+async function loadArrangements() {
+  try {
+    const response = await fetch("/arrangements.json");
+
+    if (!response.ok) {
+      throw new Error("Nie udało się pobrać aranżacji");
+    }
+
+    arrangements = await response.json();
+    console.log("Baza aranżacji wczytana");
+  } catch (error) {
+    console.warn("Błąd wczytywania aranżacji:", error);
+  }
+}
+
+loadArrangements();
 
 const searchInput = document.querySelector("#search");
 const urlParams = new URLSearchParams(window.location.search);
