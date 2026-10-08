@@ -22,8 +22,25 @@ async function searchProducts(query, featured = false) {
   showLoading();
 
   try {
-    const apiUrl = featured
-  ? "/api/products?featured=1&q=calacatta"
+    const featuredTerms = [
+  "calacatta",
+  "wood",
+  "stone",
+  "marble",
+  "beige",
+  "grey",
+  "oak",
+  "beton",
+  "marmur",
+  "gres"
+];
+
+const randomTerm = featuredTerms[
+  Math.floor(Math.random() * featuredTerms.length)
+];
+
+const apiUrl = featured
+  ? "/api/products?featured=1&q=" + encodeURIComponent(randomTerm)
   : selectedBrand
     ? "/api/products?brand=" + encodeURIComponent(selectedBrand)
     : "/api/products?q=" + encodeURIComponent(q);
