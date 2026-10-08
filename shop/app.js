@@ -184,6 +184,99 @@ render();
 }
 
 
+async function loadMoreProducts() {
+  if (isLoadingMore || !hasMoreProducts || !currentApiUrl) return;
+
+  isLoadingMore = true;
+  const button = document.querySelector("#loadMoreBtn");
+
+  if (button) {
+    button.disabled = true;
+    button.textContent = "Ładowanie produktów…";
+  }
+
+  try {
+    const nextPage = currentPage + 1;
+    const url = new URL(currentApiUrl);
+    url.searchParams.set("pageNumber", String(nextPage));
+
+    const response = await fetch(url.toString());
+    const data = await response.json();
+
+    if (!response.ok || !data.ok) {
+      throw new Error(data.error || "Błąd pobierania produktów");
+    }
+
+    const newProducts = (data.products || []).map(p => ({
+      id: p.id,
+      cat: "Płytki",
+      brand: p.brand || "",
+      name: p.name || "",
+      ean: p.ean || "",
+      sku: p.sku || "",
+      price: p.price,
+      box: p.quantityPerBox,
+      stock: p.quantity || 0,
+      inStock: p.inStock,
+      requiredBox: p.requiredBox,
+      unit: p.unit || "",
+      weight: p.weight,
+      img: p.photo || (Array.isArray(p.photos) ? p.photos[0] : ""),
+      photos: [...new Set(
+        [p.photo, ...(Array.isArray(p.photos) ? p.photos : [])]
+          .filter(Boolean)
+      )]
+    }));
+
+    const existingIds = new Set(products.map(p => String(p.id)));
+
+    products.push(
+      ...newProducts.filter(p => !existingIds.has(String(p.id)))
+    );
+
+    currentPage = nextPage;
+    hasMoreProducts = data.hasMore === true;
+
+    const brandSelect = document.querySelector("#filterBrand");
+
+    if (brandSelect) {
+      const previousBrand = brandSelect.value;
+      const brands = [...new Set(
+        products.map(p => p.brand).filter(Boolean)
+      )].sort((a, b) => a.localeCompare(b, "pl"));
+
+      brandSelect.innerHTML =
+        '<option value="">Wszyscy producenci</option>';
+
+      brands.forEach(brand => {
+        const option = document.createElement("option");
+        option.value = brand;
+        option.textContent = brand;
+        brandSelect.appendChild(option);
+      });
+
+      brandSelect.value = brands.includes(previousBrand)
+        ? previousBrand
+        : "";
+    }
+
+    render();
+
+    if (button) button.hidden = !hasMoreProducts;
+
+  } catch (error) {
+    console.error(error);
+    alert("Nie udało się pobrać kolejnych produktów.");
+  } finally {
+    isLoadingMore = false;
+
+    if (button) {
+      button.disabled = false;
+      button.textContent = "Pokaż więcej produktów";
+    }
+  }
+}
+
 // ================================
 // WYSZUKIWARKA
 // ================================
