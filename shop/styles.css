@@ -613,3 +613,11 @@ textarea {
 #loadMoreBtn[hidden] {
   display: none;
 }
+.brands a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.brands a:hover {
+  color: #d18a50;
+}
