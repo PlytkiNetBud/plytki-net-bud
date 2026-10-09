@@ -791,6 +791,7 @@ product.galleryPhotos = [...new Set(galleryPhotos)];
   ${product.img
     ? `
       <img
+      onclick="openImageZoom(this.src)"
         id="detailMainImage"
         src="${escapeHtml(product.img)}"
         alt="${escapeHtml(product.name)}"
@@ -930,6 +931,51 @@ function changeDetailPhoto(productId, photoIndex) {
   if (!photo || !mainImage) return;
 
   mainImage.src = photo;
+}
+function openImageZoom(src) {
+  if (!src) return;
+
+  const overlay = document.createElement("div");
+  overlay.id = "imageZoomOverlay";
+
+  overlay.style.cssText = `
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-out;
+    padding: 20px;
+    box-sizing: border-box;
+  `;
+
+  const image = document.createElement("img");
+  image.src = src;
+  image.alt = "Powiększone zdjęcie produktu";
+
+  image.style.cssText = `
+    max-width: 100%;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 6px;
+  `;
+
+  const close = () => {
+    overlay.remove();
+    document.removeEventListener("keydown", onKeyDown);
+  };
+
+  const onKeyDown = event => {
+    if (event.key === "Escape") close();
+  };
+
+  overlay.addEventListener("click", close);
+  document.addEventListener("keydown", onKeyDown);
+
+  overlay.appendChild(image);
+  document.body.appendChild(overlay);
 }
 function closeProduct() {
   document.querySelector("#productModal")?.classList.remove("open");
