@@ -30,6 +30,39 @@ async function loadArrangements() {
 
 loadArrangements();
 
+async function loadBrands() {
+  try {
+    const response = await fetch("/brands.json");
+
+    if (!response.ok) {
+      throw new Error("Nie udało się pobrać producentów");
+    }
+
+    const brands = await response.json();
+    const brandSelect = document.querySelector("#filterBrand");
+
+    if (!brandSelect || !Array.isArray(brands)) return;
+
+    const previousBrand = brandSelect.value;
+
+    brandSelect.innerHTML =
+      '<option value="">Wszyscy producenci</option>';
+
+    brands.forEach(brand => {
+      const option = document.createElement("option");
+      option.value = brand;
+      option.textContent = brand;
+      brandSelect.appendChild(option);
+    });
+
+    brandSelect.value = previousBrand;
+  } catch (error) {
+    console.error("Błąd pobierania producentów:", error);
+  }
+}
+
+loadBrands();
+
 const searchInput = document.querySelector("#search");
 const urlParams = new URLSearchParams(window.location.search);
 const selectedBrand = urlParams.get("brand");
