@@ -181,6 +181,10 @@ const shuffledProducts = featured
   ? [...rawProducts].sort(() => Math.random() - 0.5)
   : rawProducts;
     const products = shuffledProducts
+        .filter(product =>
+    !brand ||
+    getProductBrand(product).trim().toLowerCase() === brand.toLowerCase()
+  )
   .filter(product => !isWithdrawnProduct(product))
   .filter(product => isGradeOneProduct(product))
       .filter(product => hasValidSellingPrice(product))
