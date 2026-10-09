@@ -122,7 +122,7 @@ const apiUrl = featured
   ? "/api/products?featured=1&q=" + encodeURIComponent(randomTerm)
   : (document.querySelector("#filterBrand")?.value === q ||
    (selectedBrand && q.toLowerCase() === selectedBrand.toLowerCase()))
-    ? "/api/products?brand=" + encodeURIComponent(selectedBrand)
+    ? "/api/products?brand=" + encodeURIComponent(q)
     : isEan
       ? "/api/products?ean=" + encodeURIComponent(q)
       : isSku
