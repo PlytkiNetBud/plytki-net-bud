@@ -490,12 +490,15 @@ Aktualnie nie mamy produktów spełniających wybrane kryteria.
         : "";
 
     return `
-      <article class="product-card">
+      return `
+  <article class="product-card">
 
-        <div class="product-image">
-          ${image}
-        </div>
-
+    <div class="product-image">
+      ${product.inStock || Number(product.stock) > 0
+        ? '<span class="stock-badge">Dostępny</span>'
+        : ''}
+      ${image}
+    </div>
         <div class="product-body">
 
           ${
