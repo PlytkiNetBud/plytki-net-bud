@@ -71,11 +71,17 @@ const featured =
   requestUrl.searchParams.get("featured") === "1";
     const catalogTest =
   requestUrl.searchParams.get("catalogTest") === "1";
+    
+const brandTest =
+  requestUrl.searchParams.get("brandTest") === "1";
+
     const pageNumber = Math.max(
   1,
   parseInt(requestUrl.searchParams.get("pageNumber") || "1", 10) || 1
 );
-    if (!q && !brand && !ean && !sku && !featured && !catalogTest) {
+    
+if (!q && !brand && !ean && !sku && !featured && !catalogTest && !brandTest) {
+
       return json({
         ok: true,
         source: "Saturn",
@@ -112,6 +118,11 @@ const featured =
     );
 
     saturnUrl.searchParams.set("field", fields);
+    
+if (brandTest) {
+  saturnUrl.searchParams.set("optionsId", "823811401697764900");
+}
+
 saturnUrl.searchParams.set("pageNumber", String(pageNumber));
 saturnUrl.searchParams.set("pageSize", "25");
 if (ean) {
