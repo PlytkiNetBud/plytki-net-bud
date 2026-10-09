@@ -120,7 +120,8 @@ const isSku = /^CP\d+$/i.test(q);
 
 const apiUrl = featured
   ? "/api/products?featured=1&q=" + encodeURIComponent(randomTerm)
-  : selectedBrand && q.toLowerCase() === selectedBrand.toLowerCase()
+  : (document.querySelector("#filterBrand")?.value === q ||
+   (selectedBrand && q.toLowerCase() === selectedBrand.toLowerCase()))
     ? "/api/products?brand=" + encodeURIComponent(selectedBrand)
     : isEan
       ? "/api/products?ean=" + encodeURIComponent(q)
