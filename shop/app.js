@@ -275,6 +275,20 @@ async function loadMoreProducts() {
 }
 
 
+const brandFilter = document.querySelector("#filterBrand");
+
+if (brandFilter) {
+  brandFilter.addEventListener("change", () => {
+    const brand = brandFilter.value;
+
+    if (brand) {
+      searchProducts(brand);
+    } else {
+      searchProducts("", true);
+    }
+  });
+}
+
 let searchTimer;
 
 if (searchInput) {
