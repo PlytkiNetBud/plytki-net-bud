@@ -447,7 +447,7 @@ if (selectedFilterBrand) {
   if (!list.length) {
     grid.innerHTML = `
       <div class="empty">
-        <strong>Brak produktów</strong>
+        <strong>Chwilowo brak produktów w ofercie</strong>
 <br>
 Aktualnie nie mamy produktów spełniających wybrane kryteria.
       </div>
