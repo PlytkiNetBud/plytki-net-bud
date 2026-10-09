@@ -974,6 +974,28 @@ function openImageZoom(src) {
   overlay.addEventListener("click", close);
   document.addEventListener("keydown", onKeyDown);
 
+    const closeButton = document.createElement("button");
+  closeButton.type = "button";
+  closeButton.textContent = "×";
+  closeButton.setAttribute("aria-label", "Zamknij powiększenie");
+
+  closeButton.style.cssText = `
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    color: white;
+    font-size: 34px;
+    cursor: pointer;
+    z-index: 1;
+  `;
+
+  closeButton.addEventListener("click", close);
+  overlay.appendChild(closeButton);
   overlay.appendChild(image);
   document.body.appendChild(overlay);
 }
