@@ -490,7 +490,6 @@ Aktualnie nie mamy produktów spełniających wybrane kryteria.
         : "";
 
     return `
-      return `
   <article class="product-card">
 
     <div class="product-image">
