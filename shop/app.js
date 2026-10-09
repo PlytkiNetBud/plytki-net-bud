@@ -10,6 +10,8 @@ let currentFeatured = false;
 let isLoadingMore = false;
 let currentApiUrl = "";
 
+let searchRequestId = 0;
+
 
 async function loadArrangements() {
   try {
@@ -37,7 +39,9 @@ const selectedBrand = urlParams.get("brand");
 // ================================
 
 async function searchProducts(query, featured = false) {
-  
+ 
+const requestId = ++searchRequestId;
+ 
 currentPage = 1;
 currentSearchQuery = String(query || "").trim();
 currentFeatured = featured;
@@ -101,6 +105,8 @@ currentApiUrl = paginatedApiUrl.toString();
 const response = await fetch(paginatedApiUrl.toString());
 
     const data = await response.json();
+
+if (requestId !== searchRequestId) return;
 
     if (!response.ok || !data.ok) {
       throw new Error(
