@@ -649,3 +649,14 @@ textarea {
   transform: translateY(-4px);
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
 }
+.product-image {
+  overflow: hidden;
+}
+
+.product-image img {
+  transition: transform 0.35s ease;
+}
+
+.product-card:hover .product-image img {
+  transform: scale(1.05);
+}
