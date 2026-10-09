@@ -621,3 +621,6 @@ textarea {
 .brands a:hover {
   color: #d18a50;
 }
+.brands a {
+  transition: color 0.25s ease;
+}
