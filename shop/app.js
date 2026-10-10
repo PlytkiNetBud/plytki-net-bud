@@ -1603,12 +1603,21 @@ updateCart();
 
 /* GALERIA ARANŻACJI NA STRONIE GŁÓWNEJ */
 
+
 const heroImages = [
-  "/images/aranzacja-1.jpg",
-  "/images/aranzacja-2.jpg",
-  "/images/aranzacja-3.jpg",
-  "/images/aranzacja-4.jpg"
+  "/images/Luksusowa kuchnia z zielonym marmurem i ogrodem.png",
+  "/images/Luksusowa łazienka w stylu spa.png",
+  "/images/Luksusowe wnętrze salonu i jadalni.png",
+  "/images/Luksusowe wnętrze z zielonymi akcentami.png",
+  "/images/Luksusowy salon z marmurowym kominkiem.png",
+  "/images/aa.jpg",
+  "/images/image.jpg",
+  "/images/k.jpg",
+  "/images/l.jpg",
+  "/images/q.jpg",
+  "/images/w.jpg"
 ];
+
 
 let heroSlideIndex = 0;
 let heroSlideTimer;
