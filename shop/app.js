@@ -1031,11 +1031,16 @@ const logisticsRows = [
 const logisticsTable = logisticsRows
   ? `
     <div class="product-logistics">
-      <h3>Logistyka produktu</h3>
-      <table>
-        <tbody>${logisticsRows}</tbody>
-      </table>
-    </div>
+  <div class="product-logistics-title">
+    Informacje o opakowaniu i wadze
+  </div>
+  <table>
+    <tbody>${logisticsRows}</tbody>
+  </table>
+  <p class="product-logistics-note">
+    Waga opakowania obliczona na podstawie danych dostawcy.
+  </p>
+</div>
   `
   : "";
 
