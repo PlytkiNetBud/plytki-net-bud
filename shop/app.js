@@ -591,7 +591,7 @@ Aktualnie nie mamy produktów spełniających wybrane kryteria.
               type="button"
               onclick="add(${Number(product.id)})"
             >
-              Dodaj do zapytania
+              Dodaj do koszyka
             </button>
 
           </div>
@@ -1047,7 +1047,7 @@ product.galleryPhotos = [...new Set(galleryPhotos)];
         ${canOrder
           ? `<button class="primary" type="button"
                      id="detailAddButton">
-               Dodaj do zapytania
+               Dodaj do koszyka
              </button>`
           : ""}
 
