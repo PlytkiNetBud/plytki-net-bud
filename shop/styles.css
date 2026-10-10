@@ -1051,3 +1051,33 @@ textarea {
   letter-spacing: .1em;
   text-transform: uppercase;
 }
+
+/* ===== POPRAWNE ZAWIJANIE NAZW W KOSZYKU ===== */
+
+.cart-item {
+  min-width: 0;
+}
+
+.cart-item > div:first-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.cart-item > div:first-child strong {
+  display: block;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  white-space: normal;
+}
+
+.cart-product-brand {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 560px) {
+  .cart-item {
+    grid-template-columns: minmax(0, 1fr) 36px;
+    gap: 10px;
+  }
+}
