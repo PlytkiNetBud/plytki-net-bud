@@ -83,25 +83,17 @@ const selectedBrand = urlParams.get("brand");
 // ================================
 
 
+
 function cleanProductName(name, brand) {
   let result = String(name || "").trim();
-  const producer = String(brand || "").trim().toUpperCase();
 
-  if (producer === "ITC") {
-    result = result.replace(/^S\s+ITC\s+/i, "");
-  }
-
-  if (producer === "CERAMIKA COLOR") {
-    result = result.replace(/^CC\s+/i, "");
-  }
-
-  
-if (producer === "MARAZZI") {
-  result = result.replace(/^M\s+/i, "");
-}
+  result = result.replace(/^S\s+ITC\s+/i, "");
+  result = result.replace(/^CC\s+/i, "");
+  result = result.replace(/^[A-Z]\s+/i, "");
 
   return result;
 }
+
 
 async function searchProducts(query, featured = false) {
  
@@ -729,8 +721,8 @@ items.innerHTML = cart.map(product => `
       </span>
 
       <strong>
-        ${escapeHtml(product.name)}
-      </strong>
+        ${escapeHtml(cleanProductName(product.name, product.brand))}
+</strong>
 
 
         ${
