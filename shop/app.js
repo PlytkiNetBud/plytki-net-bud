@@ -704,6 +704,37 @@ function add(id, quantity = null) {
 // KOSZYK / LISTA ZAPYTANIA
 // ================================
 
+
+function calculateCartWeight() {
+  let totalWeight = 0;
+  let missingWeight = false;
+
+  cart.forEach(product => {
+    const weight = Number(product.weight);
+    const quantity = Number(product.quantity);
+
+    if (
+      product.weight == null ||
+      product.weight === "" ||
+      !Number.isFinite(weight) ||
+      weight <= 0
+    ) {
+      missingWeight = true;
+      return;
+    }
+
+    if (!Number.isFinite(quantity) || quantity <= 0) return;
+
+    totalWeight += weight * quantity;
+  });
+
+  return {
+    totalWeight,
+    missingWeight
+  };
+}
+
+
 function updateCart() {
   try {
     localStorage.setItem("plytkiNetBudCart", JSON.stringify(cart));
