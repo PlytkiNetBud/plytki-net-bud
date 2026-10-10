@@ -1126,7 +1126,8 @@ textarea {
   color: #202020;
   font-weight: 600;
   text-align: right;
-  white-space: nowrap;
+  white-space: normal;
+overflow-wrap: anywhere;
 }
 
 .product-logistics-note {
