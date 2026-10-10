@@ -189,11 +189,12 @@ if (moreButton) {
       sku: p.sku || "",
       price: p.price,
       box: p.quantityPerBox,
-      stock: p.quantity || 0,
-      inStock: p.inStock,
-      requiredBox: p.requiredBox,
-      unit: p.unit || "",
-      weight: p.weight,
+piecesPerBox: p.piecesPerBox,
+stock: p.quantity || 0,
+inStock: p.inStock,
+requiredBox: p.requiredBox,
+unit: p.unit || "",
+weight: p.weight,
       img: p.photo || (
   Array.isArray(p.photos) && p.photos.length
     ? p.photos[0]
@@ -256,11 +257,12 @@ async function loadMoreProducts() {
       sku: p.sku || "",
       price: p.price,
       box: p.quantityPerBox,
-      stock: p.quantity || 0,
-      inStock: p.inStock,
-      requiredBox: p.requiredBox,
-      unit: p.unit || "",
-      weight: p.weight,
+piecesPerBox: p.piecesPerBox,
+stock: p.quantity || 0,
+inStock: p.inStock,
+requiredBox: p.requiredBox,
+unit: p.unit || "",
+weight: p.weight,
       img: p.photo || (Array.isArray(p.photos) ? p.photos[0] : ""),
       photos: [...new Set(
         [p.photo, ...(Array.isArray(p.photos) ? p.photos : [])]
@@ -998,6 +1000,44 @@ product.galleryPhotos = [...new Set(galleryPhotos)];
   const isArea = unit === "m2" || unit === "m²";
   const box = Number(product.box);
   const price = Number(product.price);
+  const piecesPerBox = Number(product.piecesPerBox);
+const weightPerUnit = Number(product.weight);
+
+const hasBox = Number.isFinite(box) && box > 0;
+const hasWeight =
+  product.weight != null &&
+  Number.isFinite(weightPerUnit) &&
+  weightPerUnit > 0;
+
+const boxWeight = hasBox && hasWeight
+  ? box * weightPerUnit
+  : null;
+
+const logisticsRows = [
+  hasBox
+    ? `<tr><td>Powierzchnia opakowania</td><td>${formatNumber(box)} ${escapeHtml(product.unit)}</td></tr>`
+    : "",
+  Number.isFinite(piecesPerBox) && piecesPerBox > 0
+    ? `<tr><td>Liczba sztuk w opakowaniu</td><td>${piecesPerBox}</td></tr>`
+    : "",
+  hasWeight
+    ? `<tr><td>Waga jednostkowa</td><td>${formatNumber(weightPerUnit)} kg / ${escapeHtml(product.unit)}</td></tr>`
+    : "",
+  boxWeight != null
+    ? `<tr><td>Waga opakowania (orientacyjna)</td><td>${formatNumber(boxWeight)} kg</td></tr>`
+    : ""
+].filter(Boolean).join("");
+
+const logisticsTable = logisticsRows
+  ? `
+    <div class="product-logistics">
+      <h3>Logistyka produktu</h3>
+      <table>
+        <tbody>${logisticsRows}</tbody>
+      </table>
+    </div>
+  `
+  : "";
 
   const canOrder =
     Number.isFinite(price) &&
@@ -1095,6 +1135,7 @@ product.galleryPhotos = [...new Set(galleryPhotos)];
         }</p>
 
         ${purchaseControls}
+        ${logisticsTable}
 
 
         ${canOrder
