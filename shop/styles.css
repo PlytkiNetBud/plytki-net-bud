@@ -1081,3 +1081,71 @@ textarea {
     gap: 10px;
   }
 }
+/* INFORMACJE LOGISTYCZNE PRODUKTU */
+
+.product-logistics {
+  margin: 24px 0;
+  padding: 20px;
+  background: #f8f9fa;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+}
+
+.product-logistics-title {
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.4;
+  margin-bottom: 14px;
+  color: #202020;
+}
+
+.product-logistics table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.product-logistics td {
+  padding: 11px 0;
+  border-bottom: 1px solid #e5e7eb;
+  vertical-align: top;
+  line-height: 1.4;
+}
+
+.product-logistics tr:last-child td {
+  border-bottom: none;
+}
+
+.product-logistics td:first-child {
+  color: #666;
+  padding-right: 15px;
+  width: 65%;
+}
+
+.product-logistics td:last-child {
+  color: #202020;
+  font-weight: 600;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.product-logistics-note {
+  margin: 12px 0 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #777;
+}
+
+@media (max-width: 480px) {
+  .product-logistics {
+    padding: 15px;
+  }
+
+  .product-logistics table {
+    font-size: 13px;
+  }
+
+  .product-logistics td:first-child {
+    width: 60%;
+  }
+}
