@@ -9,7 +9,46 @@
 <body>
 <header class="top"><div class="wrap nav"><a class="logo" href="#">PŁYTKI <b>NET BUD</b></a><div class="search"><input id="search" placeholder="Szukaj produktu, kolekcji, EAN…"><button type="button" onclick="searchProducts(document.querySelector('#search').value)">Szukaj</button></div><button class="cart" onclick="toggleCart()">Koszyk <span id="cartCount">0</span></button></div><nav class="cats wrap"><button data-cat="Wszystkie">Wszystkie</button><button data-cat="Płytki">Płytki</button><button data-cat="Armatura">Armatura</button><button data-cat="Łazienka">Łazienka</button><a href="#brands">Producenci</a><a href="#contact">Kontakt</a></nav></header>
 <main>
-<section class="hero"><div class="wrap hero-grid"><div><span class="eyebrow">SKLEP INTERNETOWY</span><h1>Materiały do łazienki<br><em>bez zgadywania.</em></h1><p>Płytki, gres i wyposażenie. Przy płytkach policzymy za Ciebie pełne paczki, rzeczywistą liczbę m² i zapas.</p><a class="primary" href="#products">Zobacz produkty</a></div><div class="calc-card"><h2>Kalkulator płytek</h2><label>Potrzebna powierzchnia <span>m²</span><input id="area" type="number" min="0" step="0.1" value="20"></label><label>Zapas<select id="waste"><option value="0">0%</option><option value="5">5%</option><option value="10" selected>10%</option><option value="15">15%</option></select></label><label>m² w paczce<input id="boxArea" type="number" min="0.01" step="0.01" value="1.04"></label><button onclick="calculate()">Policz paczki</button><div id="calcResult" class="result"></div></div></div></section>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+
+    <div>
+      <span class="eyebrow">SKLEP INTERNETOWY</span>
+
+      <h1>
+        Materiały do łazienki<br>
+        <em>bez zgadywania.</em>
+      </h1>
+
+      <p>
+        Płytki, gres i wyposażenie.
+        Odkryj kolekcje i inspiracje do swojego wnętrza.
+      </p>
+
+      <a class="primary" href="#products">
+        Zobacz produkty
+      </a>
+    </div>
+
+    <div class="hero-gallery" aria-label="Inspiracje łazienkowe">
+      <div class="hero-gallery-slides" id="heroGallerySlides"></div>
+
+      <button class="hero-gallery-arrow prev"
+              type="button"
+              onclick="changeHeroSlide(-1)"
+              aria-label="Poprzednia aranżacja">‹</button>
+
+      <button class="hero-gallery-arrow next"
+              type="button"
+              onclick="changeHeroSlide(1)"
+              aria-label="Następna aranżacja">›</button>
+
+      <div class="hero-gallery-dots" id="heroGalleryDots"></div>
+    </div>
+
+  </div>
+</section>
 
 <section class="wrap">
   <div class="shop-filters">
