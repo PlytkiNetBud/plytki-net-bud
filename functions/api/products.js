@@ -322,6 +322,39 @@ function calculateSellingPrice(product) {
   return Math.round(sellingGross * 100) / 100;
 }
 
+    // TYMCZASOWA DIAGNOSTYKA LOGISTYKI
+if (requestUrl.searchParams.get("logisticsTest") === "1") {
+  const testProduct = rawProducts.find(
+    product => Number(product.Id) === 100453
+  );
+
+  if (!testProduct) {
+    return json({
+      ok: false,
+      message: "Nie znaleziono produktu 100453 w odpowiedzi Saturna."
+    }, 404);
+  }
+
+  return json({
+    ok: true,
+    productId: testProduct.Id,
+    unit: testProduct.Unit,
+    weight: testProduct.Weight,
+    quantityPerBox: testProduct.QuantityPerBox,
+    logisticsAttributes: (testProduct.Attributes || [])
+      .filter(attribute =>
+        /palet|karton|opak|waga|logist|transport/i.test(
+          String(attribute.Name || "")
+        )
+      )
+      .map(attribute => ({
+        name: attribute.Name,
+        values: Array.isArray(attribute.Features)
+          ? attribute.Features.map(feature => feature.Name)
+          : []
+      }))
+  });
+}
     return json({
   ok: true,
   source: "Saturn",
