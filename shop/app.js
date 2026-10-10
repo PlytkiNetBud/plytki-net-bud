@@ -1042,6 +1042,28 @@ function openImageZoom(src) {
     createArrow("›", 1, "right");
   }
 
+  let touchStartX = 0;
+
+  image.addEventListener("touchstart", event => {
+    touchStartX = event.changedTouches[0].screenX;
+  }, { passive: true });
+
+  image.addEventListener("touchend", event => {
+    if (gallery.length < 2) return;
+
+    const touchEndX = event.changedTouches[0].screenX;
+    const difference = touchStartX - touchEndX;
+
+    if (Math.abs(difference) < 50) return;
+
+    const direction = difference > 0 ? 1 : -1;
+
+    currentIndex =
+      (currentIndex + direction + gallery.length) % gallery.length;
+
+    image.src = gallery[currentIndex];
+  }, { passive: true });
+
   overlay.appendChild(closeButton);
   overlay.appendChild(image);
   document.body.appendChild(overlay);
