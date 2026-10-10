@@ -835,6 +835,62 @@ function toggleCart() {
 }
 
 
+const DELIVERY_FREE_FROM = 2500;
+const DELIVERY_PRICE = 249;
+const PALLET_PRICE = 49.20;
+
+function calculateOrderCosts() {
+  const productsTotal = Math.round(
+    cart.reduce((sum, product) => {
+      return sum +
+        Number(product.price) * Number(product.quantity);
+    }, 0) * 100
+  ) / 100;
+
+  const delivery = productsTotal >= DELIVERY_FREE_FROM
+    ? 0
+    : DELIVERY_PRICE;
+
+  return {
+    productsTotal,
+    delivery,
+    palletPrice: PALLET_PRICE
+  };
+}
+
+function renderOrderSummary() {
+  const container = document.querySelector("#orderSummary");
+  if (!container) return;
+
+  const costs = calculateOrderCosts();
+
+  container.innerHTML = `
+    <h3>Podsumowanie zamówienia</h3>
+
+    <div class="total">
+      <span>Wartość produktów</span>
+      <strong>${money(costs.productsTotal)}</strong>
+    </div>
+
+    <div class="total">
+      <span>Transport</span>
+      <strong>
+        ${costs.delivery === 0 ? "GRATIS" : money(costs.delivery)}
+      </strong>
+    </div>
+
+    <div class="total">
+      <span>Nośnik paletowy</span>
+      <strong>49,20 zł / paleta</strong>
+    </div>
+
+    <p>
+      Liczba palet i ostateczna kwota zamówienia
+      zostaną potwierdzone przed przyjęciem zamówienia.
+    </p>
+  `;
+}
+
  // ================================
  // FORMULARZ ZAMÓWIENIA
  // ================================
@@ -857,6 +913,7 @@ function openCheckout() {
   document.querySelector("#shade")?.classList.remove("open");
 
   modal.classList.add("open");
+  renderOrderSummary();
   document.querySelector("#customerName")?.focus();
 }
 
