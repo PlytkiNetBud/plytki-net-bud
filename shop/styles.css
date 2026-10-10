@@ -1127,7 +1127,7 @@ textarea {
   font-weight: 600;
   text-align: right;
   white-space: normal;
-overflow-wrap: anywhere;
+  overflow-wrap: anywhere;
 }
 
 .product-logistics-note {
