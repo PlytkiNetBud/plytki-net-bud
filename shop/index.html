@@ -73,7 +73,7 @@
 </div></div></section>
 <section id="contact" class="contact wrap"><div><span class="eyebrow">PŁYTKI NET BUD</span><h2>Masz pytanie o produkt?</h2><p>Skontaktuj się z nami — pomożemy dobrać ilość, paczki i sposób dostawy.</p></div><div><a href="mailto:sklep@plytki-net-bud.pl">sklep@plytki-net-bud.pl</a><a href="tel:+48730636936">+48 730 636 936</a><span>ul. Bolesława Chrobrego 44/3, 64-100 Leszno</span></div></section>
 </main>
- <aside id="cartPanel" class="cart-panel">    <div class="cart-header">     <div>       <span class="eyebrow">PŁYTKI NET BUD</span>       <h2>Twoje zamówienie</h2>       <p>Wybrane produkty i ich ilości</p>     </div>      <button       class="close"       type="button"       onclick="toggleCart()"       aria-label="Zamknij koszyk"     >×</button>   </div>    <div id="cartItems"></div>    <div class="cart-summary">     <div class="total">       <span>Wartość produktów</span>       <b id="cartTotal">0,00 zł</b>     </div>      <p>Koszt dostawy zostanie ustalony w kolejnym etapie.</p>      <button       class="primary full"       type="button"       onclick="alert('W kolejnym etapie podłączymy prawdziwy checkout i płatności.')"     >       Przejdź do zamówienia →     </button>   </div>  </aside>  <div id="shade" class="shade" onclick="toggleCart()"></div>
+ <aside id="cartPanel" class="cart-panel">    <div class="cart-header">     <div>       <span class="eyebrow">PŁYTKI NET BUD</span>       <h2>Twoje zamówienie</h2>       <p>Wybrane produkty i ich ilości</p>     </div>      <button       class="close"       type="button"       onclick="toggleCart()"       aria-label="Zamknij koszyk"     >×</button>   </div>    <div id="cartItems"></div>    <div class="cart-summary">     <div class="total">       <span>Wartość produktów</span>       <b id="cartTotal">0,00 zł</b>     </div>      <p>Koszt dostawy zostanie ustalony w kolejnym etapie.</p>      <button       class="primary full"       type="button"       onclick="openCheckout()"     >       Przejdź do zamówienia →     </button>   </div>  </aside>  <div id="shade" class="shade" onclick="toggleCart()"></div>
 <footer><div class="wrap">© 2026 Płytki Net Bud · wersja testowa sklepu</div></footer>
   <div id="productModal" class="product-modal">
   <div class="product-modal-box">
@@ -81,5 +81,79 @@
     <div id="productDetails"></div>
   </div>
 </div>
+  
+<!-- FORMULARZ ZAMÓWIENIA -->
+<div id="checkoutModal" class="product-modal" role="dialog"
+     aria-modal="true" aria-labelledby="checkoutTitle">
+
+  <div class="product-modal-box checkout-box">
+
+    <button type="button"
+            class="product-modal-close"
+            onclick="closeCheckout()"
+            aria-label="Zamknij formularz">×</button>
+
+    <span class="eyebrow">PŁYTKI NET BUD</span>
+    <h2 id="checkoutTitle">Dane do zamówienia</h2>
+    <p>Uzupełnij dane kontaktowe i adres dostawy.</p>
+
+    <form id="checkoutForm">
+
+      <label for="customerType">Kupuję jako</label>
+      <select id="customerType" name="customerType" required>
+        <option value="private">Osoba prywatna</option>
+        <option value="company">Firma</option>
+      </select>
+
+      <label for="customerName">Imię i nazwisko</label>
+      <input id="customerName" name="customerName"
+             type="text" autocomplete="name" required>
+
+      <label for="customerEmail">Adres e-mail</label>
+      <input id="customerEmail" name="customerEmail"
+             type="email" autocomplete="email" required>
+
+      <label for="customerPhone">Numer telefonu</label>
+      <input id="customerPhone" name="customerPhone"
+             type="tel" autocomplete="tel" required>
+
+      <div id="companyFields" hidden>
+        <label for="companyName">Nazwa firmy</label>
+        <input id="companyName" name="companyName" type="text">
+
+        <label for="companyNip">NIP</label>
+        <input id="companyNip" name="companyNip"
+               type="text" inputmode="numeric"
+               maxlength="10" pattern="[0-9]{10}">
+      </div>
+
+      <h3>Adres dostawy</h3>
+
+      <label for="deliveryStreet">Ulica i numer</label>
+      <input id="deliveryStreet" name="deliveryStreet"
+             type="text" autocomplete="street-address" required>
+
+      <label for="deliveryPostal">Kod pocztowy</label>
+      <input id="deliveryPostal" name="deliveryPostal"
+             type="text" placeholder="00-000"
+             pattern="[0-9]{2}-[0-9]{3}" required>
+
+      <label for="deliveryCity">Miejscowość</label>
+      <input id="deliveryCity" name="deliveryCity"
+             type="text" autocomplete="address-level2" required>
+
+      <label for="orderNotes">Uwagi do zamówienia</label>
+      <textarea id="orderNotes" name="orderNotes"
+                rows="4"></textarea>
+
+      <button class="primary full" type="submit">
+        Przejdź do podsumowania →
+      </button>
+
+    </form>
+
+  </div>
+</div>
+
 <script src="app.js"></script>
 </body></html>
