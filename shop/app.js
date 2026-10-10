@@ -937,7 +937,7 @@ function openImageZoom(src) {
     ...document.querySelectorAll(".detail-thumbnail img")
   ].map(img => img.src);
 
-  const gallery = [...new Set([src, ...photos])];
+  const gallery = [...new Set([...photos, src])];
   let currentIndex = gallery.indexOf(src);
   if (!src) return;
 
