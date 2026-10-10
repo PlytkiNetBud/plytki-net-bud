@@ -928,6 +928,7 @@ function renderOrderSummary() {
   const container = document.querySelector("#orderSummary");
   if (!container) return;
 
+  const weightInfo = calculateCartWeight();
   const costs = calculateOrderCosts();
 
   container.innerHTML = `
@@ -938,6 +939,20 @@ function renderOrderSummary() {
       <strong>${money(costs.productsTotal)}</strong>
     </div>
 
+        <div class="total">
+      <span>Łączna waga produktów</span>
+      <strong>
+        ${weightInfo.missingWeight
+          ? "Niepełne dane"
+          : formatNumber(weightInfo.totalWeight) + " kg"}
+      </strong>
+    </div>
+
+    <p class="product-logistics-note">
+      ${weightInfo.missingWeight
+        ? "Nie wszystkie produkty mają podaną wagę."
+        : "Waga orientacyjna na podstawie danych dostawcy."}
+    </p>
     <div class="total">
       <span>Transport</span>
       <strong>
