@@ -1600,3 +1600,71 @@ if (selectedBrand) {
 
 calculate();
 updateCart();
+
+/* GALERIA ARANŻACJI NA STRONIE GŁÓWNEJ */
+
+const heroImages = [
+  "/images/aranzacja-1.jpg",
+  "/images/aranzacja-2.jpg",
+  "/images/aranzacja-3.jpg",
+  "/images/aranzacja-4.jpg"
+];
+
+let heroSlideIndex = 0;
+let heroSlideTimer;
+
+function showHeroSlide(index) {
+  const slides = document.querySelectorAll(".hero-gallery-slide");
+  const dots = document.querySelectorAll(".hero-gallery-dot");
+
+  if (!slides.length) return;
+
+  heroSlideIndex = (index + slides.length) % slides.length;
+
+  slides.forEach((slide, i) => {
+    slide.classList.toggle("active", i === heroSlideIndex);
+  });
+
+  dots.forEach((dot, i) => {
+    dot.classList.toggle("active", i === heroSlideIndex);
+  });
+}
+
+function changeHeroSlide(direction) {
+  showHeroSlide(heroSlideIndex + direction);
+  startHeroSlideshow();
+}
+
+function startHeroSlideshow() {
+  clearInterval(heroSlideTimer);
+
+  heroSlideTimer = setInterval(() => {
+    showHeroSlide(heroSlideIndex + 1);
+  }, 5000);
+}
+
+function initHeroGallery() {
+  const slidesContainer = document.querySelector("#heroGallerySlides");
+  const dotsContainer = document.querySelector("#heroGalleryDots");
+
+  if (!slidesContainer || !dotsContainer) return;
+
+  slidesContainer.innerHTML = heroImages.map((src, i) => `
+    <div class="hero-gallery-slide ${i === 0 ? "active" : ""}">
+      <img src="${src}" alt="Inspiracja wnętrza ${i + 1}"
+           loading="${i === 0 ? "eager" : "lazy"}">
+    </div>
+  `).join("");
+
+  dotsContainer.innerHTML = heroImages.map((_, i) => `
+    <button class="hero-gallery-dot ${i === 0 ? "active" : ""}"
+            type="button"
+            onclick="showHeroSlide(${i}); startHeroSlideshow();"
+            aria-label="Pokaż aranżację ${i + 1}">
+    </button>
+  `).join("");
+
+  startHeroSlideshow();
+}
+
+initHeroGallery();
