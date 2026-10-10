@@ -727,6 +727,39 @@ function updateCart() {
 }
 
 
+function changeCartQuantity(id, direction) {
+  const product = cart.find(
+    p => Number(p.id) === Number(id)
+  );
+
+  if (!product || ![1, -1].includes(direction)) {
+    return;
+  }
+
+  const unit = String(product.unit || "").trim().toLowerCase();
+  const isArea = unit === "m2" || unit === "m²";
+  const box = Number(product.box);
+
+  const step = isArea && Number.isFinite(box) && box > 0
+    ? box
+    : 1;
+
+  const currentSteps = Math.max(
+    1,
+    Math.round(Number(product.quantity) / step)
+  );
+
+  const newSteps = currentSteps + direction;
+
+  if (newSteps < 1) {
+    return;
+  }
+
+  product.quantity = Number((newSteps * step).toFixed(6));
+
+  updateCart();
+}
+
 function removeFromCart(id) {
   cart = cart.filter(
     product =>
