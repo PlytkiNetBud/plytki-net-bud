@@ -1,5 +1,16 @@
 let products = [];
 let cart = [];
+
+try {
+  const savedCart = JSON.parse(localStorage.getItem("plytkiNetBudCart"));
+
+  if (Array.isArray(savedCart)) {
+    cart = savedCart;
+  }
+} catch (error) {
+  console.warn("Nie udało się przywrócić koszyka:", error);
+}
+
 let category = "Wszystkie";
 let arrangements = {};
 
@@ -646,6 +657,12 @@ function add(id, quantity = null) {
 // ================================
 
 function updateCart() {
+  try {
+    localStorage.setItem("plytkiNetBudCart", JSON.stringify(cart));
+  } catch (error) {
+    console.warn("Nie udało się zapisać koszyka:", error);
+  }
+
   
   const cartTotal = cart.reduce((sum, product) => {
     return sum + Number(product.price) * Number(product.quantity);
