@@ -1001,6 +1001,47 @@ function openImageZoom(src) {
   `;
 
   closeButton.addEventListener("click", close);
+  
+  if (gallery.length > 1) {
+    const createArrow = (symbol, direction, position) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.textContent = symbol;
+      button.setAttribute(
+        "aria-label",
+        direction === -1 ? "Poprzednie zdjęcie" : "Następne zdjęcie"
+      );
+
+      button.style.cssText = `
+        position: absolute;
+        ${position}: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 48px;
+        height: 56px;
+        border: none;
+        border-radius: 8px;
+        background: rgba(0,0,0,0.55);
+        color: white;
+        font-size: 38px;
+        cursor: pointer;
+        z-index: 2;
+      `;
+
+      button.addEventListener("click", event => {
+        event.stopPropagation();
+        currentIndex =
+          (currentIndex + direction + gallery.length) % gallery.length;
+        image.src = gallery[currentIndex];
+      });
+
+      overlay.appendChild(button);
+    };
+
+    createArrow("‹", -1, "left");
+    createArrow("›", 1, "right");
+  }
+
   overlay.appendChild(closeButton);
   overlay.appendChild(image);
   document.body.appendChild(overlay);
