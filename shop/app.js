@@ -584,7 +584,7 @@ Aktualnie nie mamy produktów spełniających wybrane kryteria.
 // DODAWANIE DO ZAPYTANIA
 // ================================
 
-function add(id) {
+function add(id, quantity = null) {
   const product =
     products.find(
       p => Number(p.id) === Number(id)
@@ -594,14 +594,38 @@ function add(id) {
     return;
   }
 
-  const exists =
-    cart.some(
-      p => Number(p.id) === Number(id)
-    );
+  const unit = String(product.unit || "").trim().toLowerCase();
+  const isArea = unit === "m2" || unit === "m²";
+  const box = Number(product.box);
 
-  if (!exists) {
-    cart.push(product);
+  let selectedQuantity = Number(quantity);
+
+  if (!Number.isFinite(selectedQuantity) || selectedQuantity <= 0) {
+    selectedQuantity = isArea && box > 0 ? box : 1;
   }
+
+  if (isArea && box > 0) {
+    selectedQuantity =
+      Math.ceil(selectedQuantity / box - 1e-9) * box;
+  } else {
+    selectedQuantity = Math.max(1, Math.ceil(selectedQuantity));
+  }
+
+  
+ 
+  const existingProduct = cart.find(
+    p => Number(p.id) === Number(id)
+  );
+
+  if (existingProduct) {
+    existingProduct.quantity += selectedQuantity;
+  } else {
+    cart.push({
+      ...product,
+      quantity: selectedQuantity
+    });
+  }
+
 
   updateCart();
 
@@ -666,8 +690,18 @@ function updateCart() {
       </div>
 
       <div>
-        ${money(product.price)}
+        <small>
+          Ilość: ${formatNumber(product.quantity)}
+          ${escapeHtml(product.unit)}
+        </small>
+        <div>
+          ${money(product.price)} / ${escapeHtml(product.unit)}
+        </div>
+        <strong>
+          Razem: ${money(Number(product.price) * product.quantity)}
+        </strong>
       </div>
+
 
       <button
         type="button"
@@ -843,12 +877,14 @@ product.galleryPhotos = [...new Set(galleryPhotos)];
 
         ${purchaseControls}
 
+
         ${canOrder
           ? `<button class="primary" type="button"
-                     onclick="add(${Number(product.id)})">
+                     id="detailAddButton">
                Dodaj do zapytania
              </button>`
           : ""}
+
       </div>
     </div>
   `;
@@ -918,6 +954,37 @@ product.galleryPhotos = [...new Set(galleryPhotos)];
     ?.addEventListener("input", updateDetailCalculation);
 
   updateDetailCalculation();
+  
+  document.querySelector("#detailAddButton")
+    ?.addEventListener("click", () => {
+      let quantity;
+
+      if (isArea) {
+        const area = Number(document.querySelector("#detailArea")?.value);
+        const waste = Number(document.querySelector("#detailWaste")?.value);
+
+        if (!Number.isFinite(area) || area <= 0) {
+          alert("Podaj prawidłową powierzchnię.");
+          return;
+        }
+
+        const boxes = Math.ceil(
+          (area * (1 + waste / 100)) / box - 1e-9
+        );
+
+        quantity = boxes * box;
+      } else {
+        quantity = Number(document.querySelector("#detailPieces")?.value);
+
+        if (!Number.isInteger(quantity) || quantity < 1) {
+          alert("Podaj prawidłową liczbę sztuk.");
+          return;
+        }
+      }
+
+      add(product.id, quantity);
+    });
+
 }
 
 function changeDetailPhoto(productId, photoIndex) {
