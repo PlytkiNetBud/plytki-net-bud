@@ -205,10 +205,6 @@ photos: [...new Set(
 )]
 }));
 
-
-
-render();
-
     render();
 
   } catch (error) {
@@ -946,8 +942,8 @@ document.querySelector("#checkoutForm")
     if (!form.reportValidity()) return;
 
     alert(
-      "Dane zostały poprawnie uzupełnione. " +
-      "W kolejnym kroku dodamy podsumowanie produktów i kosztów dostawy."
+      "Formularz został poprawnie wypełniony. " +
+      "To wersja testowa sklepu — zamówienie nie zostało jeszcze wysłane."
     );
   });
 
