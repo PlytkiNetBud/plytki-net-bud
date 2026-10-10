@@ -700,11 +700,29 @@ function updateCart() {
         }
       </div>
 
+      
       <div>
-        <small>
-          Ilość: ${formatNumber(product.quantity)}
-          ${escapeHtml(product.unit)}
-        </small>
+        <small>Ilość:</small>
+
+        <div class="cart-quantity">
+          <button
+            type="button"
+            onclick="changeCartQuantity(${Number(product.id)}, -1)"
+            aria-label="Zmniejsz ilość"
+          >−</button>
+
+          <span>
+            ${formatNumber(product.quantity)}
+            ${escapeHtml(product.unit)}
+          </span>
+
+          <button
+            type="button"
+            onclick="changeCartQuantity(${Number(product.id)}, 1)"
+            aria-label="Zwiększ ilość"
+          >+</button>
+        </div>
+
         <div>
           ${money(product.price)} / ${escapeHtml(product.unit)}
         </div>
