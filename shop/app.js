@@ -84,16 +84,53 @@ const selectedBrand = urlParams.get("brand");
 
 
 
+
 function cleanProductName(name, brand) {
   let result = String(name || "").trim();
 
+  // Usuwanie technicznych prefiksów dostawcy
   result = result.replace(/^S\s+ITC\s+/i, "");
   result = result.replace(/^CC\s+/i, "");
   result = result.replace(/^[A-Z]\s+/i, "");
 
+  // Naturalny zapis nazw produktów
+  result = result.toLocaleLowerCase("pl-PL");
+
+  result = result.replace(
+    /(^|[\s\-\/(])(\p{L})/gu,
+    (match, separator, letter) =>
+      separator + letter.toLocaleUpperCase("pl-PL")
+  );
+
+  // Zachowanie ważnych oznaczeń technicznych
+  result = result.replace(/\bpei\s*(iv|iii|ii|v|i)\b/gi,
+    (_, level) => "PEI " + level.toUpperCase()
+  );
+
+  result = result.replace(/\br\s*(9|10|11|12|13)\b/gi,
+    (_, level) => "R" + level
+  );
+
+  result = result.replace(/\b(\d+(?:[.,]\d+)?)\s*mm\b/gi,
+    (_, size) => size + " mm"
+  );
+
+  result = result.replace(/\b(\d+(?:[.,]\d+)?)\s*cm\b/gi,
+    (_, size) => size + " cm"
+  );
+
+  result = result.replace(/\b(\d+(?:[.,]\d+)?)\s*m2\b/gi,
+    (_, size) => size + " m²"
+  );
+
+  // Standardowy zapis wymiarów
+  result = result.replace(
+    /(\d)\s*[x×]\s*(\d)/gi,
+    "$1x$2"
+  );
+
   return result;
 }
-
 
 async function searchProducts(query, featured = false) {
  
