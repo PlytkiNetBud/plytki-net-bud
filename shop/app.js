@@ -1014,7 +1014,7 @@ const boxWeight = hasBox && hasWeight
   : null;
 
 const logisticsRows = [
-  hasBox
+  hasBox && isArea
     ? `<tr><td>Powierzchnia opakowania</td><td>${formatNumber(box)} ${escapeHtml(product.unit)}</td></tr>`
     : "",
   Number.isFinite(piecesPerBox) && piecesPerBox > 0
@@ -1023,7 +1023,7 @@ const logisticsRows = [
   hasWeight
     ? `<tr><td>Waga jednostkowa</td><td>${formatNumber(weightPerUnit)} kg / ${escapeHtml(product.unit)}</td></tr>`
     : "",
-  boxWeight != null
+  isArea && boxWeight != null
     ? `<tr><td>Waga opakowania (orientacyjna)</td><td>${formatNumber(boxWeight)} kg</td></tr>`
     : ""
 ].filter(Boolean).join("");
