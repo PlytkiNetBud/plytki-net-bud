@@ -82,6 +82,22 @@ const selectedBrand = urlParams.get("brand");
 // POBIERANIE PRODUKTÓW Z SATURNA
 // ================================
 
+
+function cleanProductName(name, brand) {
+  let result = String(name || "").trim();
+  const producer = String(brand || "").trim().toUpperCase();
+
+  if (producer === "ITC") {
+    result = result.replace(/^S\s+ITC\s+/i, "");
+  }
+
+  if (producer === "CERAMIKA COLOR") {
+    result = result.replace(/^CC\s+/i, "");
+  }
+
+  return result;
+}
+
 async function searchProducts(query, featured = false) {
  
 const requestId = ++searchRequestId;
@@ -171,7 +187,7 @@ if (moreButton) {
       id: p.id,
       cat: "Płytki",
       brand: p.brand || "",
-      name: p.name || "",
+      name: cleanProductName(p.name, p.brand),
       ean: p.ean || "",
       sku: p.sku || "",
       price: p.price,
@@ -242,7 +258,7 @@ async function loadMoreProducts() {
       id: p.id,
       cat: "Płytki",
       brand: p.brand || "",
-      name: p.name || "",
+      name: cleanProductName(p.name, p.brand),
       ean: p.ean || "",
       sku: p.sku || "",
       price: p.price,
