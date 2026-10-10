@@ -212,10 +212,20 @@ const shuffledProducts = featured
 
         requiredBox: Boolean(product.RequiredBox),
 
-        quantityPerBox:
-          product.QuantityPerBox ?? null,
+quantityPerBox:
+  product.QuantityPerBox ?? null,
 
-        price: calculateSellingPrice(product),
+piecesPerBox: Array.isArray(product.Attributes)
+  ? Number(
+      product.Attributes
+        .find(attribute =>
+          attribute.Name === "Ilość sztuk w kartonie"
+        )
+        ?.Features?.[0]?.Name
+    ) || null
+  : null,
+
+price: calculateSellingPrice(product),
 
         currency: "PLN",
 
