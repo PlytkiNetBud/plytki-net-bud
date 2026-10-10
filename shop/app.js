@@ -835,6 +835,74 @@ function toggleCart() {
 }
 
 
+ // ================================
+ // FORMULARZ ZAMÓWIENIA
+ // ================================
+
+function openCheckout() {
+  if (!cart.length) {
+    alert("Najpierw dodaj produkt do koszyka.");
+    return;
+  }
+
+  const modal = document.querySelector("#checkoutModal");
+  const form = document.querySelector("#checkoutForm");
+
+  if (!modal || !form) {
+    alert("Formularz zamówienia nie jest jeszcze dostępny.");
+    return;
+  }
+
+  document.querySelector("#cartPanel")?.classList.remove("open");
+  document.querySelector("#shade")?.classList.remove("open");
+
+  modal.classList.add("open");
+  document.querySelector("#customerName")?.focus();
+}
+
+function closeCheckout() {
+  document.querySelector("#checkoutModal")?.classList.remove("open");
+}
+
+function updateCompanyFields() {
+  const type = document.querySelector("#customerType")?.value;
+  const fields = document.querySelector("#companyFields");
+  const companyName = document.querySelector("#companyName");
+  const companyNip = document.querySelector("#companyNip");
+
+  const isCompany = type === "company";
+
+  if (fields) fields.hidden = !isCompany;
+  if (companyName) companyName.required = isCompany;
+  if (companyNip) companyNip.required = isCompany;
+}
+
+document.querySelector("#customerType")
+  ?.addEventListener("change", updateCompanyFields);
+
+document.querySelector("#checkoutForm")
+  ?.addEventListener("submit", event => {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+
+    if (!form.reportValidity()) return;
+
+    alert(
+      "Dane zostały poprawnie uzupełnione. " +
+      "W kolejnym kroku dodamy podsumowanie produktów i kosztów dostawy."
+    );
+  });
+
+document.querySelector("#checkoutModal")
+  ?.addEventListener("click", event => {
+    if (event.target.id === "checkoutModal") {
+      closeCheckout();
+    }
+  });
+
+updateCompanyFields();
+
 // ================================
 // SZCZEGÓŁY PRODUKTU
 // ================================
