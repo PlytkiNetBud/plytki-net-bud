@@ -790,3 +790,179 @@ textarea {
 .cart-quantity button:last-child {
   border-left: 1px solid #dedede;
 }
+
+/* ===== KOSZYK PREMIUM – PŁYTKI NET BUD ===== */
+
+.cart-panel {
+  background: var(--paper);
+  padding: 34px 26px;
+  box-shadow: -18px 0 60px rgba(23, 23, 23, .16);
+}
+
+.cart-panel h2,
+.cart-panel h3 {
+  font-family: Georgia, serif;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.cart-panel .close {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  line-height: 36px;
+  transition: background .2s, color .2s;
+}
+
+.cart-panel .close:hover {
+  background: var(--ink);
+  color: #fff;
+}
+
+/* Karty produktów */
+
+.cart-item {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 20px;
+  margin: 14px 0;
+  gap: 12px;
+  box-shadow: 0 8px 24px rgba(23, 23, 23, .04);
+  transition: box-shadow .2s ease;
+}
+
+.cart-item:hover {
+  box-shadow: 0 12px 28px rgba(23, 23, 23, .09);
+}
+
+.cart-item > div:first-child strong {
+  font-size: 16px;
+  line-height: 1.4;
+  font-weight: 650;
+  color: var(--ink);
+}
+
+.cart-item > div:first-child small {
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: .02em;
+}
+
+.cart-item > div:nth-child(2) {
+  gap: 12px;
+}
+
+.cart-item > div:nth-child(2) > small {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+.cart-item > div:nth-child(2) > strong {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+/* Przyciski ilości */
+
+.cart-quantity {
+  border-color: var(--line);
+  border-radius: 10px;
+  background: #fff;
+}
+
+.cart-quantity button {
+  background: #f4f2ed;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.cart-quantity button:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+.cart-quantity span {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.cart-quantity button:first-child {
+  border-right-color: var(--line);
+}
+
+.cart-quantity button:last-child {
+  border-left-color: var(--line);
+}
+
+/* Usuwanie produktu */
+
+.cart-item > button {
+  background: #faf8f4;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--muted);
+}
+
+.cart-item > button:hover {
+  background: #fff0eb;
+  color: #a43d28;
+  border-color: #e9b7a6;
+}
+
+/* Podsumowanie */
+
+.cart-panel .total {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 20px;
+  margin: 24px 0 16px;
+  align-items: center;
+  gap: 12px;
+}
+
+.cart-panel .total strong {
+  color: var(--accent);
+  font-size: 22px;
+}
+
+.cart-panel .primary,
+.cart-panel button.full {
+  border-radius: 10px;
+  min-height: 50px;
+  font-weight: 700;
+  transition: background .2s ease;
+}
+
+.cart-panel .primary:hover,
+.cart-panel button.full:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+@media (max-width: 560px) {
+  .cart-panel {
+    padding: 24px 16px;
+  }
+
+  .cart-item {
+    padding: 16px;
+  }
+
+  .cart-quantity button {
+    width: 36px;
+    height: 38px;
+  }
+
+  .cart-quantity span {
+    min-width: 76px;
+    padding: 0 7px;
+  }
+}
