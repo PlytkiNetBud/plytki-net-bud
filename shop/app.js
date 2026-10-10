@@ -95,6 +95,11 @@ function cleanProductName(name, brand) {
     result = result.replace(/^CC\s+/i, "");
   }
 
+  
+if (producer === "MARAZZI") {
+  result = result.replace(/^M\s+/i, "");
+}
+
   return result;
 }
 
