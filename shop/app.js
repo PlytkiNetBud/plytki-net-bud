@@ -933,6 +933,12 @@ function changeDetailPhoto(productId, photoIndex) {
   mainImage.src = photo;
 }
 function openImageZoom(src) {
+  const photos = [
+    ...document.querySelectorAll(".detail-thumbnail img")
+  ].map(img => img.src);
+
+  const gallery = [...new Set([src, ...photos])];
+  let currentIndex = gallery.indexOf(src);
   if (!src) return;
 
   const overlay = document.createElement("div");
