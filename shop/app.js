@@ -698,13 +698,19 @@ function updateCart() {
     return;
   }
 
-  items.innerHTML = cart.map(product => `
-    <div class="cart-item">
+  
+items.innerHTML = cart.map(product => `
+  <div class="cart-item">
 
-      <div>
-        <strong>
-          ${escapeHtml(product.name)}
-        </strong>
+    <div>
+      <span class="cart-product-brand">
+        ${escapeHtml(product.brand || "")}
+      </span>
+
+      <strong>
+        ${escapeHtml(product.name)}
+      </strong>
+
 
         ${
           product.sku
