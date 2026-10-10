@@ -973,9 +973,27 @@ function openImageZoom(src) {
     document.removeEventListener("keydown", onKeyDown);
   };
 
+  
   const onKeyDown = event => {
-    if (event.key === "Escape") close();
+    if (event.key === "Escape") {
+      close();
+      return;
+    }
+
+    if (gallery.length < 2) return;
+
+    if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
+      event.preventDefault();
+
+      const direction = event.key === "ArrowRight" ? 1 : -1;
+
+      currentIndex =
+        (currentIndex + direction + gallery.length) % gallery.length;
+
+      image.src = gallery[currentIndex];
+    }
   };
+
 
   overlay.addEventListener("click", close);
   document.addEventListener("keydown", onKeyDown);
