@@ -966,3 +966,78 @@ textarea {
     padding: 0 7px;
   }
 }
+
+/* ===== NAGŁÓWEK I PODSUMOWANIE KOSZYKA ===== */
+
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  padding-bottom: 22px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.cart-header .eyebrow {
+  display: block;
+  font-size: 11px;
+  letter-spacing: .16em;
+  color: var(--accent);
+}
+
+.cart-header h2 {
+  margin: 10px 0 8px;
+  font-family: Georgia, serif;
+  font-size: 30px;
+  font-weight: 500;
+}
+
+.cart-header p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.cart-header .close {
+  float: none;
+  flex-shrink: 0;
+}
+
+.cart-summary {
+  margin-top: 24px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.cart-summary .total {
+  margin: 0 0 12px;
+}
+
+.cart-summary .total b {
+  color: var(--accent);
+  font-size: 22px;
+  white-space: nowrap;
+}
+
+.cart-summary > p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 0 0 20px;
+}
+
+.cart-summary .primary {
+  width: 100%;
+  padding: 16px;
+  background: var(--ink);
+  color: #fff;
+  border: 0;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.cart-summary .primary:hover {
+  background: var(--accent);
+}
