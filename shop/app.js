@@ -646,6 +646,17 @@ function add(id, quantity = null) {
 // ================================
 
 function updateCart() {
+  
+  const cartTotal = cart.reduce((sum, product) => {
+    return sum + Number(product.price) * Number(product.quantity);
+  }, 0);
+
+  const totalElement = document.querySelector("#cartTotal");
+
+  if (totalElement) {
+    totalElement.textContent = money(cartTotal);
+  }
+
   const count =
     document.querySelector("#cartCount");
 
