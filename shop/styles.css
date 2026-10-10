@@ -740,3 +740,53 @@ textarea {
     padding: 22px 18px;
   }
 }
+
+/* ===== PRZYCISKI ILOŚCI W KOSZYKU ===== */
+
+.cart-quantity {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  width: fit-content;
+  border: 1px solid #dedede;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.cart-quantity button {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: #f7f7f7;
+  color: #171717;
+  font-size: 22px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.cart-quantity button:hover {
+  background: #eaeaea;
+}
+
+.cart-quantity button:active {
+  background: #ddd;
+}
+
+.cart-quantity span {
+  min-width: 90px;
+  padding: 0 10px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.cart-quantity button:first-child {
+  border-right: 1px solid #dedede;
+}
+
+.cart-quantity button:last-child {
+  border-left: 1px solid #dedede;
+}
