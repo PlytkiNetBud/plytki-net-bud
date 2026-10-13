@@ -113,7 +113,12 @@ if (brandTest) {
 }
 
 saturnUrl.searchParams.set("pageNumber", String(pageNumber));
-saturnUrl.searchParams.set("pageSize", "25");
+
+saturnUrl.searchParams.set(
+  "pageSize",
+  requestUrl.searchParams.get("pageSizeTest") === "1" ? "100" : "25"
+);
+
 if (ean) {
   saturnUrl.searchParams.set("productsEan", ean);
 } else if (sku) {
