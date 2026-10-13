@@ -350,7 +350,7 @@ if (brandFilter) {
     if (brand) {
       searchProducts(brand);
     } else {
-      searchProducts("", true);
+      searchProducts("", false);
     }
   });
 }
