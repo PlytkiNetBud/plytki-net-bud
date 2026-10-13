@@ -80,17 +80,6 @@ const brandTest =
   parseInt(requestUrl.searchParams.get("pageNumber") || "1", 10) || 1
 );
     
-if (!q && !brand && !ean && !sku && !featured && !catalogTest && !brandTest) {
-
-      return json({
-        ok: true,
-        source: "Saturn",
-        count: 0,
-        products: [],
-        message: "Wpisz nazwę, EAN lub SKU produktu."
-      });
-    }
-
     // Do przeglądarki pobieramy tylko dane,
     // które mogą być publiczne.
     const fields = [
