@@ -148,11 +148,13 @@ if (loadMoreBtn) {
 
   const q = String(query || "").trim();
 
-  if (!q && !featured) {
-    products = [];
-    render();
-    return;
-  }
+  
+if (!q && !featured && currentSearchQuery !== "") {
+  products = [];
+  render();
+  return;
+}
+
 
   showLoading();
 
@@ -179,8 +181,12 @@ const isEan = /^\d{8,14}$/.test(q);
 const isSku = /^CP\d+$/i.test(q);
 
 
-const apiUrl = featured
+
+const apiUrl = !q && !featured
+  ? "/api/products"
+  : featured
   ? "/api/products?featured=1&q=" + encodeURIComponent(randomTerm)
+
   : (document.querySelector("#filterBrand")?.value === q ||
    (selectedBrand && q.toLowerCase() === selectedBrand.toLowerCase()))
     ? "/api/products?brand=" + encodeURIComponent(q)
@@ -1595,7 +1601,7 @@ if (selectedBrand) {
 
   searchProducts(selectedBrand);
 } else {
-  searchProducts("", true);
+  searchProducts("", false);
 }
 
 calculate();
