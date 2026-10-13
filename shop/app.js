@@ -148,14 +148,6 @@ if (loadMoreBtn) {
 
   const q = String(query || "").trim();
 
-  
-if (!q && !featured && currentSearchQuery !== "") {
-  products = [];
-  render();
-  return;
-}
-
-
   showLoading();
 
   try {
@@ -364,10 +356,9 @@ if (searchInput) {
     const value = searchInput.value.trim();
 
     if (!value) {
-      products = [];
-      render();
-      return;
-    }
+  searchProducts("", false);
+  return;
+}
 
     searchTimer = setTimeout(() => {
       searchProducts(value);
