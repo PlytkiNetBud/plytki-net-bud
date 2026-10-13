@@ -1674,3 +1674,29 @@ function initHeroGallery() {
 }
 
 initHeroGallery();
+
+
+async function updateCatalogCount() {
+  const element = document.querySelector("#catalogCount");
+  if (!element) return;
+
+  try {
+    const response = await fetch("/catalog-count.json");
+    if (!response.ok) throw new Error("Brak licznika");
+
+    const data = await response.json();
+
+    if (!Number.isInteger(data.count) || data.count < 0) {
+      throw new Error("Nieprawidłowa liczba produktów");
+    }
+
+    element.textContent =
+      "W naszej ofercie: " +
+      data.count.toLocaleString("pl-PL") +
+      " produktów";
+  } catch (error) {
+    element.textContent = "";
+  }
+}
+
+updateCatalogCount();
