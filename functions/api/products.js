@@ -182,7 +182,7 @@ const shuffledProducts = featured
   .filter(product => !isWithdrawnProduct(product))
   .filter(product => isGradeOneProduct(product))
       .filter(product => hasValidSellingPrice(product))
-  .slice(0, featured ? 12 : 50)
+  .slice(0, featured ? 12 : 100)
       .map(product => ({
         id: product.Id ?? null,
 
