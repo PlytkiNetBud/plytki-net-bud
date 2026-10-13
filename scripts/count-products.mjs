@@ -32,9 +32,9 @@ async function getPage(pageNumber) {
         typeof data.count !== "number" ||
         typeof data.totalFound !== "number" ||
         typeof data.hasMore !== "boolean" ||
-        data.diagnostic?.receivedFromSaturn !==
-          data.products.length &&
-          data.diagnostic?.receivedFromSaturn !== PAGE_SIZE
+        !Number.isInteger(data.diagnostic?.receivedFromSaturn) ||
+data.diagnostic.receivedFromSaturn < data.count ||
+data.diagnostic.receivedFromSaturn > PAGE_SIZE
       ) {
         throw new Error("Nieprawidłowa odpowiedź API");
       }
