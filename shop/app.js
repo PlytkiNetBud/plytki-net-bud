@@ -610,6 +610,16 @@ Aktualnie nie mamy produktów spełniających wybrane kryteria.
   }
 </div>
 
+${isOversizedProduct(product)
+  ? `
+    <p class="product-logistics-note">
+      🚚 Transport wielkoformatowy —
+      koszt dostawy i nośnika paletowego
+      wyceniany indywidualnie.
+    </p>
+  `
+  : ""}
+
           <div class="product-actions">
 
             <button
