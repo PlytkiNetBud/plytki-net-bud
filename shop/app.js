@@ -1263,6 +1263,19 @@ const logisticsTable = logisticsRows
         }</p>
 
         ${purchaseControls}
+        
+${isOversizedProduct(product)
+  ? `
+    <p class="product-logistics-note">
+      🚚 <strong>Transport wielkoformatowy</strong><br>
+      Koszty transportu oraz nośnika paletowego
+      ustalane są indywidualnie.
+      Ostateczną wycenę przedstawimy
+      przed potwierdzeniem zamówienia.
+    </p>
+  `
+  : ""}
+
         ${logisticsTable}
 
 
