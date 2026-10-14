@@ -913,13 +913,41 @@ const DELIVERY_FREE_FROM = 2500;
 const DELIVERY_PRICE = 249;
 const PALLET_PRICE = 49.20;
 
+
 function isOversizedProduct(product) {
   const name = String(product.name || "").toLowerCase();
 
-  return /(^|[^\d])120\s*[x×]\s*120(?!\d)/.test(name) ||
-         /(^|[^\d])120\s*[x×]\s*280(?!\d)/.test(name) ||
-         /(^|[^\d])120\s*[x×]\s*360(?!\d)/.test(name);
+  const dimensions = name.matchAll(
+    /(\d+(?:[.,]\d+)?)\s*[x×]\s*(\d+(?:[.,]\d+)?)/g
+  );
+
+  for (const match of dimensions) {
+    const width = Number(match[1].replace(",", "."));
+    const height = Number(match[2].replace(",", "."));
+
+    const shortSide = Math.min(width, height);
+    const longSide = Math.max(width, height);
+
+    const is120x120 =
+      shortSide >= 119 && shortSide <= 120 &&
+      longSide >= 119 && longSide <= 120;
+
+    const is120x280 =
+      shortSide >= 119 && shortSide <= 120 &&
+      longSide >= 279 && longSide <= 280;
+
+    const is120x360 =
+      shortSide >= 119 && shortSide <= 120 &&
+      longSide >= 359 && longSide <= 360;
+
+    if (is120x120 || is120x280 || is120x360) {
+      return true;
+    }
+  }
+
+  return false;
 }
+
 
 function calculateOrderCosts() {
   const productsTotal = Math.round(
