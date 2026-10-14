@@ -898,9 +898,18 @@ function toggleCart() {
 }
 
 
+
 const DELIVERY_FREE_FROM = 2500;
 const DELIVERY_PRICE = 249;
 const PALLET_PRICE = 49.20;
+
+function isOversizedProduct(product) {
+  const name = String(product.name || "").toLowerCase();
+
+  return /(^|[^\d])120\s*[x×]\s*120(?!\d)/.test(name) ||
+         /(^|[^\d])120\s*[x×]\s*280(?!\d)/.test(name) ||
+         /(^|[^\d])120\s*[x×]\s*360(?!\d)/.test(name);
+}
 
 function calculateOrderCosts() {
   const productsTotal = Math.round(
@@ -910,16 +919,22 @@ function calculateOrderCosts() {
     }, 0) * 100
   ) / 100;
 
-  const delivery = productsTotal >= DELIVERY_FREE_FROM
-    ? 0
-    : DELIVERY_PRICE;
+  const oversizedDelivery = cart.some(isOversizedProduct);
+
+  const delivery = oversizedDelivery
+    ? null
+    : productsTotal >= DELIVERY_FREE_FROM
+      ? 0
+      : DELIVERY_PRICE;
 
   return {
     productsTotal,
     delivery,
-    palletPrice: PALLET_PRICE
+    palletPrice: oversizedDelivery ? null : PALLET_PRICE,
+    oversizedDelivery
   };
 }
+
 
 function renderOrderSummary() {
   const container = document.querySelector("#orderSummary");
