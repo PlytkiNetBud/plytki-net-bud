@@ -965,17 +965,35 @@ function renderOrderSummary() {
         ? "Nie wszystkie produkty mają podaną wagę."
         : "Waga orientacyjna na podstawie danych dostawcy."}
     </p>
+    
     <div class="total">
       <span>Transport</span>
       <strong>
-        ${costs.delivery === 0 ? "GRATIS" : money(costs.delivery)}
+        ${costs.oversizedDelivery
+          ? "Wycena indywidualna"
+          : costs.delivery === 0
+            ? "GRATIS"
+            : money(costs.delivery)}
       </strong>
     </div>
 
     <div class="total">
       <span>Nośnik paletowy</span>
-      <strong>49,20 zł / paleta</strong>
+      <strong>
+        ${costs.oversizedDelivery
+          ? "Wycena indywidualna"
+          : "49,20 zł / paleta"}
+      </strong>
     </div>
+
+    ${costs.oversizedDelivery
+      ? `<p class="product-logistics-note">
+          Zamówienie zawiera płytki wielkoformatowe.
+          Koszt transportu i nośnika paletowego zostanie
+          ustalony indywidualnie przed potwierdzeniem zamówienia.
+        </p>`
+      : ""}
+
 
     <p>
       Liczba palet i ostateczna kwota zamówienia
