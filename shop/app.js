@@ -742,12 +742,24 @@ function calculateCartWeight() {
 }
 
 
+
 function updateCart() {
   try {
     localStorage.setItem("plytkiNetBudCart", JSON.stringify(cart));
   } catch (error) {
     console.warn("Nie udało się zapisać koszyka:", error);
   }
+
+  const checkoutButton = document.querySelector("#cartCheckoutButton");
+
+  if (checkoutButton) {
+    const hasOversizedProducts = cart.some(isOversizedProduct);
+
+    checkoutButton.textContent = hasOversizedProducts
+      ? "Zapytaj o wycenę →"
+      : "Przejdź do zamówienia →";
+  }
+
 
   
   const cartTotal = cart.reduce((sum, product) => {
