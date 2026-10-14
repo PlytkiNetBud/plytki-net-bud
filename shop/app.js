@@ -1240,7 +1240,7 @@ document.querySelector("#checkoutModal")
     }
   });
 
-updateCompanyFields();
+// updateCompanyFields();
 
 // ================================
 // SZCZEGÓŁY PRODUKTU
