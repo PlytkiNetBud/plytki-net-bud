@@ -1094,9 +1094,28 @@ function openCheckout() {
   document.querySelector("#cartPanel")?.classList.remove("open");
   document.querySelector("#shade")?.classList.remove("open");
 
+  
+  const isInquiry = cart.some(isOversizedProduct);
+
+  const title = document.querySelector("#checkoutTitle");
+  const submitButton = form.querySelector('button[type="submit"]');
+
+  if (title) {
+    title.textContent = isInquiry
+      ? "Zapytanie o indywidualną wycenę"
+      : "Dane do zamówienia";
+  }
+
+  if (submitButton) {
+    submitButton.textContent = isInquiry
+      ? "Wyślij zapytanie o wycenę →"
+      : "Przejdź do podsumowania →";
+  }
+
   modal.classList.add("open");
   renderOrderSummary();
   document.querySelector("#customerName")?.focus();
+
 }
 
 function closeCheckout() {
