@@ -753,6 +753,27 @@ function updateCart() {
   const cartTotal = cart.reduce((sum, product) => {
     return sum + Number(product.price) * Number(product.quantity);
   }, 0);
+  
+  const deliveryInfo = document.querySelector("#cartDeliveryInfo");
+
+  if (deliveryInfo) {
+    const costs = calculateOrderCosts();
+
+    if (costs.oversizedDelivery) {
+      deliveryInfo.textContent =
+        "Transport: wycena indywidualna. " +
+        "Nośnik paletowy: wycena indywidualna. " +
+        "Ostateczne koszty potwierdzimy przed przyjęciem zamówienia.";
+    } else {
+      deliveryInfo.textContent =
+        (costs.delivery === 0
+          ? "Transport: GRATIS. "
+          : "Transport: 249 zł brutto (GRATIS od 2500 zł brutto). ") +
+        "Nośnik paletowy: 49,20 zł brutto za paletę. " +
+        "Liczba palet zostanie potwierdzona przed przyjęciem zamówienia.";
+    }
+  }
+
 
   const totalElement = document.querySelector("#cartTotal");
 
