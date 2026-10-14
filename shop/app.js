@@ -1136,32 +1136,102 @@ function closeCheckout() {
     ?.classList.remove("open");
 }
 
+
 document.querySelector("#checkoutForm")
-  ?.addEventListener("submit", event => {
+  ?.addEventListener("submit", async event => {
     event.preventDefault();
 
     const form = event.currentTarget;
     if (!form.reportValidity()) return;
 
-    const isInquiry = cart.some(isOversizedProduct);
-
-    if (isInquiry) {
-      alert(
-        "To jest zapytanie o indywidualną wycenę, " +
-        "a nie zamówienie. " +
-        "Przesłanie zapytania nie zobowiązuje do zakupu. " +
-        "Formularz jest jeszcze w wersji testowej — " +
-        "zapytanie nie zostało wysłane."
-      );
+    if (!cart.length) {
+      alert("Koszyk jest pusty.");
       return;
     }
 
-    alert(
-      "Formularz został poprawnie wypełniony. " +
-      "To wersja testowa sklepu — " +
-      "zamówienie nie zostało jeszcze wysłane."
+    const button = form.querySelector('button[type="submit"]');
+    if (button.disabled) return;
+
+    const originalText = button.textContent;
+    const isInquiry = cart.some(isOversizedProduct);
+    const costs = calculateOrderCosts();
+
+    const productsText = cart.map(product => {
+      return [
+        `Produkt: ${product.name}`,
+        `Producent: ${product.brand || "-"}`,
+        `SKU: ${product.sku || "-"}`,
+        `Ilość: ${formatNumber(product.quantity)} ${product.unit || ""}`,
+        `Cena jednostkowa: ${money(product.price)}`,
+        `Wartość: ${money(Number(product.price) * Number(product.quantity))}`
+      ].join("\n");
+    }).join("\n\n");
+
+    const data = new FormData(form);
+
+    data.set("rodzaj_zgloszenia", isInquiry
+      ? "Niewiążące zapytanie o indywidualną wycenę"
+      : "Zgłoszenie zamówienia do potwierdzenia"
     );
+
+    data.set("produkty", productsText);
+    data.set("wartosc_produktow", money(costs.productsTotal));
+
+    data.set("transport", costs.oversizedDelivery
+      ? "Wycena indywidualna"
+      : costs.delivery === 0
+        ? "GRATIS"
+        : money(costs.delivery)
+    );
+
+    data.set("nosnik_paletowy", costs.oversizedDelivery
+      ? "Wycena indywidualna"
+      : "49,20 zł brutto za paletę; liczba palet do potwierdzenia"
+    );
+
+    data.set("_subject", isInquiry
+      ? "Nowe zapytanie o wycenę - PŁYTKI NET BUD"
+      : "Nowe zgłoszenie zamówienia - PŁYTKI NET BUD"
+    );
+
+    data.set("email", data.get("customerEmail"));
+
+    button.disabled = true;
+    button.textContent = "Wysyłanie...";
+
+    try {
+      const response = await fetch(
+        "https://formspree.io/f/xbgdpjza",
+        {
+          method: "POST",
+          body: data,
+          headers: { Accept: "application/json" }
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Nie udało się wysłać zgłoszenia.");
+      }
+
+      alert(
+        "Dziękujemy! Zgłoszenie zostało wysłane. " +
+        "Skontaktujemy się w celu potwierdzenia szczegółów."
+      );
+
+    } catch (error) {
+      console.error("Błąd formularza:", error);
+
+      alert(
+        "Nie udało się wysłać zgłoszenia. " +
+        "Spróbuj ponownie lub napisz na sklep@plytki-net-bud.pl."
+      );
+
+    } finally {
+      button.disabled = false;
+      button.textContent = originalText;
+    }
   });
+
 
 document.querySelector("#checkoutModal")
   ?.addEventListener("click", event => {
