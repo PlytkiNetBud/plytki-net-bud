@@ -1014,8 +1014,20 @@ function renderOrderSummary() {
   const weightInfo = calculateCartWeight();
   const costs = calculateOrderCosts();
 
-  container.innerHTML = `
-    <h3>Podsumowanie zamówienia</h3>
+  
+container.innerHTML = `
+    <h3>${costs.oversizedDelivery
+      ? "Podsumowanie zapytania o wycenę"
+      : "Podsumowanie zamówienia"}</h3>
+
+    ${costs.oversizedDelivery
+      ? `<p class="product-logistics-note">
+          To jest niezobowiązujące zapytanie o indywidualną wycenę.
+          Nie stanowi złożenia zamówienia ani zobowiązania do zakupu.
+          Koszt transportu i nośnika paletowego ustalimy indywidualnie.
+        </p>`
+      : ""}
+
 
     <div class="total">
       <span>Wartość produktów</span>
