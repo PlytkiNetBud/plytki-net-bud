@@ -1118,37 +1118,36 @@ function openCheckout() {
 
 }
 
+
 function closeCheckout() {
-  document.querySelector("#checkoutModal")?.classList.remove("open");
+  document.querySelector("#checkoutModal")
+    ?.classList.remove("open");
 }
-
-function updateCompanyFields() {
-  const type = document.querySelector("#customerType")?.value;
-  const fields = document.querySelector("#companyFields");
-  const companyName = document.querySelector("#companyName");
-  const companyNip = document.querySelector("#companyNip");
-
-  const isCompany = type === "company";
-
-  if (fields) fields.hidden = !isCompany;
-  if (companyName) companyName.required = isCompany;
-  if (companyNip) companyNip.required = isCompany;
-}
-
-document.querySelector("#customerType")
-  ?.addEventListener("change", updateCompanyFields);
 
 document.querySelector("#checkoutForm")
   ?.addEventListener("submit", event => {
     event.preventDefault();
 
     const form = event.currentTarget;
-
     if (!form.reportValidity()) return;
+
+    const isInquiry = cart.some(isOversizedProduct);
+
+    if (isInquiry) {
+      alert(
+        "To jest zapytanie o indywidualną wycenę, " +
+        "a nie zamówienie. " +
+        "Przesłanie zapytania nie zobowiązuje do zakupu. " +
+        "Formularz jest jeszcze w wersji testowej — " +
+        "zapytanie nie zostało wysłane."
+      );
+      return;
+    }
 
     alert(
       "Formularz został poprawnie wypełniony. " +
-      "To wersja testowa sklepu — zamówienie nie zostało jeszcze wysłane."
+      "To wersja testowa sklepu — " +
+      "zamówienie nie zostało jeszcze wysłane."
     );
   });
 
