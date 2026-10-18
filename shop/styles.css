@@ -2117,3 +2117,66 @@ footer {
   }
 }
 
+/* PNB 2.0 — nowoczesny nagłówek */
+
+.top {
+  background: #fff;
+  box-shadow: 0 2px 12px rgba(0,0,0,.08);
+}
+
+.nav {
+  gap: 35px;
+  padding: 16px 0;
+}
+
+.search {
+  height: 48px;
+  border: 1px solid #d9dce1;
+  border-radius: 6px;
+}
+
+.search input {
+  font-size: 15px;
+  padding: 12px 18px;
+}
+
+.search button {
+  background: #e30613;
+  border-radius: 0;
+  padding: 0 25px;
+  font-weight: 700;
+}
+
+.search button:hover {
+  background: #b9000b;
+}
+
+.cart {
+  background: #111318;
+  border-radius: 6px;
+  height: 48px;
+  padding: 0 22px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.cart:hover {
+  background: #e30613;
+}
+
+.cart span {
+  background: #e30613;
+  color: #fff;
+}
+
+@media (max-width: 850px) {
+  .nav {
+    gap: 14px;
+  }
+
+  .search {
+    order: 3;
+    flex-basis: 100%;
+  }
+}
+
