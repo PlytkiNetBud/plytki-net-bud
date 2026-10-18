@@ -2554,3 +2554,35 @@ footer {
   }
 }
 
+/* PNB 2.0 — przycisk wyszukiwarki z lupą */
+
+.top .search button {
+  width: 58px;
+  min-width: 58px;
+  height: 52px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e30613;
+  color: #ffffff;
+  border: none;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+}
+
+.top .search button svg {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.top .search button:hover {
+  background: #bf0010;
+}
+
+.top .search input {
+  min-width: 0;
+  height: 52px;
+}
+
