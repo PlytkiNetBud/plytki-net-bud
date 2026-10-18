@@ -3380,3 +3380,29 @@ footer {
   }
 }
 
+
+/* PNB 2.0 — strzałki ponad panelem */
+
+@media (min-width: 851px) {
+  .hero.hero-pnb .hero-content {
+    z-index: 3;
+  }
+
+  .hero.hero-pnb .hero-gallery {
+    overflow: visible;
+  }
+
+  .hero.hero-pnb .hero-gallery-arrow {
+    z-index: 10 !important;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  }
+
+  .hero.hero-pnb .hero-gallery-arrow.prev {
+    left: 18px;
+  }
+
+  .hero.hero-pnb .hero-gallery-arrow.next {
+    right: 18px;
+  }
+}
