@@ -3012,434 +3012,49 @@ footer {
   }
 }
 
-/* PNB 2.0 — nowoczesny baner główny */
+/* ===== PNB 2.0 — BANER GEOMETRYCZNY / WERSJA UPORZĄDKOWANA ===== */
+/* Galeria zajmuje dotychczasowe 63%: nie zmieniamy kadrowania zdjęć. */
+.hero.hero-pnb { position: relative; margin: 0; padding: 0; overflow: hidden; background: #f5f5f5; }
+.hero.hero-pnb .hero-grid { position: relative; display: grid; grid-template-columns: 37% 63%; width: 100%; max-width: none; height: 430px; min-height: 430px; padding: 0; gap: 0; align-items: stretch; isolation: isolate; }
+.hero.hero-pnb .hero-gallery { position: relative; z-index: 1; width: 100%; height: 430px; min-height: 0; margin: 0; border: 0; border-radius: 0; overflow: hidden; background: #e9e9e9; box-shadow: none; }
+.hero.hero-pnb .hero-gallery-slides, .hero.hero-pnb .hero-gallery-slide { width: 100%; height: 100%; }
+.hero.hero-pnb .hero-gallery-slide img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; transform: none; filter: none; }
+.hero.hero-pnb .hero-gallery::before, .hero.hero-pnb .hero-gallery::after, .hero.hero-pnb .hero-gallery-slides::before, .hero.hero-pnb .hero-gallery-slides::after { display: none; }
 
-.hero.hero-pnb {
-  position: relative;
-  padding: 0;
-  background: #f5f5f5;
-  overflow: hidden;
-}
+/* Jasna baza i tekst — nie przycinamy napisów clip-path. */
+.hero.hero-pnb .hero-content, .hero.hero-pnb .hero-grid > div:first-child { position: relative; z-index: 4; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; width: auto; height: auto; min-height: 0; margin: 0; padding: 34px 15px 34px max(55px, calc((100vw - 1500px)/2)); background: transparent; color: #171717; clip-path: none; }
+.hero.hero-pnb .hero-content::before, .hero.hero-pnb .hero-content::after { display: none; content: none; }
+.hero.hero-pnb h1 { position: relative; z-index: 1; margin: 0 0 17px; max-width: 620px; font-family: Inter, Arial, sans-serif; font-size: clamp(28px, 2.5vw, 45px); font-weight: 800; letter-spacing: -.025em; line-height: 1.13; color: #171717; }
+.hero.hero-pnb h1 em { color: #e30613; font-style: normal; font-weight: 800; }
+.hero.hero-pnb p { position: relative; z-index: 1; max-width: 510px; margin: 0 0 22px; font-size: 15px; line-height: 1.55; color: #303030; }
+.hero.hero-pnb .primary { position: relative; z-index: 1; display: inline-flex; justify-content: center; align-items: center; min-height: 46px; padding: 0 25px; border-radius: 4px; background: #e30613; color: #fff; font-size: 13px; font-weight: 700; text-decoration: none; }
 
-.hero.hero-pnb .hero-grid {
-  display: grid;
-  grid-template-columns: 44% 56%;
-  align-items: stretch;
-  width: 100%;
-  max-width: none;
-  min-height: 390px;
-  gap: 0;
-}
-
-/* Jasny panel z tekstem */
-
-.hero.hero-pnb .hero-content {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 45px 45px 45px max(40px, calc((100vw - 1400px) / 2));
-  background: #f7f7f7;
-  color: #171717;
-}
-
-.hero.hero-pnb h1 {
-  margin: 0 0 20px;
-  color: #171717;
-  font-size: clamp(30px, 3.2vw, 54px);
-  font-weight: 800;
-  line-height: 1.12;
-}
-
-.hero.hero-pnb h1 em {
-  color: #df0613;
-  font-style: normal;
-}
-
-.hero.hero-pnb p {
-  max-width: 520px;
-  margin: 0 0 24px;
-  color: #383838;
-  font-size: 16px;
-  line-height: 1.65;
-}
-
-.hero.hero-pnb .primary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 46px;
-  padding: 0 26px;
-  border-radius: 4px;
-  background: #e30613;
-  color: #ffffff;
-  font-size: 13px;
-  font-weight: 700;
-  text-decoration: none;
-}
-
-/* Zdjęcia slidera */
-
-.hero.hero-pnb .hero-gallery {
-  position: relative;
-  min-width: 0;
-  min-height: 390px;
-  overflow: hidden;
-}
-
-/* Geometryczny akcent PNB */
-
-.hero.hero-pnb .hero-content::after {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  right: -18px;
-  top: 50%;
-  width: 36px;
-  height: 36px;
-  transform: translateY(-50%) rotate(45deg);
-  background: #e30613;
-}
-
-/* Wersja mobilna */
+/* Dekoracje w osobnej warstwie: nie są obcinane przez panel. */
+.hero.hero-pnb .pnb-hero-art { position: absolute; inset: 0; z-index: 2; pointer-events: none; overflow: hidden; }
+.hero.hero-pnb .pnb-hero-art > span { position: absolute; display: block; pointer-events: none; }
+/* Ukośna mleczna płaszczyzna od lewej, nałożona na prawy skraj tekstu i zdjęcie. */
+.hero.hero-pnb .pnb-hero-milk { inset: 0 auto 0 0; width: 57%; background: rgba(255,255,255,.78); clip-path: polygon(0 0, 68% 0, 100% 100%, 0 100%); }
+/* Subtelne jasnoszare wielokąty w dolnej części. */
+.hero.hero-pnb .pnb-hero-glass-a { left: 27%; bottom: -13%; width: 29%; height: 56%; background: rgba(236,237,239,.63); clip-path: polygon(49% 0,100% 100%,0 100%); }
+.hero.hero-pnb .pnb-hero-glass-b { right: -1%; bottom: -2%; width: 17%; height: 39%; background: rgba(255,255,255,.72); clip-path: polygon(100% 0,100% 100%,0 100%); }
+/* Czerwone romby, z białą ramką, poza przycinanym panelem. */
+.hero.hero-pnb .pnb-hero-diamond { width: 72px; height: 72px; background: #e30613; border: 7px solid rgba(255,255,255,.95); box-sizing: border-box; transform: rotate(45deg); box-shadow: 0 0 0 1px rgba(225,225,225,.35); }
+.hero.hero-pnb .pnb-hero-diamond-a { top: 14%; left: 40%; }
+.hero.hero-pnb .pnb-hero-diamond-b { bottom: 14%; left: 49%; width: 88px; height: 88px; }
+/* Strzałki i kropki: nad dekoracją i widoczne na zdjęciu. */
+.hero.hero-pnb .hero-gallery-arrow { position: absolute; z-index: 6; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,.92); color: #171717; box-shadow: 0 2px 10px rgba(0,0,0,.14); }
+.hero.hero-pnb .hero-gallery-arrow.prev { left: 15px; }
+.hero.hero-pnb .hero-gallery-arrow.next { right: 15px; }
+.hero.hero-pnb .hero-gallery-dots { z-index: 6; bottom: 15px; }
 
 @media (max-width: 850px) {
-  .hero.hero-pnb .hero-grid {
-    grid-template-columns: 1fr;
-    min-height: 0;
-  }
-
-  .hero.hero-pnb .hero-content {
-    padding: 35px 24px;
-  }
-
-  .hero.hero-pnb h1 {
-    font-size: clamp(28px, 7vw, 40px);
-  }
-
-  .hero.hero-pnb .hero-gallery {
-    min-height: 260px;
-  }
-
-  .hero.hero-pnb .hero-content::after {
-    display: none;
-  }
+  .hero.hero-pnb .hero-grid { grid-template-columns: 1fr; height: auto; min-height: 0; }
+  .hero.hero-pnb .hero-content, .hero.hero-pnb .hero-grid > div:first-child { padding: 32px 24px; background: #f7f7f7; }
+  .hero.hero-pnb h1 { font-size: clamp(28px, 6vw, 39px); }
+  .hero.hero-pnb .hero-gallery { height: 320px; }
+  .hero.hero-pnb .pnb-hero-art { display: none; }
 }
-
-/* PNB 2.0 — kompaktowa wysokość banera */
-
-@media (min-width: 851px) {
-  .hero.hero-pnb,
-  .hero.hero-pnb .hero-grid,
-  .hero.hero-pnb .hero-gallery {
-    height: 430px !important;
-    min-height: 430px !important;
-    max-height: 430px !important;
-  }
-
-  .hero.hero-pnb .hero-gallery-slides {
-    height: 100% !important;
-  }
-}
-
-/* PNB 2.0 — naturalne kolory zdjęć */
-
-.hero.hero-pnb .hero-gallery::before,
-.hero.hero-pnb .hero-gallery::after,
-.hero.hero-pnb .hero-gallery-slides::before,
-.hero.hero-pnb .hero-gallery-slides::after {
-  display: none !important;
-}
-
-.hero.hero-pnb .hero-gallery img {
-  filter: none !important;
-  opacity: 1 !important;
-}
-
-/* PNB 2.0 — baner geometryczny */
-
-@media (min-width: 851px) {
-
-  .hero.hero-pnb {
-    position: relative;
-    isolation: isolate;
-    overflow: hidden;
-    background: #f5f5f5;
-  }
-
-  .hero.hero-pnb .hero-grid {
-    position: relative;
-    display: block;
-    width: 100%;
-    max-width: none;
-    height: 430px;
-    min-height: 430px;
-    padding: 0;
-  }
-
-  /* Zdjęcia na całej szerokości banera */
-
-  .hero.hero-pnb .hero-gallery {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    min-height: 0;
-    border-radius: 0;
-    overflow: hidden;
-    z-index: 0;
-  }
-
-  .hero.hero-pnb .hero-gallery-slides,
-  .hero.hero-pnb .hero-gallery-slide {
-    width: 100%;
-    height: 100%;
-  }
-
-  .hero.hero-pnb .hero-gallery-slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-  }
-
-  /* Jasny panel z ukośną krawędzią */
-
-  .hero.hero-pnb .hero-content {
-    position: absolute;
-    z-index: 3;
-    inset: 0 auto 0 0;
-    width: 52%;
-    box-sizing: border-box;
-    padding: 35px 12% 35px
-      max(60px, calc((100vw - 1400px) / 2));
-
-    background: rgba(250, 250, 250, 0.95);
-
-   clip-path: polygon(
-  0 0,
-  78% 0,
-  100% 100%,
-  0 100%
-);
-
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-  }
-
-  .hero.hero-pnb h1 {
-    font-size: clamp(30px, 3vw, 49px);
-    line-height: 1.13;
-    max-width: 590px;
-  }
-
-  .hero.hero-pnb p {
-    max-width: 490px;
-    font-size: 15px;
-    line-height: 1.5;
-  }
-
-  /* Czerwony romb */
-
-  .hero.hero-pnb .hero-content::after {
-    content: "";
-    position: absolute;
-    z-index: -1;
-    top: 15%;
-    right: 12%;
-    width: 55px;
-    height: 55px;
-    transform: rotate(45deg);
-    background: #e30613;
-    pointer-events: none;
-  }
-
-  /* Drugi geometryczny akcent */
-
-  .hero.hero-pnb .hero-content::before {
-    content: "";
-    position: absolute;
-    right: 7%;
-    bottom: 13%;
-    width: 100px;
-    height: 100px;
-    transform: rotate(45deg);
-    background: rgba(227, 6, 19, 0.85);
-    pointer-events: none;
-  }
-
-  /* Nawigacja slidera ponad grafiką */
-
-  .hero.hero-pnb .hero-gallery-arrow {
-    z-index: 5;
-  }
-
-  .hero.hero-pnb .hero-gallery-dots {
-    z-index: 5;
-  }
-}
-
-/* Telefony — czytelny układ */
-
-@media (max-width: 850px) {
-  .hero.hero-pnb .hero-content {
-    clip-path: none;
-  }
-
-  .hero.hero-pnb .hero-content::before,
-  .hero.hero-pnb .hero-content::after {
-    display: none;
-  }
-}
-
-/* PNB 2.0 — większa ekspozycja aranżacji */
-
-@media (min-width: 851px) {
-
-  .hero.hero-pnb .hero-content {
-    width: 46% !important;
-    padding: 30px 70px 30px 55px !important;
-
-    clip-path: polygon(
-      0 0,
-      82% 0,
-      100% 100%,
-      0 100%
-    );
-  }
-
-  .hero.hero-pnb h1 {
-    font-size: clamp(28px, 2.5vw, 42px);
-    line-height: 1.12;
-    max-width: 570px;
-  }
-
-  .hero.hero-pnb p {
-    font-size: 14px;
-    max-width: 460px;
-  }
-
-  .hero.hero-pnb .hero-gallery-slide img {
-    object-position: 65% center;
-  }
-}
-
-/* PNB 2.0 — mocniejszy skos i mleczne tło */
-
-@media (min-width: 851px) {
-
-  .hero.hero-pnb .hero-content {
-    width: 58% !important;
-
-    background: rgba(255, 255, 255, 0.76) !important;
-
-    clip-path: polygon(
-      0 0,
-      64% 0,
-      100% 100%,
-      0 100%
-    ) !important;
-
-    padding: 30px 115px 30px 55px !important;
-  }
-
-  .hero.hero-pnb h1,
-  .hero.hero-pnb p,
-  .hero.hero-pnb .primary {
-    position: relative;
-    z-index: 2;
-  }
-}
-
-/* PNB 2.0 — subtelniejsze czerwone romby */
-
-@media (min-width: 851px) {
-
-  .hero.hero-pnb .hero-content::before {
-    top: 18% !important;
-    right: 25% !important;
-    bottom: auto !important;
-    width: 52px !important;
-    height: 52px !important;
-    background: #e30613 !important;
-    transform: rotate(45deg) !important;
-  }
-
-  .hero.hero-pnb .hero-content::after {
-    top: 68% !important;
-    right: 10% !important;
-    bottom: auto !important;
-    width: 58px !important;
-    height: 58px !important;
-    background: #e30613 !important;
-    transform: rotate(45deg) !important;
-  }
-}
-
-
-/* PNB 2.0 — strzałki ponad panelem */
-
-@media (min-width: 851px) {
-  .hero.hero-pnb .hero-content {
-    z-index: 3;
-  }
-
-  .hero.hero-pnb .hero-gallery {
-    overflow: visible;
-  }
-
-  .hero.hero-pnb .hero-gallery-arrow {
-    z-index: 10 !important;
-    background: rgba(255, 255, 255, 0.95);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-  }
-
-  .hero.hero-pnb .hero-gallery-arrow.prev {
-    left: 18px;
-  }
-
-  .hero.hero-pnb .hero-gallery-arrow.next {
-    right: 18px;
-  }
-}
-
-/* PNB 2.0 — zdjęcia bez rozciągania i przycinania */
-
-@media (min-width: 851px) {
-  .hero.hero-pnb .hero-gallery-slide {
-    background: #f3f3f3;
-  }
-
-  .hero.hero-pnb .hero-gallery-slide img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-    object-position: center center !important;
-    transform: none !important;
-  }
-}
-/* PNB — galeria na pełną szerokość banera */
-
-@media (min-width: 851px) {
-
-  .hero.hero-pnb .hero-gallery,
-  .hero.hero-pnb .hero-gallery-slides,
-  .hero.hero-pnb .hero-gallery-slide {
-    width: 100% !important;
-    max-width: none !important;
-    height: 100% !important;
-  }
-
-  .hero.hero-pnb .hero-gallery-slide img {
-    display: block !important;
-    width: 100% !important;
-    max-width: none !important;
-    height: 100% !important;
-    object-fit: cover !important;
-    object-position: center !important;
-  }
+@media (max-width: 560px) {
+  .hero.hero-pnb .hero-gallery { height: 250px; }
+  .hero.hero-pnb .hero-content, .hero.hero-pnb .hero-grid > div:first-child { padding: 28px 20px; }
 }
