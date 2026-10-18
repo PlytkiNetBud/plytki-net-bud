@@ -2073,3 +2073,26 @@ footer {
   --line: #e2e5e9;
 }
 
+/* PNB 2.0 — czerwone menu kategorii */
+.top {
+  background: #ffffff;
+}
+
+.cats {
+  background: #e30613;
+  padding: 14px 18px;
+  border-radius: 4px;
+  gap: 28px;
+}
+
+.cats button,
+.cats a {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.cats button:hover,
+.cats a:hover {
+  color: #111318;
+}
+
