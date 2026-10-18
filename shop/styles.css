@@ -3406,3 +3406,20 @@ footer {
     right: 18px;
   }
 }
+
+/* PNB 2.0 — zdjęcia bez rozciągania i przycinania */
+
+@media (min-width: 851px) {
+  .hero.hero-pnb .hero-gallery-slide {
+    background: #f3f3f3;
+  }
+
+  .hero.hero-pnb .hero-gallery-slide img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+    transform: none !important;
+  }
+}
+
