@@ -2520,14 +2520,16 @@ footer {
   overflow: visible;
 }
 
+
 .top .logo img {
   display: block;
   width: 260px;
-  height: 105px;
+  height: 125px;
   max-width: none;
   max-height: none;
   object-fit: fill;
 }
+
 
 
 
