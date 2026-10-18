@@ -2646,3 +2646,23 @@ footer {
   color: #e30613;
 }
 
+/* PNB 2.0 — poprawka koloru koszyka */
+
+.top button.cart,
+.top button.cart:hover,
+.top button.cart:focus {
+  background: transparent !important;
+  color: #171717 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.top button.cart svg {
+  stroke: #171717 !important;
+}
+
+.top button.cart #cartCount {
+  background: #e30613 !important;
+  color: #ffffff !important;
+}
+
