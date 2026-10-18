@@ -2505,3 +2505,37 @@ footer {
   }
 }
 
+/* PNB 2.0 — proporcje górnego nagłówka */
+
+.top .nav {
+  min-height: 135px;
+  gap: 32px;
+}
+
+.top .logo img {
+  width: 270px;
+  max-height: 125px;
+  object-fit: contain;
+}
+
+.top .search {
+  flex: 1;
+  min-width: 0;
+}
+
+.top .cart {
+  flex-shrink: 0;
+}
+
+@media (max-width: 700px) {
+  .top .nav {
+    min-height: 100px;
+    gap: 12px;
+  }
+
+  .top .logo img {
+    width: 145px;
+    max-height: 85px;
+  }
+}
+
