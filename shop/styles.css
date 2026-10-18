@@ -2925,3 +2925,32 @@ footer {
   border-radius: 6px;
 }
 
+/* PNB 2.0 — elegancka typografia menu */
+
+.top .cats > a,
+.top .cats > button {
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.7px;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+/* KONTAKT — centrowanie w pionie i poziomie */
+
+.top .cats > a[href="#contact"] {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box;
+  height: 34px !important;
+  min-height: 34px !important;
+  padding: 0 24px !important;
+  line-height: 1 !important;
+  vertical-align: middle;
+  text-align: center;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
