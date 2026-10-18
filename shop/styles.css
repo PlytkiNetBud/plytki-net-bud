@@ -3012,3 +3012,119 @@ footer {
   }
 }
 
+/* PNB 2.0 — nowoczesny baner główny */
+
+.hero.hero-pnb {
+  position: relative;
+  padding: 0;
+  background: #f5f5f5;
+  overflow: hidden;
+}
+
+.hero.hero-pnb .hero-grid {
+  display: grid;
+  grid-template-columns: 44% 56%;
+  align-items: stretch;
+  width: 100%;
+  max-width: none;
+  min-height: 390px;
+  gap: 0;
+}
+
+/* Jasny panel z tekstem */
+
+.hero.hero-pnb .hero-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 45px 45px 45px max(40px, calc((100vw - 1400px) / 2));
+  background: #f7f7f7;
+  color: #171717;
+}
+
+.hero.hero-pnb h1 {
+  margin: 0 0 20px;
+  color: #171717;
+  font-size: clamp(30px, 3.2vw, 54px);
+  font-weight: 800;
+  line-height: 1.12;
+}
+
+.hero.hero-pnb h1 em {
+  color: #df0613;
+  font-style: normal;
+}
+
+.hero.hero-pnb p {
+  max-width: 520px;
+  margin: 0 0 24px;
+  color: #383838;
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.hero.hero-pnb .primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0 26px;
+  border-radius: 4px;
+  background: #e30613;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* Zdjęcia slidera */
+
+.hero.hero-pnb .hero-gallery {
+  position: relative;
+  min-width: 0;
+  min-height: 390px;
+  overflow: hidden;
+}
+
+/* Geometryczny akcent PNB */
+
+.hero.hero-pnb .hero-content::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  right: -18px;
+  top: 50%;
+  width: 36px;
+  height: 36px;
+  transform: translateY(-50%) rotate(45deg);
+  background: #e30613;
+}
+
+/* Wersja mobilna */
+
+@media (max-width: 850px) {
+  .hero.hero-pnb .hero-grid {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .hero.hero-pnb .hero-content {
+    padding: 35px 24px;
+  }
+
+  .hero.hero-pnb h1 {
+    font-size: clamp(28px, 7vw, 40px);
+  }
+
+  .hero.hero-pnb .hero-gallery {
+    min-height: 260px;
+  }
+
+  .hero.hero-pnb .hero-content::after {
+    display: none;
+  }
+}
+
