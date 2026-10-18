@@ -3106,3 +3106,30 @@ footer {
   display: none !important;
 }
 
+/* PNB — nakładka geometryczna PNG */
+.hero.hero-pnb .hero-grid {
+  position: relative;
+}
+
+.hero.hero-pnb .pnb-hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background-image: url("nakladka_PNB.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+}
+
+.hero.hero-pnb .hero-content {
+  position: relative;
+  z-index: 4;
+}
+
+@media (max-width: 850px) {
+  .hero.hero-pnb .pnb-hero-overlay {
+    display: none;
+  }
+}
+
