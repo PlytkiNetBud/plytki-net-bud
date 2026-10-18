@@ -3355,3 +3355,28 @@ footer {
   }
 }
 
+/* PNB 2.0 — subtelniejsze czerwone romby */
+
+@media (min-width: 851px) {
+
+  .hero.hero-pnb .hero-content::before {
+    top: 18% !important;
+    right: 25% !important;
+    bottom: auto !important;
+    width: 52px !important;
+    height: 52px !important;
+    background: #e30613 !important;
+    transform: rotate(45deg) !important;
+  }
+
+  .hero.hero-pnb .hero-content::after {
+    top: 68% !important;
+    right: 10% !important;
+    bottom: auto !important;
+    width: 58px !important;
+    height: 58px !important;
+    background: #e30613 !important;
+    transform: rotate(45deg) !important;
+  }
+}
+
