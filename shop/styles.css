@@ -3417,8 +3417,29 @@ footer {
   .hero.hero-pnb .hero-gallery-slide img {
     width: 100% !important;
     height: 100% !important;
-    object-fit: contain !important;
+    object-fit: cover !important;
     object-position: center center !important;
     transform: none !important;
+  }
+}
+/* PNB — galeria na pełną szerokość banera */
+
+@media (min-width: 851px) {
+
+  .hero.hero-pnb .hero-gallery,
+  .hero.hero-pnb .hero-gallery-slides,
+  .hero.hero-pnb .hero-gallery-slide {
+    width: 100% !important;
+    max-width: none !important;
+    height: 100% !important;
+  }
+
+  .hero.hero-pnb .hero-gallery-slide img {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
   }
 }
