@@ -2757,3 +2757,144 @@ footer {
   }
 }
 
+/* PNB 2.0 — pasek informacyjny */
+
+.pnb-info-bar {
+  background: #111318;
+  color: #ffffff;
+}
+
+.pnb-info-bar .wrap {
+  width: min(1700px, calc(100% - 60px));
+}
+
+.pnb-info-bar,
+.pnb-info-bar a,
+.pnb-info-bar span {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.pnb-info-bar a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.pnb-info-bar a:hover {
+  color: #ff4550;
+}
+
+/* PNB 2.0 — wyśrodkowanie koszyka */
+
+.top .cart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  gap: 6px;
+  width: 100px;
+  min-width: 100px;
+  height: 85px;
+  padding: 8px;
+  margin-left: auto;
+  background: transparent !important;
+  color: #171717 !important;
+}
+
+.top .cart-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 40px;
+  height: 36px;
+}
+
+.top .cart-icon-wrap svg {
+  width: 34px;
+  height: 34px;
+  fill: none !important;
+  stroke: #171717 !important;
+}
+
+.top .cart-label {
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+  background: transparent !important;
+  color: #171717 !important;
+  padding: 0 !important;
+}
+
+.top .cart #cartCount {
+  top: -6px;
+  right: -10px;
+}
+
+/* PNB 2.0 — elegancki pasek kategorii */
+
+.top .cats {
+  min-height: 58px;
+  height: 58px;
+  padding: 0 32px;
+  gap: 14px;
+  align-items: center;
+  background: #e30613;
+}
+
+.top .cats > a,
+.top .cats > button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 58px;
+  padding: 0 20px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.top .cats > a:hover,
+.top .cats > button:hover {
+  background: rgba(0, 0, 0, 0.12);
+  color: #ffffff;
+}
+
+/* PNB 2.0 — przycisk KONTAKT */
+
+.top .cats > a[href="#contact"] {
+  margin-left: auto;
+  margin-right: 12px;
+  height: 40px;
+  padding: 0 26px;
+  background: #171717;
+  color: #ffffff;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.top .cats > a[href="#contact"]:hover {
+  background: #333333;
+  color: #ffffff;
+}
+
+/* Menu na mniejszych ekranach */
+@media (max-width: 850px) {
+  .top .cats {
+    overflow-x: auto;
+    padding: 0 14px;
+  }
+
+  .top .cats > a[href="#contact"] {
+    margin-left: 0;
+    margin-right: 0;
+    flex-shrink: 0;
+  }
+}
+
