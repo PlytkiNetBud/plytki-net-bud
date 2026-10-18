@@ -3100,3 +3100,9 @@ footer {
   .hero.hero-pnb .hero-gallery { height: 250px; }
   .hero.hero-pnb .hero-content, .hero.hero-pnb .hero-grid > div:first-child { padding: 28px 20px; }
 }
+
+/* Ukrycie strzałek w galerii banera */
+.hero-gallery-arrow {
+  display: none !important;
+}
+
