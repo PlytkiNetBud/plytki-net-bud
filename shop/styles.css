@@ -2512,20 +2512,22 @@ footer {
   gap: 32px;
 }
 
+
 .top .logo {
-  width: 300px;
+  width: 235px;
   flex-shrink: 0;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .top .logo img {
   display: block;
-  width: 300px;
-  height: 145px;
-  max-width: none;
-  max-height: none;
+  width: 235px;
+  height: auto;
+  max-width: 100%;
+  max-height: 130px;
   object-fit: contain;
 }
+
 
 .top .search {
   flex: 1;
