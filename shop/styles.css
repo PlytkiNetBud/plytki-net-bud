@@ -2388,3 +2388,30 @@ footer {
   color: #ffffff;
 }
 
+/* PNB 2.0 — wyśrodkowanie menu */
+
+.top .cats {
+  display: flex;
+  align-items: stretch;
+  min-height: 72px;
+  gap: 0;
+}
+
+.top .cats > a,
+.top .cats > button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  padding: 0 18px;
+  line-height: 1.2;
+  height: auto;
+}
+
+.top .cats .nav-contact {
+  margin-left: auto;
+  padding: 0 40px;
+  background: #111318;
+  border-radius: 0;
+}
+
