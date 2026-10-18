@@ -2738,7 +2738,7 @@ footer {
   width: 100%;
   max-width: 780px;
   min-width: 0;
-  margin-left: auto;
+  margin-left: 35px;
 }
 
 .top .cart {
