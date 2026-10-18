@@ -3158,3 +3158,142 @@ footer {
   opacity: 1 !important;
 }
 
+/* PNB 2.0 — baner geometryczny */
+
+@media (min-width: 851px) {
+
+  .hero.hero-pnb {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background: #f5f5f5;
+  }
+
+  .hero.hero-pnb .hero-grid {
+    position: relative;
+    display: block;
+    width: 100%;
+    max-width: none;
+    height: 430px;
+    min-height: 430px;
+    padding: 0;
+  }
+
+  /* Zdjęcia na całej szerokości banera */
+
+  .hero.hero-pnb .hero-gallery {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    border-radius: 0;
+    overflow: hidden;
+    z-index: 0;
+  }
+
+  .hero.hero-pnb .hero-gallery-slides,
+  .hero.hero-pnb .hero-gallery-slide {
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero.hero-pnb .hero-gallery-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  /* Jasny panel z ukośną krawędzią */
+
+  .hero.hero-pnb .hero-content {
+    position: absolute;
+    z-index: 3;
+    inset: 0 auto 0 0;
+    width: 58%;
+    box-sizing: border-box;
+    padding: 35px 12% 35px
+      max(60px, calc((100vw - 1400px) / 2));
+
+    background: rgba(250, 250, 250, 0.95);
+
+    clip-path: polygon(
+      0 0,
+      68% 0,
+      100% 68%,
+      78% 100%,
+      0 100%
+    );
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .hero.hero-pnb h1 {
+    font-size: clamp(30px, 3vw, 49px);
+    line-height: 1.13;
+    max-width: 590px;
+  }
+
+  .hero.hero-pnb p {
+    max-width: 490px;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  /* Czerwony romb */
+
+  .hero.hero-pnb .hero-content::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 15%;
+    right: 12%;
+    width: 55px;
+    height: 55px;
+    transform: rotate(45deg);
+    background: #e30613;
+    pointer-events: none;
+  }
+
+  /* Drugi geometryczny akcent */
+
+  .hero.hero-pnb .hero-content::before {
+    content: "";
+    position: absolute;
+    right: 7%;
+    bottom: 13%;
+    width: 100px;
+    height: 100px;
+    transform: rotate(45deg);
+    background: rgba(227, 6, 19, 0.85);
+    pointer-events: none;
+  }
+
+  /* Nawigacja slidera ponad grafiką */
+
+  .hero.hero-pnb .hero-gallery-arrow {
+    z-index: 5;
+  }
+
+  .hero.hero-pnb .hero-gallery-dots {
+    z-index: 5;
+  }
+}
+
+/* Telefony — czytelny układ */
+
+@media (max-width: 850px) {
+  .hero.hero-pnb .hero-content {
+    clip-path: none;
+  }
+
+  .hero.hero-pnb .hero-content::before,
+  .hero.hero-pnb .hero-content::after {
+    display: none;
+  }
+}
+
