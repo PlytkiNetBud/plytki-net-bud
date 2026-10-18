@@ -3328,3 +3328,30 @@ footer {
   }
 }
 
+/* PNB 2.0 — mocniejszy skos i mleczne tło */
+
+@media (min-width: 851px) {
+
+  .hero.hero-pnb .hero-content {
+    width: 58% !important;
+
+    background: rgba(255, 255, 255, 0.76) !important;
+
+    clip-path: polygon(
+      0 0,
+      64% 0,
+      100% 100%,
+      0 100%
+    ) !important;
+
+    padding: 30px 115px 30px 55px !important;
+  }
+
+  .hero.hero-pnb h1,
+  .hero.hero-pnb p,
+  .hero.hero-pnb .primary {
+    position: relative;
+    z-index: 2;
+  }
+}
+
