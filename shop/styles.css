@@ -2962,3 +2962,11 @@ footer {
   margin-bottom: auto !important;
 }
 
+/* PNB 2.0 — pogrubione napisy menu */
+
+.top .cats > a,
+.top .cats > button {
+  font-weight: 700 !important;
+  letter-spacing: 0.5px;
+}
+
