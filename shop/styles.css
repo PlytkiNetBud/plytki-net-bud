@@ -3014,7 +3014,7 @@ footer {
 
 /* ===== PNB 2.0 — BANER GEOMETRYCZNY / WERSJA UPORZĄDKOWANA ===== */
 /* Galeria zajmuje dotychczasowe 63%: nie zmieniamy kadrowania zdjęć. */
-.hero.hero-pnb { position: relative; margin: 0; padding: 0; overflow: hidden; background: #f5f5f5; }
+.hero.hero-pnb { position: relative; margin: 0; padding: 0; overflow: hidden; background: #ffffff; }
 .hero.hero-pnb .hero-grid { position: relative; display: grid; grid-template-columns: 37% 63%; width: 100%; max-width: none; height: 430px; min-height: 430px; padding: 0; gap: 0; align-items: stretch; isolation: isolate; }
 .hero.hero-pnb .hero-gallery { position: relative; z-index: 1; width: 100%; height: 430px; min-height: 0; margin: 0; border: 0; border-radius: 0; overflow: hidden; background: #e9e9e9; box-shadow: none; }
 .hero.hero-pnb .hero-gallery-slides, .hero.hero-pnb .hero-gallery-slide { width: 100%; height: 100%; }
@@ -3022,7 +3022,7 @@ footer {
 .hero.hero-pnb .hero-gallery::before, .hero.hero-pnb .hero-gallery::after, .hero.hero-pnb .hero-gallery-slides::before, .hero.hero-pnb .hero-gallery-slides::after { display: none; }
 
 /* Jasna baza i tekst — nie przycinamy napisów clip-path. */
-.hero.hero-pnb .hero-content, .hero.hero-pnb .hero-grid > div:first-child { position: relative; z-index: 4; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; width: auto; height: auto; min-height: 0; margin: 0; padding: 34px 15px 34px max(55px, calc((100vw - 1500px)/2)); background: transparent; color: #171717; clip-path: none; }
+.hero.hero-pnb .hero-content, .hero.hero-pnb .hero-grid > div:first-child { position: relative; z-index: 4; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; width: auto; height: auto; min-height: 0; margin: 0; padding: 34px 15px 34px max(55px, calc((100vw - 1500px)/2)); background: #ffffff; color: #171717; clip-path: none; }
 .hero.hero-pnb .hero-content::before, .hero.hero-pnb .hero-content::after { display: none; content: none; }
 .hero.hero-pnb h1 { position: relative; z-index: 1; margin: 0 0 17px; max-width: 620px; font-family: Inter, Arial, sans-serif; font-size: clamp(28px, 2.5vw, 45px); font-weight: 800; letter-spacing: -.025em; line-height: 1.13; color: #171717; }
 .hero.hero-pnb h1 em { color: #e30613; font-style: normal; font-weight: 800; }
@@ -3033,14 +3033,14 @@ footer {
 .hero.hero-pnb .pnb-hero-art { position: absolute; inset: 0; z-index: 2; pointer-events: none; overflow: hidden; }
 .hero.hero-pnb .pnb-hero-art > span { position: absolute; display: block; pointer-events: none; }
 /* Ukośna mleczna płaszczyzna od lewej, nałożona na prawy skraj tekstu i zdjęcie. */
-.hero.hero-pnb .pnb-hero-milk { inset: 0 auto 0 0; width: 57%; background: rgba(255,255,255,.78); clip-path: polygon(0 0, 68% 0, 100% 100%, 0 100%); }
+.hero.hero-pnb .pnb-hero-milk { inset: 0 auto 0 0; width: 55%; background: rgba(255,255,255,.87); clip-path: polygon(0 0, 76% 0, 100% 100%, 0 100%); }
 /* Subtelne jasnoszare wielokąty w dolnej części. */
-.hero.hero-pnb .pnb-hero-glass-a { left: 27%; bottom: -13%; width: 29%; height: 56%; background: rgba(236,237,239,.63); clip-path: polygon(49% 0,100% 100%,0 100%); }
-.hero.hero-pnb .pnb-hero-glass-b { right: -1%; bottom: -2%; width: 17%; height: 39%; background: rgba(255,255,255,.72); clip-path: polygon(100% 0,100% 100%,0 100%); }
+.hero.hero-pnb .pnb-hero-glass-a { left: 29%; bottom: -10%; width: 25%; height: 39%; background: rgba(226,228,232,.33); clip-path: polygon(49% 0,100% 100%,0 100%); }
+.hero.hero-pnb .pnb-hero-glass-b { right: -1%; bottom: -2%; width: 12%; height: 26%; background: rgba(255,255,255,.52); clip-path: polygon(100% 0,100% 100%,0 100%); }
 /* Czerwone romby, z białą ramką, poza przycinanym panelem. */
-.hero.hero-pnb .pnb-hero-diamond { width: 72px; height: 72px; background: #e30613; border: 7px solid rgba(255,255,255,.95); box-sizing: border-box; transform: rotate(45deg); box-shadow: 0 0 0 1px rgba(225,225,225,.35); }
-.hero.hero-pnb .pnb-hero-diamond-a { top: 14%; left: 40%; }
-.hero.hero-pnb .pnb-hero-diamond-b { bottom: 14%; left: 49%; width: 88px; height: 88px; }
+.hero.hero-pnb .pnb-hero-diamond { width: 54px; height: 54px; background: #e30613; border: 5px solid rgba(255,255,255,.95); box-sizing: border-box; transform: rotate(45deg); box-shadow: 0 0 0 1px rgba(225,225,225,.35); }
+.hero.hero-pnb .pnb-hero-diamond-a { top: 19%; left: 39%; }
+.hero.hero-pnb .pnb-hero-diamond-b { bottom: 22%; left: 47%; width: 66px; height: 66px; }
 /* Strzałki i kropki: nad dekoracją i widoczne na zdjęciu. */
 .hero.hero-pnb .hero-gallery-arrow { position: absolute; z-index: 6; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,.92); color: #171717; box-shadow: 0 2px 10px rgba(0,0,0,.14); }
 .hero.hero-pnb .hero-gallery-arrow.prev { left: 15px; }
