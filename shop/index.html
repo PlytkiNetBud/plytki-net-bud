@@ -7,11 +7,26 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  
+<div class="pnb-info-bar">
+  <div class="pnb-info-inner">
+    <span>🚚 Darmowa dostawa od 2 500 zł</span>
+    <span>◷ Dostawa zwykle 3–4 dni robocze od potwierdzenia płatności</span>
+    <span>🔒 Bezpieczne składanie zamówień</span>
+    <a href="tel:+48730636936">
+      ☎ +48 730 636 936
+    </a>
+    <a href="mailto:sklep@plytki-net-bud.pl">
+      ✉ sklep@plytki-net-bud.pl
+    </a>
+  </div>
+</div>
+
 <header class="top"><div class="wrap nav">
 <a class="logo" href="#" aria-label="PŁYTKI NET BUD — strona główna">
   <img src="logo.jpg" alt="PŁYTKI NET BUD">
 </a>
-<div class="search"><input id="search" placeholder="Szukaj produktu, kolekcji, EAN…"><button type="button" onclick="searchProducts(document.querySelector('#search').value)">Szukaj</button></div><button class="cart" onclick="toggleCart()">Koszyk <span id="cartCount">0</span></button></div>
+<div class="search"><input id="search" placeholder="Czego szukasz? Wpisz nazwę, producenta lub EAN..."><button type="button" onclick="searchProducts(document.querySelector('#search').value)">Szukaj</button></div><button class="cart" onclick="toggleCart()">Koszyk <span id="cartCount">0</span></button></div>
 <nav class="cats wrap">
   <a href="#products">Płytki</a>
   <a href="#meble-lazienkowe">Meble łazienkowe</a>
@@ -220,4 +235,6 @@
 </div>
 
 <script src="app.js"></script>
+  
 </body></html>
+
