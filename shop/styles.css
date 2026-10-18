@@ -2455,3 +2455,53 @@ footer {
   }
 }
 
+/* PNB 2.0 — górny czarny pasek */
+
+.pnb-info-bar {
+  background: #111318;
+  color: #ffffff;
+  width: 100%;
+}
+
+.pnb-info-inner {
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.pnb-info-inner span {
+  white-space: nowrap;
+}
+
+.pnb-info-inner a {
+  color: #ffffff;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.pnb-info-inner a:hover {
+  color: #ff5660;
+}
+
+@media (max-width: 900px) {
+  .pnb-info-inner {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px 20px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 560px) {
+  .pnb-info-inner {
+    padding: 10px 15px;
+    font-size: 11px;
+  }
+}
+
