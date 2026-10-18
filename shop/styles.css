@@ -3144,3 +3144,17 @@ footer {
   }
 }
 
+/* PNB 2.0 — naturalne kolory zdjęć */
+
+.hero.hero-pnb .hero-gallery::before,
+.hero.hero-pnb .hero-gallery::after,
+.hero.hero-pnb .hero-gallery-slides::before,
+.hero.hero-pnb .hero-gallery-slides::after {
+  display: none !important;
+}
+
+.hero.hero-pnb .hero-gallery img {
+  filter: none !important;
+  opacity: 1 !important;
+}
+
