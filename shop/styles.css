@@ -2666,3 +2666,26 @@ footer {
   color: #ffffff !important;
 }
 
+/* PNB 2.0 — usunięcie tła z ikony i napisu */
+
+.top .cart .cart-icon-wrap,
+.top .cart .cart-label {
+  background: transparent !important;
+  color: #171717 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+}
+
+.top .cart .cart-icon-wrap svg {
+  fill: none !important;
+  stroke: #171717 !important;
+}
+
+.top .cart .cart-icon-wrap #cartCount {
+  background: #e30613 !important;
+  color: #ffffff !important;
+  border-radius: 50% !important;
+}
+
