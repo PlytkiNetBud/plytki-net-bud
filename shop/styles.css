@@ -3296,3 +3296,35 @@ footer {
   }
 }
 
+/* PNB 2.0 — większa ekspozycja aranżacji */
+
+@media (min-width: 851px) {
+
+  .hero.hero-pnb .hero-content {
+    width: 46% !important;
+    padding: 30px 70px 30px 55px !important;
+
+    clip-path: polygon(
+      0 0,
+      82% 0,
+      100% 100%,
+      0 100%
+    );
+  }
+
+  .hero.hero-pnb h1 {
+    font-size: clamp(28px, 2.5vw, 42px);
+    line-height: 1.12;
+    max-width: 570px;
+  }
+
+  .hero.hero-pnb p {
+    font-size: 14px;
+    max-width: 460px;
+  }
+
+  .hero.hero-pnb .hero-gallery-slide img {
+    object-position: 65% center;
+  }
+}
+
