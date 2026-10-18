@@ -2954,3 +2954,11 @@ footer {
   margin-bottom: 0 !important;
 }
 
+/* PNB 2.0 — wyśrodkowanie przycisku KONTAKT */
+
+.top .cats > a[href="#contact"] {
+  align-self: center !important;
+  margin-top: auto !important;
+  margin-bottom: auto !important;
+}
+
