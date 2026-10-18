@@ -3128,3 +3128,19 @@ footer {
   }
 }
 
+/* PNB 2.0 — kompaktowa wysokość banera */
+
+@media (min-width: 851px) {
+  .hero.hero-pnb,
+  .hero.hero-pnb .hero-grid,
+  .hero.hero-pnb .hero-gallery {
+    height: 430px !important;
+    min-height: 430px !important;
+    max-height: 430px !important;
+  }
+
+  .hero.hero-pnb .hero-gallery-slides {
+    height: 100% !important;
+  }
+}
+
