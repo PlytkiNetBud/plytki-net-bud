@@ -2289,3 +2289,50 @@ footer {
   }
 }
 
+/* PNB 2.0 — dopracowanie banera */
+
+.hero-grid > div:first-child {
+  max-width: 800px;
+  padding-left: max(40px, calc((100vw - 1380px) / 2));
+  padding-right: 25px;
+}
+
+.hero h1 {
+  font-size: clamp(34px, 3.5vw, 54px);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+}
+
+.hero h1 em {
+  font-weight: 800;
+}
+
+.hero p {
+  max-width: 530px;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+/* Czerwony pasek na całą szerokość */
+
+.top .cats {
+  width: 100%;
+  max-width: none;
+  border-radius: 0;
+  padding: 16px max(24px, calc((100vw - 1380px) / 2));
+}
+
+@media (max-width: 700px) {
+  .hero-grid > div:first-child {
+    padding: 65px 24px;
+  }
+
+  .hero h1 {
+    font-size: 36px;
+  }
+
+  .top .cats {
+    padding: 14px 20px;
+  }
+}
+
