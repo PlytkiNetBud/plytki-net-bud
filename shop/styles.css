@@ -3218,13 +3218,12 @@ footer {
 
     background: rgba(250, 250, 250, 0.95);
 
-    clip-path: polygon(
-      0 0,
-      68% 0,
-      100% 68%,
-      78% 100%,
-      0 100%
-    );
+   clip-path: polygon(
+  0 0,
+  78% 0,
+  100% 100%,
+  0 100%
+);
 
     display: flex;
     flex-direction: column;
