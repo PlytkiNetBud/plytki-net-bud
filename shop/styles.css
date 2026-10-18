@@ -2970,3 +2970,12 @@ footer {
   letter-spacing: 0.5px;
 }
 
+/* PNB 2.0 — większe napisy menu */
+
+.top .cats > a,
+.top .cats > button {
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.4px;
+}
+
