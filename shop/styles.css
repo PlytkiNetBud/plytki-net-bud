@@ -2463,17 +2463,19 @@ footer {
   border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
+
 .pnb-info-inner {
-  max-width: 1280px;
+  max-width: 1500px;
   margin: 0 auto;
-  min-height: 40px;
+  min-height: 36px;
   padding: 0 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 18px;
+  gap: 24px;
   flex-wrap: wrap;
 }
+
 
 .pnb-info-inner span,
 .pnb-info-inner a {
@@ -2776,11 +2778,12 @@ footer {
   width: min(1700px, calc(100% - 60px));
 }
 
+
 .pnb-info-bar,
 .pnb-info-bar a,
 .pnb-info-bar span {
-  font-size: 13px;
-  font-weight: 600;
+  font-size: 12px;
+  font-weight: 400;
 }
 
 .pnb-info-bar a {
@@ -2985,5 +2988,27 @@ footer {
   font-size: 15px !important;
   font-weight: 700 !important;
   letter-spacing: 0.4px;
+}
+
+/* PNB 2.0 — grupowanie górnego paska */
+
+.pnb-info-inner {
+  justify-content: flex-start;
+  gap: 32px;
+}
+
+.pnb-info-inner > a:first-of-type {
+  margin-left: auto;
+}
+
+@media (max-width: 900px) {
+  .pnb-info-inner {
+    justify-content: center;
+    gap: 12px 20px;
+  }
+
+  .pnb-info-inner > a:first-of-type {
+    margin-left: 0;
+  }
 }
 
