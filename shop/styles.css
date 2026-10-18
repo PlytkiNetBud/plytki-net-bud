@@ -2336,3 +2336,55 @@ footer {
   }
 }
 
+/* PNB 2.0 — wyróżniony Kontakt */
+.top .cats .nav-contact {
+  margin-left: auto;
+  background: #111318;
+  color: #ffffff;
+  padding: 12px 25px;
+  border-radius: 4px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.top .cats .nav-contact:hover {
+  background: #30343b;
+  color: #ffffff;
+}
+
+/* PNB 2.0 — menu drukowanymi literami */
+.top .cats a,
+.top .cats button {
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* PNB 2.0 — KONTAKT bez czerwonej ramki */
+
+.top .cats {
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-right: 0;
+  align-items: stretch;
+}
+
+.top .cats .nav-contact {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  margin-left: auto;
+  padding: 20px 32px;
+  background: #111318;
+  color: #ffffff;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.top .cats .nav-contact:hover {
+  background: #292d33;
+  color: #ffffff;
+}
+
