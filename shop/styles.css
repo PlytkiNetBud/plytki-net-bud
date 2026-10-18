@@ -2063,3 +2063,13 @@ footer {
   }
 }
 
+/* PNB 2.0 — nowa identyfikacja wizualna */
+:root {
+  --ink: #111318;
+  --muted: #626873;
+  --paper: #f5f6f8;
+  --white: #ffffff;
+  --accent: #e30613;
+  --line: #e2e5e9;
+}
+
