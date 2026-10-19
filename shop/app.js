@@ -1299,11 +1299,28 @@ const boxWeight = hasBox && hasWeight
   ? box * weightPerUnit
   : null;
 
+const hiddenAttributes = [
+  "zaawansowane_nazwa handlowa",
+  "antypoślizgowość",
+  "rabat",
+  "kraj produkcji",
+  "b2b",
+  "produkt niekupiony",
+  "typ stanu",
+  "marka",
+  "status",
+  "gatunek",
+  "ilość sztuk w kartonie"
+];
+
 const featureRows = (product.attributes || [])
-  .filter(attribute =>
-    !["Marka", "Status", "Gatunek", "Ilość sztuk w kartonie"]
-      .includes(attribute.name)
-  )
+  .filter(attribute => {
+    const name = String(attribute.name || "")
+      .trim()
+      .toLocaleLowerCase("pl-PL");
+
+    return !hiddenAttributes.includes(name);
+  })
   .map(attribute => `
     <tr>
       <th scope="row">${escapeHtml(attribute.name)}</th>
@@ -1418,10 +1435,13 @@ const logisticsTable = logisticsRows
             >
           </button>
         `).join("")}
-      </div>
+            </div>
     `
     : `<div class="no-photo">Brak zdjęcia</div>`
   }
+
+  ${featuresTable}
+
 </div>
 
       <div class="detail-info">
@@ -1432,7 +1452,6 @@ const logisticsTable = logisticsRows
           <small>/ ${escapeHtml(product.unit)}</small>
         </h3>
 
-     ${featuresTable}
 
         <p>${
           product.inStock || product.stock > 0
