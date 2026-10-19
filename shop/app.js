@@ -1310,7 +1310,7 @@ const hiddenAttributes = [
   "marka",
   "status",
   "gatunek",
-  "ilość sztuk w kartonie"
+  "ilość sztuk w kartonie",
   "id",
 "stan",
 ];
