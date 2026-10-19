@@ -3153,3 +3153,65 @@ footer {
   .hero.hero-pnb .hero-content,
   .hero.hero-pnb .hero-grid > div:first-child { padding: 28px 20px; }
 }
+/* SPECYFIKACJA TECHNICZNA PRODUKTU */
+
+.product-specification {
+  margin: 24px 0;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.product-specification h4 {
+  margin: 0;
+  padding: 17px 20px;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ink);
+  border-bottom: 1px solid var(--line);
+}
+
+.product-specification table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.product-specification th,
+.product-specification td {
+  padding: 13px 16px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid #eeeae5;
+  overflow-wrap: anywhere;
+}
+
+.product-specification th {
+  width: 48%;
+  color: #77716b;
+  font-weight: 500;
+}
+
+.product-specification td {
+  color: #282522;
+  font-weight: 600;
+}
+
+.product-specification tr:nth-child(even) {
+  background: #faf9f7;
+}
+
+.product-specification tr:last-child th,
+.product-specification tr:last-child td {
+  border-bottom: none;
+}
+
+@media (max-width: 560px) {
+  .product-specification th,
+  .product-specification td {
+    padding: 11px 12px;
+    font-size: 12px;
+  }
+}
+
