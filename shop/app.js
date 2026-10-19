@@ -1408,14 +1408,33 @@ const logisticsTable = logisticsRows
           <small>/ ${escapeHtml(product.unit)}</small>
         </h3>
 
-        <p>EAN: ${escapeHtml(product.ean)}</p>
-        <p>SKU: ${escapeHtml(product.sku)}</p>
-
-        <p>Opakowanie: ${
+       <div class="product-specification">
+  <h4>Specyfikacja techniczna</h4>
+  <table>
+    <tbody>
+      <tr>
+        <th scope="row">Producent</th>
+        <td>${escapeHtml(product.brand || "Brak danych")}</td>
+      </tr>
+      <tr>
+        <th scope="row">Kod produktu (SKU)</th>
+        <td>${escapeHtml(product.sku || "Brak danych")}</td>
+      </tr>
+      <tr>
+        <th scope="row">Kod EAN</th>
+        <td>${escapeHtml(product.ean || "Brak danych")}</td>
+      </tr>
+      <tr>
+        <th scope="row">Opakowanie</th>
+        <td>${
           Number.isFinite(box) && box > 0
             ? formatNumber(box) + " " + escapeHtml(product.unit)
             : "Brak danych"
-        }</p>
+        }</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
         <p>${
           product.inStock || product.stock > 0
