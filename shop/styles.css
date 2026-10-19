@@ -3012,71 +3012,144 @@ footer {
   }
 }
 
-/* ===== PNB 2.0 — BANER GEOMETRYCZNY / WERSJA UPORZĄDKOWANA ===== */
-/* Galeria zajmuje dotychczasowe 63%: nie zmieniamy kadrowania zdjęć. */
-.hero.hero-pnb { position: relative; margin: 0; padding: 0; overflow: hidden; background: #ffffff; }
-.hero.hero-pnb .hero-grid { position: relative; display: grid; grid-template-columns: 37% 63%; width: 100%; max-width: none; height: 430px; min-height: 430px; padding: 0; gap: 0; align-items: stretch; isolation: isolate; }
-.hero.hero-pnb .hero-gallery { position: relative; z-index: 1; width: 100%; height: 430px; min-height: 0; margin: 0; border: 0; border-radius: 0; overflow: hidden; background: #e9e9e9; box-shadow: none; }
-.hero.hero-pnb .hero-gallery-slides, .hero.hero-pnb .hero-gallery-slide { width: 100%; height: 100%; }
-.hero.hero-pnb .hero-gallery-slide img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; transform: none; filter: none; }
-.hero.hero-pnb .hero-gallery::before, .hero.hero-pnb .hero-gallery::after, .hero.hero-pnb .hero-gallery-slides::before, .hero.hero-pnb .hero-gallery-slides::after { display: none; }
-
-/* Jasna baza i tekst — nie przycinamy napisów clip-path. */
-.hero.hero-pnb .hero-content, .hero.hero-pnb .hero-grid > div:first-child { position: relative; z-index: 4; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; width: auto; height: auto; min-height: 0; margin: 0; padding: 34px 15px 34px max(55px, calc((100vw - 1500px)/2)); background: #ffffff; color: #171717; clip-path: none; }
-.hero.hero-pnb .hero-content::before, .hero.hero-pnb .hero-content::after { display: none; content: none; }
-.hero.hero-pnb h1 { position: relative; z-index: 1; margin: 0 0 17px; max-width: 620px; font-family: Inter, Arial, sans-serif; font-size: clamp(28px, 2.5vw, 45px); font-weight: 800; letter-spacing: -.025em; line-height: 1.13; color: #171717; }
-.hero.hero-pnb h1 em { color: #e30613; font-style: normal; font-weight: 800; }
-.hero.hero-pnb p { position: relative; z-index: 1; max-width: 510px; margin: 0 0 22px; font-size: 15px; line-height: 1.55; color: #303030; }
-.hero.hero-pnb .primary { position: relative; z-index: 1; display: inline-flex; justify-content: center; align-items: center; min-height: 46px; padding: 0 25px; border-radius: 4px; background: #e30613; color: #fff; font-size: 13px; font-weight: 700; text-decoration: none; }
-
-
-/* Strzałki i kropki: nad dekoracją i widoczne na zdjęciu. */
-.hero.hero-pnb .hero-gallery-arrow { position: absolute; z-index: 6; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,.92); color: #171717; box-shadow: 0 2px 10px rgba(0,0,0,.14); }
-.hero.hero-pnb .hero-gallery-arrow.prev { left: 15px; }
-.hero.hero-pnb .hero-gallery-arrow.next { right: 15px; }
-.hero.hero-pnb .hero-gallery-dots { z-index: 6; bottom: 15px; }
-
-@media (max-width: 850px) {
-  .hero.hero-pnb .hero-grid { grid-template-columns: 1fr; height: auto; min-height: 0; }
-  .hero.hero-pnb .hero-content, .hero.hero-pnb .hero-grid > div:first-child { padding: 32px 24px; background: #f7f7f7; }
-  .hero.hero-pnb h1 { font-size: clamp(28px, 6vw, 39px); }
-  .hero.hero-pnb .hero-gallery { height: 320px; }
-  .hero.hero-pnb .pnb-hero-art { display: none; }
+/* ===== PNB 2.0 — BANER: JEDNA WERSJA DOCELOWA ===== */
+/* Galeria pod całą nakładką; żadnego białego pionowego panelu. */
+.hero.hero-pnb {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #fff;
 }
-@media (max-width: 560px) {
-  .hero.hero-pnb .hero-gallery { height: 250px; }
-  .hero.hero-pnb .hero-content, .hero.hero-pnb .hero-grid > div:first-child { padding: 28px 20px; }
-}
-
-/* Ukrycie strzałek w galerii banera */
-.hero-gallery-arrow {
-  display: none !important;
-}
-
-/* PNB — nakładka geometryczna PNG */
 .hero.hero-pnb .hero-grid {
   position: relative;
+  display: block;
+  width: 100%;
+  max-width: none;
+  height: clamp(390px, 28.6vw, 530px);
+  min-height: 0;
+  padding: 0;
+  isolation: isolate;
 }
-
+/* Usuwamy dawną ciemną gradientową zasłonę. */
+.hero.hero-pnb .hero-grid::after { content: none; display: none; }
+.hero.hero-pnb .hero-gallery {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  overflow: hidden;
+  background: #e9e9e9;
+  box-shadow: none;
+}
+.hero.hero-pnb .hero-gallery-slides,
+.hero.hero-pnb .hero-gallery-slide { width: 100%; height: 100%; }
+.hero.hero-pnb .hero-gallery-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: none;
+  filter: none;
+}
+.hero.hero-pnb .hero-gallery::before,
+.hero.hero-pnb .hero-gallery::after,
+.hero.hero-pnb .hero-gallery-slides::before,
+.hero.hero-pnb .hero-gallery-slides::after { display: none; }
+/* Gotowa przezroczysta nakładka PNG — ponad zdjęciem, pod tekstem. */
 .hero.hero-pnb .pnb-hero-overlay {
   position: absolute;
   inset: 0;
   z-index: 3;
   pointer-events: none;
-  background-image: url("nakladka_PNB_do_pobrania.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 100% 100%;
+  background: url("nakladka_PNB_do_pobrania.png") center / 100% 100% no-repeat;
 }
-
-.hero.hero-pnb .hero-content {
+/* Tekst na grafice, bez nieprzezroczystego prostokąta. */
+.hero.hero-pnb .hero-content,
+.hero.hero-pnb .hero-grid > div:first-child {
   position: relative;
   z-index: 4;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 48%;
+  max-width: none;
+  height: 100%;
+  min-height: 0;
+  margin: 0;
+  padding: 30px 20px 30px max(55px, calc((100vw - 1500px) / 2));
+  background: transparent;
+  color: #171717;
+  clip-path: none;
+  pointer-events: none;
 }
-
+.hero.hero-pnb .hero-content::before,
+.hero.hero-pnb .hero-content::after { display: none; content: none; }
+.hero.hero-pnb h1 {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 17px;
+  max-width: 650px;
+  font-family: Inter, Arial, sans-serif;
+  font-size: clamp(28px, 2.5vw, 45px);
+  font-weight: 800;
+  letter-spacing: -.025em;
+  line-height: 1.13;
+  color: #171717;
+}
+.hero.hero-pnb h1 em { color: #e30613; font-style: normal; font-weight: 800; }
+.hero.hero-pnb p {
+  position: relative;
+  z-index: 1;
+  max-width: 510px;
+  margin: 0 0 22px;
+  font-size: 15px;
+  line-height: 1.55;
+  color: #303030;
+}
+.hero.hero-pnb .primary {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 46px;
+  padding: 0 25px;
+  border-radius: 4px;
+  background: #e30613;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  pointer-events: auto;
+}
+.hero.hero-pnb .hero-gallery-arrow { display: none !important; }
+.hero.hero-pnb .hero-gallery-dots { z-index: 6; bottom: 15px; }
+/* Telefony: tekst osobno nad galerią, bez PNG na małym ekranie. */
 @media (max-width: 850px) {
-  .hero.hero-pnb .pnb-hero-overlay {
-    display: none;
+  .hero.hero-pnb .hero-grid { display: flex; flex-direction: column; height: auto; }
+  .hero.hero-pnb .hero-content,
+  .hero.hero-pnb .hero-grid > div:first-child {
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    padding: 32px 24px;
+    background: #f7f7f7;
+    pointer-events: auto;
   }
+  .hero.hero-pnb h1 { font-size: clamp(28px, 6vw, 39px); }
+  .hero.hero-pnb .hero-gallery { position: relative; inset: auto; height: 320px; flex: none; }
+  .hero.hero-pnb .pnb-hero-overlay { display: none; }
 }
-
+@media (max-width: 560px) {
+  .hero.hero-pnb .hero-gallery { height: 250px; }
+  .hero.hero-pnb .hero-content,
+  .hero.hero-pnb .hero-grid > div:first-child { padding: 28px 20px; }
+}
