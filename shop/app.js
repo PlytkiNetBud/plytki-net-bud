@@ -230,6 +230,7 @@ inStock: p.inStock,
 requiredBox: p.requiredBox,
 unit: p.unit || "",
 weight: p.weight,
+      attributes: Array.isArray(p.attributes) ? p.attributes : [],
       img: p.photo || (
   Array.isArray(p.photos) && p.photos.length
     ? p.photos[0]
@@ -298,6 +299,7 @@ inStock: p.inStock,
 requiredBox: p.requiredBox,
 unit: p.unit || "",
 weight: p.weight,
+      attributes: Array.isArray(p.attributes) ? p.attributes : [],
       img: p.photo || (Array.isArray(p.photos) ? p.photos[0] : ""),
       photos: [...new Set(
         [p.photo, ...(Array.isArray(p.photos) ? p.photos : [])]
@@ -1297,7 +1299,29 @@ const boxWeight = hasBox && hasWeight
   ? box * weightPerUnit
   : null;
 
-const logisticsRows = [
+const featureRows = (product.attributes || [])
+  .filter(attribute =>
+    !["Marka", "Status", "Gatunek", "Ilość sztuk w kartonie"]
+      .includes(attribute.name)
+  )
+  .map(attribute => `
+    <tr>
+      <th scope="row">${escapeHtml(attribute.name)}</th>
+      <td>${escapeHtml(attribute.values.join(", "))}</td>
+    </tr>
+  `).join("");
+
+const featuresTable = featureRows
+  ? `
+    <div class="product-features">
+      <h4>Cechy produktu</h4>
+      <table>
+        <tbody>${featureRows}</tbody>
+      </table>
+    </div>
+  `
+  : "";
+  const logisticsRows = [
   hasBox && isArea
     ? `<tr><td>Powierzchnia opakowania</td><td>${formatNumber(box)} ${escapeHtml(product.unit)}</td></tr>`
     : "",
@@ -1408,33 +1432,7 @@ const logisticsTable = logisticsRows
           <small>/ ${escapeHtml(product.unit)}</small>
         </h3>
 
-       <div class="product-specification">
-  <h4>Specyfikacja techniczna</h4>
-  <table>
-    <tbody>
-      <tr>
-        <th scope="row">Producent</th>
-        <td>${escapeHtml(product.brand || "Brak danych")}</td>
-      </tr>
-      <tr>
-        <th scope="row">Kod produktu (SKU)</th>
-        <td>${escapeHtml(product.sku || "Brak danych")}</td>
-      </tr>
-      <tr>
-        <th scope="row">Kod EAN</th>
-        <td>${escapeHtml(product.ean || "Brak danych")}</td>
-      </tr>
-      <tr>
-        <th scope="row">Opakowanie</th>
-        <td>${
-          Number.isFinite(box) && box > 0
-            ? formatNumber(box) + " " + escapeHtml(product.unit)
-            : "Brak danych"
-        }</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+     ${featuresTable}
 
         <p>${
           product.inStock || product.stock > 0
