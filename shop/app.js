@@ -1311,6 +1311,8 @@ const hiddenAttributes = [
   "status",
   "gatunek",
   "ilość sztuk w kartonie"
+  "id",
+"stan",
 ];
 
 const featureRows = (product.attributes || [])
