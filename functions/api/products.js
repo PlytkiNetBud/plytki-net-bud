@@ -209,7 +209,19 @@ const shuffledProducts = featured
 quantityPerBox:
   product.QuantityPerBox ?? null,
 
-piecesPerBox: Array.isArray(product.Attributes)
+attributes: Array.isArray(product.Attributes)
+  ? product.Attributes
+      .map(attribute => ({
+        name: String(attribute.Name || "").trim(),
+        values: Array.isArray(attribute.Features)
+          ? attribute.Features
+              .map(feature => String(feature.Name || "").trim())
+              .filter(Boolean)
+          : []
+      }))
+      .filter(attribute => attribute.name && attribute.values.length)
+  : [],
+        piecesPerBox: Array.isArray(product.Attributes)
   ? Number(
       product.Attributes
         .find(attribute =>
