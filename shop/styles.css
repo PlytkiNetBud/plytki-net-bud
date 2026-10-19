@@ -3230,4 +3230,49 @@ footer {
     font-size: 11px;
   }
 }
+/* =====================================
+   CECHY PRODUKTU – CZERWONE AKCENTY
+   ===================================== */
 
+.detail-image .product-features {
+  background: #ffffff;
+  border: 1px solid #e9e4e4;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.025);
+}
+
+.detail-image .product-features h4 {
+  position: relative;
+  background: #faf9f8;
+  color: #171717;
+  padding: 17px 18px 17px 34px;
+  font-size: 16px;
+  font-weight: 700;
+  border-bottom: 1px solid #eee8e8;
+}
+
+.detail-image .product-features h4::before {
+  content: "";
+  position: absolute;
+  left: 18px;
+  top: 15px;
+  bottom: 15px;
+  width: 3px;
+  background: #e30613;
+  border-radius: 3px;
+}
+
+.detail-image .product-features th,
+.detail-image .product-features td {
+  border-bottom: 1px solid #f1e9e9;
+}
+
+.detail-image .product-features td {
+  color: #242124;
+  font-weight: 600;
+}
+
+.detail-image .product-features tr:last-child th,
+.detail-image .product-features tr:last-child td {
+  border-bottom: none;
+}
