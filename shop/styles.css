@@ -3153,125 +3153,81 @@ footer {
   .hero.hero-pnb .hero-content,
   .hero.hero-pnb .hero-grid > div:first-child { padding: 28px 20px; }
 }
-/* SPECYFIKACJA TECHNICZNA PRODUKTU */
 
-.product-specification {
-  margin: 24px 0;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  overflow: hidden;
+/* ====================================
+   CECHY PRODUKTU – WERSJA PREMIUM
+   ==================================== */
+
+.detail-image .product-features {
+  width: 100%;
+  max-width: 100%;
+  margin: 18px 0 0;
+  padding: 0;
   background: #fff;
+  border: 1px solid #eae7e3;
+  border-radius: 12px;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
-.product-specification h4 {
+.detail-image .product-features h4 {
   margin: 0;
-  padding: 17px 20px;
-  font-size: 17px;
+  padding: 13px 16px;
+  font-size: 14px;
+  line-height: 1.3;
   font-weight: 600;
-  color: var(--ink);
-  border-bottom: 1px solid var(--line);
+  letter-spacing: 0.2px;
+  color: #292724;
+  background: #faf9f7;
+  border-bottom: 1px solid #eae7e3;
 }
 
-.product-specification table {
+.detail-image .product-features table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 13px;
+  table-layout: fixed;
+  font-size: 12px;
 }
 
-.product-specification th,
-.product-specification td {
-  padding: 13px 16px;
+.detail-image .product-features th,
+.detail-image .product-features td {
+  padding: 8px 13px;
+  line-height: 1.35;
   text-align: left;
-  vertical-align: top;
-  border-bottom: 1px solid #eeeae5;
+  vertical-align: middle;
+  border-bottom: 1px solid #f0eeeb;
   overflow-wrap: anywhere;
 }
 
-.product-specification th {
-  width: 48%;
-  color: #77716b;
-  font-weight: 500;
+.detail-image .product-features th {
+  width: 46%;
+  color: #817b74;
+  font-weight: 400;
 }
 
-.product-specification td {
-  color: #282522;
+.detail-image .product-features td {
+  color: #292724;
   font-weight: 600;
 }
 
-.product-specification tr:nth-child(even) {
-  background: #faf9f7;
+.detail-image .product-features tr:nth-child(even) {
+  background: #fff;
 }
 
-.product-specification tr:last-child th,
-.product-specification tr:last-child td {
+.detail-image .product-features tr:last-child th,
+.detail-image .product-features tr:last-child td {
   border-bottom: none;
 }
 
 @media (max-width: 560px) {
-  .product-specification th,
-  .product-specification td {
-    padding: 11px 12px;
-    font-size: 12px;
+  .detail-image .product-features {
+    margin-top: 14px;
+  }
+
+  .detail-image .product-features th,
+  .detail-image .product-features td {
+    padding: 9px 10px;
+    font-size: 11px;
   }
 }
-/* CECHY PRODUKTU – TABELA */
 
-.product-features {
-  margin: 24px 0;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  overflow: hidden;
-  background: #fff;
-}
-
-.product-features h4 {
-  margin: 0;
-  padding: 18px 20px;
-  font-size: 17px;
-  font-weight: 600;
-  color: var(--ink);
-  border-bottom: 2px solid var(--accent);
-}
-
-.product-features table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13px;
-}
-
-.product-features th,
-.product-features td {
-  padding: 12px 16px;
-  border-bottom: 1px solid #eeeae5;
-  text-align: left;
-  vertical-align: top;
-  overflow-wrap: anywhere;
-}
-
-.product-features th {
-  width: 48%;
-  color: #77716b;
-  font-weight: 400;
-}
-
-.product-features td {
-  color: var(--ink);
-  font-weight: 600;
-}
-
-.product-features tr:nth-child(even) {
-  background: #faf9f7;
-}
-
-.product-features tr:last-child th,
-.product-features tr:last-child td {
-  border-bottom: 0;
-}
-
-@media (max-width: 560px) {
-  .product-features th,
-  .product-features td {
-    padding: 11px 12px;
-    font-size: 12px;
-  }
-}
