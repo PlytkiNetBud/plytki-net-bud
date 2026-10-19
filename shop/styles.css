@@ -3214,4 +3214,64 @@ footer {
     font-size: 12px;
   }
 }
+/* CECHY PRODUKTU – TABELA */
 
+.product-features {
+  margin: 24px 0;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.product-features h4 {
+  margin: 0;
+  padding: 18px 20px;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ink);
+  border-bottom: 2px solid var(--accent);
+}
+
+.product-features table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.product-features th,
+.product-features td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #eeeae5;
+  text-align: left;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+
+.product-features th {
+  width: 48%;
+  color: #77716b;
+  font-weight: 400;
+}
+
+.product-features td {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.product-features tr:nth-child(even) {
+  background: #faf9f7;
+}
+
+.product-features tr:last-child th,
+.product-features tr:last-child td {
+  border-bottom: 0;
+}
+
+@media (max-width: 560px) {
+  .product-features th,
+  .product-features td {
+    padding: 11px 12px;
+    font-size: 12px;
+  }
+}
