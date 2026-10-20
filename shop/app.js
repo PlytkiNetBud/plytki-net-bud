@@ -648,12 +648,6 @@ ${product.inStock === true && Number(product.stock) > 0
   `
 }
 
->
-  ${product.inStock === true && Number(product.stock) > 0
-    ? "Dodaj do koszyka"
-    : "Produkt niedostępny"}
-</button>
-
 
           </div>
 
@@ -963,6 +957,7 @@ items.innerHTML = cart.map(product => `
 }
 
 
+
 function changeCartQuantity(id, direction) {
   const product = cart.find(
     p => Number(p.id) === Number(id)
@@ -987,12 +982,27 @@ function changeCartQuantity(id, direction) {
 
   const newSteps = currentSteps + direction;
 
-  if (newSteps < 1) {
-    return;
+  if (newSteps < 1) return;
+
+  const newQuantity = Number((newSteps * step).toFixed(6));
+
+  if (direction > 0) {
+    const availableStock = Number(product.stock);
+
+    if (
+      product.inStock !== true ||
+      !Number.isFinite(availableStock) ||
+      newQuantity > availableStock + 1e-9
+    ) {
+      alert(
+        "Nie można zwiększyć ilości. Dostępne: " +
+        formatNumber(availableStock) + " " + product.unit
+      );
+      return;
+    }
   }
 
-  product.quantity = Number((newSteps * step).toFixed(6));
-
+  product.quantity = newQuantity;
   updateCart();
 }
 
