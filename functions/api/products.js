@@ -298,45 +298,59 @@ function isGradeOneProduct(product) {
     feature => String(feature.Name).trim() === "1"
   );
 }
-    function hasValidSellingPrice(product) {
-  const isInserto = Array.isArray(product.Attributes) &&
-    product.Attributes.some(attribute =>
-      attribute.Name === "Element Kolekcji" &&
-      Array.isArray(attribute.Features) &&
-      attribute.Features.some(feature => feature.Name === "Inserto")
-    );
+    
+function getPricingUnit(product) {
+  const unit = String(product.Unit || "")
+    .trim()
+    .toLowerCase()
+    .replace(/\s/g, "")
+    .replace("²", "2");
 
-  if (isInserto) {
-    const retailPrice = getMoneyValue(product.RetailPriceNet);
-    return retailPrice != null && retailPrice > 0;
+  if (["szt", "szt.", "sztuka", "sztuki"].includes(unit)) {
+    return "piece";
   }
 
-  const purchaseNet = getMoneyValue(product.PriceAfterDiscountNet);
-  return purchaseNet != null && purchaseNet > 0;
-}
-function calculateSellingPrice(product) {
-  const isInserto = Array.isArray(product.Attributes) &&
-    product.Attributes.some(attribute =>
-      attribute.Name === "Element Kolekcji" &&
-      Array.isArray(attribute.Features) &&
-      attribute.Features.some(feature => feature.Name === "Inserto")
-    );
+  if (["m2", "m^2"].includes(unit)) {
+    return "sqm";
+  }
 
-  if (isInserto) {
+  return "unknown";
+}
+
+function hasValidSellingPrice(product) {
+  const unit = getPricingUnit(product);
+
+  if (unit === "piece") {
+    const price = getMoneyValue(product.RetailPriceNet);
+    return price != null && price > 0;
+  }
+
+  if (unit === "sqm") {
+    const price = getMoneyValue(product.PriceAfterDiscountNet);
+    return price != null && price > 0;
+  }
+
+  return false;
+}
+
+function calculateSellingPrice(product) {
+  const unit = getPricingUnit(product);
+
+  if (unit === "piece") {
     return getMoneyValue(product.RetailPriceNet);
   }
 
-  const purchaseNet = getMoneyValue(product.PriceAfterDiscountNet);
+  if (unit === "sqm") {
+    const purchaseNet = getMoneyValue(product.PriceAfterDiscountNet);
 
-  if (purchaseNet == null) {
-    return null;
+    if (purchaseNet == null) return null;
+
+    return Math.round((purchaseNet + 7) * 1.23 * 100) / 100;
   }
 
-  const sellingNet = purchaseNet + 7;
-  const sellingGross = sellingNet * 1.23;
-
-  return Math.round(sellingGross * 100) / 100;
+  return null;
 }
+
 
     // TYMCZASOWA DIAGNOSTYKA LOGISTYKI
 if (requestUrl.searchParams.get("logisticsTest") === "1") {
