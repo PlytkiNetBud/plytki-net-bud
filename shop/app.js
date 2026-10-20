@@ -632,11 +632,22 @@ ${isOversizedProduct(product)
             </button>
 
             
-<button
-  type="button"
-  ${product.inStock === true && Number(product.stock) > 0
-    ? `onclick="add(${Number(product.id)})"`
-    : "disabled"}
+
+${product.inStock === true && Number(product.stock) > 0
+  ? `
+    <button type="button"
+      onclick="add(${Number(product.id)})">
+      Dodaj do koszyka
+    </button>
+  `
+  : `
+    <button type="button"
+      onclick="askAvailability(${Number(product.id)})">
+      Zapytaj o dostępność
+    </button>
+  `
+}
+
 >
   ${product.inStock === true && Number(product.stock) > 0
     ? "Dodaj do koszyka"
@@ -657,6 +668,37 @@ ${isOversizedProduct(product)
 // ================================
 // DODAWANIE DO ZAPYTANIA
 // ================================
+
+
+function askAvailability(id) {
+  const product = products.find(
+    p => Number(p.id) === Number(id)
+  );
+
+  if (!product) return;
+
+  const subject = `Zapytanie o dostępność: ${product.name}`;
+
+  const body = [
+    "Dzień dobry,",
+    "",
+    "Proszę o informację dotyczącą dostępności produktu:",
+    "",
+    `Produkt: ${product.name}`,
+    `Producent: ${product.brand || "-"}`,
+    `SKU: ${product.sku || "-"}`,
+    `EAN: ${product.ean || "-"}`,
+    "",
+    "Proszę o informację o możliwym terminie realizacji.",
+    "",
+    "Pozdrawiam"
+  ].join("\n");
+
+  window.location.href =
+    "mailto:sklep@plytki-net-bud.pl" +
+    "?subject=" + encodeURIComponent(subject) +
+    "&body=" + encodeURIComponent(body);
+}
 
 function add(id, quantity = null) {
   const product =
@@ -1514,12 +1556,18 @@ ${isOversizedProduct(product)
         ${logisticsTable}
 
 
-        ${canOrder
-          ? `<button class="primary" type="button"
-                     id="detailAddButton">
-               Dodaj do koszyka
-             </button>`
-          : ""}
+       
+${canOrder
+  ? `<button class="primary" type="button"
+       id="detailAddButton">
+       Dodaj do koszyka
+     </button>`
+  : `<button class="primary" type="button"
+       onclick="askAvailability(${Number(product.id)})">
+       Zapytaj o dostępność
+     </button>`
+}
+
 
       </div>
     </div>
