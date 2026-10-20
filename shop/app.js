@@ -631,12 +631,18 @@ ${isOversizedProduct(product)
               Szczegóły
             </button>
 
-            <button
-              type="button"
-              onclick="add(${Number(product.id)})"
-            >
-              Dodaj do koszyka
-            </button>
+            
+<button
+  type="button"
+  ${product.inStock === true && Number(product.stock) > 0
+    ? `onclick="add(${Number(product.id)})"`
+    : "disabled"}
+>
+  ${product.inStock === true && Number(product.stock) > 0
+    ? "Dodaj do koszyka"
+    : "Produkt niedostępny"}
+</button>
+
 
           </div>
 
@@ -1397,10 +1403,14 @@ const logisticsTable = logisticsRows
   `
   : "";
 
-  const canOrder =
-    Number.isFinite(price) &&
-    price > 0 &&
-    (!isArea || (Number.isFinite(box) && box > 0));
+  
+const canOrder =
+  product.inStock === true &&
+  Number(product.stock) > 0 &&
+  Number.isFinite(price) &&
+  price > 0 &&
+  (!isArea || (Number.isFinite(box) && box > 0));
+
 
   const purchaseControls = !canOrder
     ? `<p>Skontaktuj się z nami w celu ustalenia ilości i ceny.</p>`
