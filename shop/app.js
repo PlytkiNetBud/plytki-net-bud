@@ -681,18 +681,44 @@ function add(id, quantity = null) {
 
   
  
+  
   const existingProduct = cart.find(
     p => Number(p.id) === Number(id)
   );
 
+  const availableStock = Number(product.stock);
+  const alreadyInCart = existingProduct
+    ? Number(existingProduct.quantity)
+    : 0;
+
+  if (
+    product.inStock !== true ||
+    !Number.isFinite(availableStock) ||
+    availableStock <= 0
+  ) {
+    alert("Produkt jest obecnie niedostępny.");
+    return;
+  }
+
+  if (alreadyInCart + selectedQuantity > availableStock + 1e-9) {
+    alert(
+      "Nie można dodać tej ilości. Dostępne: " +
+      formatNumber(availableStock) + " " + product.unit
+    );
+    return;
+  }
+
   if (existingProduct) {
-    existingProduct.quantity += selectedQuantity;
+    existingProduct.quantity = Number(
+      (alreadyInCart + selectedQuantity).toFixed(6)
+    );
   } else {
     cart.push({
       ...product,
-      quantity: selectedQuantity
+      quantity: Number(selectedQuantity.toFixed(6))
     });
   }
+
 
 
   updateCart();
