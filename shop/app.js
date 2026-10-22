@@ -1239,6 +1239,74 @@ document.querySelector("#checkoutForm")
     if (button.disabled) return;
 
     const originalText = button.textContent;
+    
+    button.disabled = true;
+    button.textContent = "Sprawdzanie koszyka...";
+
+    try {
+      const response = await fetch("/api/validate-cart", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          items: cart.map(product => ({
+            ean: product.ean,
+            quantity: Number(product.quantity)
+          }))
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error("Błąd sprawdzania koszyka.");
+      }
+
+      const validation = await response.json();
+
+      if (!validation.ok || !Array.isArray(validation.items)) {
+        alert(
+          "Nie można potwierdzić zamówienia. " +
+          "Jeden z produktów jest niedostępny lub ma nieprawidłową ilość."
+        );
+        return;
+      }
+
+      for (const product of cart) {
+        const verified = validation.items.find(
+          item => String(item.ean) === String(product.ean)
+        );
+
+        if (
+!verified ||
+verified.ok !== true ||
+!Number.isFinite(Number(verified.price)) ||
+Number(verified.price) <= 0 ||
+!Number.isFinite(Number(product.price)) ||
+Number(product.price) <= 0 ||
+Math.abs(Number(verified.price) - Number(product.price)) > 0.009
+        ) {
+          alert(
+            "Cena lub dostępność produktu uległa zmianie: " +
+            product.name +
+            ". Odśwież produkty przed ponowną próbą."
+          );
+          return;
+        }
+      }
+
+    } catch (error) {
+      console.error("Błąd weryfikacji koszyka:", error);
+      alert(
+        "Nie udało się sprawdzić aktualnych cen i stanów magazynowych. " +
+        "Spróbuj ponownie później."
+      );
+      return;
+
+    } finally {
+      button.disabled = false;
+      button.textContent = originalText;
+    }
+
     const isInquiry = cart.some(isOversizedProduct);
     const costs = calculateOrderCosts();
 
