@@ -51,9 +51,10 @@ sampleProduct: products?.[0]
       id: products[0].id,
       name: products[0].name,
       ean: products[0].ean,
-      pkwid: products[0].pkwid
+      prices: products[0].prices
     }
   : null,
+
         message: "Połączenie z Deante działa"
       },
       {
