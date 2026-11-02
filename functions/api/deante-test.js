@@ -51,7 +51,8 @@ sampleProduct: products?.[0]
       id: products[0].id,
       name: products[0].name,
       ean: products[0].ean,
-      prices: products[0].prices
+      prices: products[0].prices ?? "BRAK CEN DLA TEGO PRODUKTU"
+
     }
   : null,
 
