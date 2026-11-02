@@ -44,8 +44,16 @@ export async function onRequestGet(context) {
         keys: Array.isArray(data) ? [] : Object.keys(data),
         productCount: products?.length ?? null,
         sampleFields: products?.[0]
-          ? Object.keys(products[0])
-          : [],
+  ? Object.keys(products[0])
+  : [],
+sampleProduct: products?.[0]
+  ? {
+      id: products[0].id,
+      name: products[0].name,
+      ean: products[0].ean,
+      pkwid: products[0].pkwid
+    }
+  : null,
         message: "Połączenie z Deante działa"
       },
       {
