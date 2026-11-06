@@ -13,9 +13,15 @@ export async function onRequestGet(context) {
   url.searchParams.set("key", apiKey);
 
   try {
-    const response = await fetch(url.toString(), {
-      headers: { Accept: "application/json" }
-    });
+    
+const response = await fetch(url.toString(), {
+  headers: { Accept: "application/json" },
+  cf: {
+    cacheEverything: true,
+    cacheTtl: 1800
+  }
+});
+
 
     if (!response.ok) {
       return Response.json(
