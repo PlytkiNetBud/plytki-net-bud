@@ -57,7 +57,11 @@ sampleProduct: products?.[0]
       id: products[0].id,
       name: products[0].name,
       ean: products[0].ean,
-      prices: products[0].prices ?? "BRAK CEN DLA TEGO PRODUKTU"
+      prices: products[0].prices ?? "BRAK CEN DLA TEGO PRODUKTU",
+package: products[0].package ?? null,
+properties: products[0].properties ?? null,
+features: products[0].features ?? null,
+offerType: products[0].offerType ?? null
 
     }
   : null,
